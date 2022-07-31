@@ -1,0 +1,57 @@
+---
+title: "The tidyspec"
+output: html_notebook
+author: "Marcel Ferreira @marceelrf"
+date: "`r Sys.Date()`"
+---
+
+## Intro
+
+The `tidyspec` package was design to enable the data analysis of spectral data (as IR, Raman, NMR) with the tidy data format.
+
+All functions requires that the data must have the `Wavenumber` as first column. Functions will return the first column name as `Wn`
+.
+## Ideas
+
+-   Abs to trans & trans to abs funs\
+-   Check var names is in format\
+-   Scale data funs\
+-   viz funs\
+-   baseline funs\
+-   smooth funs\
+-   derivative funs
+
+## Abs to trans & trans to abs funs
+
+- If you are working with transmittance in percent values, the formula is:
+$$A = 2-\log_{10}{T(\%)}$$
+- If your transmittance values is between 0 and 1, use this formula:
+$$A = -\log_{10}{T}$$
+
+
+## Scale data funs
+
+Should I use `recipes` package ?! 
+__*VERY DIFFICULT!!!!*__
+
+## Visualization functions
+
+-   `smartplot`: create a fast and simple visualization of spectras.
+
+-   `smartplotly`: similar to `smartplot` but create an interactive plot using `plotly`.
+
+## Smooth functions  
+
+- `spec_smooth_avg`: smooth average
+
+- `spec_smooth_sga`: smooth Savitzky-golay
+
+## Derivative funcitons  
+
+- `spec_diff`: Compute the differentiation of the spectra.
+
+## Baseline funcitons  
+
+- All functions starts with `blc`.
+
+- Functions ending with `prev` display a graph with the baseline to be applied in the graph.  
