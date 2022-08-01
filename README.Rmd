@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of **tidyspec** is to provide a friendly pipeline for spectroscoy analysis using the tidy data philosophy.
+The goal of **tidyspec** is to provide a friendly pipeline for spectroscopy analysis using the tidy data philosophy.
 
 ## Installation
 
@@ -31,7 +31,7 @@ devtools::install_github("marceelrf/tidyspec")
 
 ## About
 
-The `tidyspec` package was design to enable the data analysis of spectral data (as IR, Raman, NMR) with the tidy-data format. There are 6 families of functions in `tidyspec`, all starting with `spec_`:
+The `tidyspec` package was design to enable the data analysis of spectroscopy data (as IR, Raman, NMR) with the tidy-data format. There are 6 families of functions in `tidyspec`, all starting with `spec_`:
 
 - **Transformation**: Convert data from absorbance to transmittance (`spec_abs2trans`) & from transmittance to absorbance (`spec_trans2abs`).  
 - **Normalize**: Normalize the data to range 0-1 (`spec_norm_01`) or normalize to have a standart deviation of one (`spec_norm_var`).  

@@ -7,7 +7,7 @@
 <!-- badges: end -->
 
 The goal of **tidyspec** is to provide a friendly pipeline for
-spectroscoy analysis using the tidy data philosophy.
+spectroscopy analysis using the tidy data philosophy.
 
 ## Installation
 
@@ -22,8 +22,8 @@ devtools::install_github("marceelrf/tidyspec")
 ## About
 
 The `tidyspec` package was design to enable the data analysis of
-spectral data (as IR, Raman, NMR) with the tidy-data format. There are 6
-families of functions in `tidyspec`, all starting with `spec_`:
+spectroscopy data (as IR, Raman, NMR) with the tidy-data format. There
+are 6 families of functions in `tidyspec`, all starting with `spec_`:
 
 -   **Transformation**: Convert data from absorbance to transmittance
     (`spec_abs2trans`) & from transmittance to absorbance
