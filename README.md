@@ -6,8 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of **tidyspec** is to provide a friendly pipeline for spectral
-analysis using the tidy data philosophy.
+The goal of **tidyspec** is to provide a friendly pipeline for
+spectroscoy analysis using the tidy data philosophy.
 
 ## Installation
 
@@ -18,6 +18,27 @@ You can install the development version of tidyspec from
 # install.packages("devtools")
 devtools::install_github("marceelrf/tidyspec")
 ```
+
+## About
+
+The `tidyspec` package was design to enable the data analysis of
+spectral data (as IR, Raman, NMR) with the tidy-data format. There are 6
+families of functions in `tidyspec`, all starting with `spec_`:
+
+-   **Transformation**: Convert data from absorbance to transmittance
+    (`spec_abs2trans`) & from transmittance to absorbance
+    (`spec_trans2abs`).  
+-   **Normalize**: Normalize the data to range 0-1 (`spec_norm_01`) or
+    normalize to have a standart deviation of one (`spec_norm_var`).  
+-   **Baseline correction**: Correct the baseline using the the *rolling
+    ball* algorithm (`spec_blc_rollingBall`).  
+-   **Smooth correction**: Smooth the data using the average window
+    (`spec_smooth_avg`) or using the Savitzky-Golay algorithm
+    (`spec_smooth_sga`).  
+-   **Derivative**: Create differential data from the spectra
+    (`spec_diff`).  
+-   **Preview**: Preview your data while applying changes statically
+    (`spec_smartplot`) or interactively (`spec_smartplotly`).
 
 ## Example
 
