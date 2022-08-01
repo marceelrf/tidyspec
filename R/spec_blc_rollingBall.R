@@ -4,9 +4,6 @@ spec_blc_rollingBall <- function(.data,
                                  wm,
                                  ws,
                                  is_abs = TRUE) {
-  require(baseline)
-  require(purrr)
-  require(dplyr)
 
   if(is_abs){
     .data %>%
@@ -17,7 +14,7 @@ spec_blc_rollingBall <- function(.data,
       pluck("corrected") %>%
       t() %>%
       as_tibble() %>%
-      mutate(Wn = .data %>% dplyr::filter(Wn >=Wn_min,Wn <=Wn_max) %>% pull(Wn)) %>%
+      mutate(Wn = alg %>% dplyr::filter(Wn >=Wn_min,Wn <=Wn_max) %>% pull(Wn)) %>%
       select(Wn,where(is.numeric))
   } else {
     .data %>%
@@ -29,7 +26,7 @@ spec_blc_rollingBall <- function(.data,
       pluck("corrected") %>%
       t() %>%
       as_tibble() %>%
-      mutate(Wn = .data %>% dplyr::filter(Wn >=Wn_min,Wn <=Wn_max) %>% pull(Wn)) %>%
+      mutate(Wn = alg %>% dplyr::filter(Wn >=Wn_min,Wn <=Wn_max) %>% pull(Wn)) %>%
       select(Wn,where(is.numeric))
   }
 

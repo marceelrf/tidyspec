@@ -52,6 +52,8 @@ __*VERY DIFFICULT!!!!*__
 
 ## Baseline funcitons  
 
-- All functions starts with `blc`.
+- All functions contains `blc`.
+
+- `spec_blc_rollingBall`
 
 - Functions ending with `prev` display a graph with the baseline to be applied in the graph.  
