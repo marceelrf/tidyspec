@@ -6,7 +6,8 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of **tidyspec** is to …
+The goal of **tidyspec** is to provide a friendly pipeline for spectral
+analysis using the tidy data philosophy.
 
 ## Installation
 
