@@ -56,9 +56,10 @@ alg %>%
   mutate(spec = Trans*1.1,
          spec2 = Trans*.71) %>%
   spec_trans2abs() %>%
-  spec_smooth_sga() %>%
+  spec_smooth_avg() %>%
   dplyr::filter(Wn<=1775, Wn >1200) %>%
   #spec_norm_01() %>%
+  #spec_norm_var() %>%
   spec_smartplotly(type = "transmittance",
             alpha = 1)
 
