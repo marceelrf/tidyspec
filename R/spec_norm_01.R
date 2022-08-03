@@ -1,11 +1,12 @@
-spec_norm_01 <- function(.data) {
+spec_norm_01 <- function(.data){
+  require(recipes)
 
-  maxVal <- .data %>%
-    spec_trans2abs() %>%
-    mutate(across(.cols = -Wn,
-                  .fns = function(x) x-min(x)))
 
-  maxVal %>%
-    mutate(across(.cols = -Wn,
-                  .fns = function(x) x/max(maxVal[,-1])))
+  .data %>%
+    recipe(formula = Wn ~ .,
+           data = .) %>%
+    step_range(all_numeric_predictors()) %>%
+    prep() %>%
+    bake(NULL) %>%
+    select(Wn,where(is.numeric))
 }
