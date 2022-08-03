@@ -1,4 +1,4 @@
-spec_norm_01 <- function(.data,wn_col = "Wn"){
+spec_norm_minmax <- function(.data,wn_col = "Wn", min, max){
   require(recipes)
   require(rlang)
   require(dplyr)
@@ -9,7 +9,7 @@ spec_norm_01 <- function(.data,wn_col = "Wn"){
   .data %>%
     recipe(formula = fmla,
            data = .) %>%
-    step_range(all_numeric_predictors()) %>%
+    step_range(all_numeric_predictors(),min = min,max = max) %>%
     prep() %>%
     bake(NULL) %>%
     select({{wn_col}},where(is.numeric))

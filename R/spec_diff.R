@@ -1,6 +1,11 @@
-spec_diff <- function(.data, degree=1){
+spec_diff <- function(.data,wn_col = "Wn", degree=1){
   require(recipes)
   require(timetk)
+  require(rlang)
+  require(dplyr)
+
+
+  fmla <- as.formula(paste({{wn_col}}," ~ .",sep = ""))
 
 
   if(degree == 0) {
@@ -8,12 +13,12 @@ spec_diff <- function(.data, degree=1){
   } else {
 
     .data %>%
-      recipe(formula = Wn ~ .,
+      recipe(formula = fmla,
              data = .) %>%
       step_diff(all_numeric_predictors(),difference = degree,lag = 1) %>%
       prep() %>%
       bake(NULL) %>%
-      select(Wn,where(is.numeric)) %>%
-      select(Wn, starts_with("diff"))
+      select({{wn_col}},where(is.numeric)) %>%
+      select({{wn_col}}, starts_with("diff"))
   }
 }

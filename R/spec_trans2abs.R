@@ -1,4 +1,4 @@
-spec_norm_01 <- function(.data,wn_col = "Wn"){
+spec_trans2abs <- function(.data, wn_col = "Wn"){
   require(recipes)
   require(rlang)
   require(dplyr)
@@ -9,8 +9,9 @@ spec_norm_01 <- function(.data,wn_col = "Wn"){
   .data %>%
     recipe(formula = fmla,
            data = .) %>%
-    step_range(all_numeric_predictors()) %>%
+    step_mutate_at(all_predictors(), fn = function(x) 2-log10(x)) %>%
     prep() %>%
     bake(NULL) %>%
-    select({{wn_col}},where(is.numeric))
+    select({{wn_col}},where(is.numeric)) %>%
+    filter_all(all_vars(!is.infinite(.)))
 }
