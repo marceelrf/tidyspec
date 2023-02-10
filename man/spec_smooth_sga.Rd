@@ -46,5 +46,5 @@ smooth_spectra <- spec_smooth_sga(spectra_data)
 
 # Plot the smoothed spectra
 plot(smooth_spectra)
-```
+
 }
