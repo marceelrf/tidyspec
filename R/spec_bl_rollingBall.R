@@ -1,3 +1,17 @@
+#' Remove baseline drift from a spectral data set
+#'
+#' @param .data A data frame with columns Wn and one or more spectral data
+#' @param Wn_min Minimum Wn value to consider
+#' @param Wn_max Maximum Wn value to consider
+#' @param wm Window size for moving average calculation
+#' @param ws Window size for baseline determination
+#' @param is_abs A logical indicating if the input data is in absorbance units
+#' @return A data frame with Wn and the corrected spectral data
+#' @export
+#' @examples
+#' spec_blc_rollingBall(data, 2000, 4000, wm=15, ws=30)
+#'
+
 spec_bl_rollingBall <- function(.data,
                                 wn_col = "Wn",
                                 Wn_min,

@@ -1,0 +1,124 @@
+[[Model]]
+    (((((Model(voigt, prefix='v01_') + Model(voigt, prefix='v02_')) + Model(voigt, prefix='v04_')) + Model(voigt, prefix='v05_')) + Model(voigt, prefix='v06_')) + Model(voigt, prefix='v07_'))
+[[Fit Statistics]]
+    # fitting method   = leastsq
+    # function evals   = 1443
+    # data points      = 144
+    # variables        = 18
+    chi-square         = 0.00423386
+    reduced chi-square = 3.3602e-05
+    Akaike info crit   = -1466.56144
+    Bayesian info crit = -1413.10480
+[[Variables]]
+    v01_amplitude:  3.32550896 +/- 3.74065640 (112.48%) (init = 51)
+    v01_center:     1692.41066 +/- 1.69971816 (0.10%) (init = 1666.301)
+    v01_sigma:      1.00002541 +/- 8.50822388 (850.80%) (init = 16)
+    v01_gamma:      11 (fixed)
+    v01_fwhm:       22.2673775 +/- 4.49069250 (20.17%) == '1.0692*v01_gamma+sqrt(0.8664*v01_gamma**2+5.545083*v01_sigma**2)'
+    v01_height:     0.09545474 +/- 0.09545645 (100.00%) == '(v01_amplitude/(max(1e-15, v01_sigma*sqrt(2*pi))))*wofz((1j*v01_gamma)/(max(1e-15, v01_sigma*sqrt(2)))).real'
+    v02_amplitude:  4.46008732 +/- 1.22684489 (27.51%) (init = 19.5)
+    v02_center:     1517.84006 +/- 0.65548687 (0.04%) (init = 1559.301)
+    v02_sigma:      7.56777235 +/- 1.03455502 (13.67%) (init = 14.25)
+    v02_gamma:      6.25 (fixed)
+    v02_fwhm:       25.4286246 +/- 2.31589145 (9.11%) == '1.0692*v02_gamma+sqrt(0.8664*v02_gamma**2+5.545083*v02_sigma**2)'
+    v02_height:     0.13520307 +/- 0.02789593 (20.63%) == '(v02_amplitude/(max(1e-15, v02_sigma*sqrt(2*pi))))*wofz((1j*v02_gamma)/(max(1e-15, v02_sigma*sqrt(2)))).real'
+    v04_amplitude:  30.6025134 +/- 12.2155039 (39.92%) (init = 31.5)
+    v04_center:     1596.58165 +/- 4.23119175 (0.27%) (init = 1620.301)
+    v04_sigma:      27.4596101 +/- 8.37606696 (30.50%) (init = 17)
+    v04_gamma:      5.75 (fixed)
+    v04_fwhm:       71.0309127 +/- 19.6567427 (27.67%) == '1.0692*v04_gamma+sqrt(0.8664*v04_gamma**2+5.545083*v04_sigma**2)'
+    v04_height:     0.37908072 +/- 0.05394887 (14.23%) == '(v04_amplitude/(max(1e-15, v04_sigma*sqrt(2*pi))))*wofz((1j*v04_gamma)/(max(1e-15, v04_sigma*sqrt(2)))).real'
+    v05_amplitude:  21.1598215 +/- 5.32881748 (25.18%) (init = 8)
+    v05_center:     1544.86918 +/- 1.02943236 (0.07%) (init = 1589.301)
+    v05_sigma:      16.3869196 +/- 1.95883380 (11.95%) (init = 8)
+    v05_gamma:      6.75 (fixed)
+    v05_fwhm:       46.3131711 +/- 4.55270855 (9.83%) == '1.0692*v05_gamma+sqrt(0.8664*v05_gamma**2+5.545083*v05_sigma**2)'
+    v05_height:     0.38153528 +/- 0.06446163 (16.90%) == '(v05_amplitude/(max(1e-15, v05_sigma*sqrt(2*pi))))*wofz((1j*v05_gamma)/(max(1e-15, v05_sigma*sqrt(2)))).real'
+    v06_amplitude:  7.28457712 +/- 4.74413948 (65.13%) (init = 2)
+    v06_center:     1679.46260 +/- 4.88625058 (0.29%) (init = 1722.301)
+    v06_sigma:      8.16531841 +/- 4.24540727 (51.99%) (init = 14.5)
+    v06_gamma:      10 (fixed)
+    v06_fwhm:       32.0542126 +/- 8.99817223 (28.07%) == '1.0692*v06_gamma+sqrt(0.8664*v06_gamma**2+5.545083*v06_sigma**2)'
+    v06_height:     0.16627204 +/- 0.07358349 (44.25%) == '(v06_amplitude/(max(1e-15, v06_sigma*sqrt(2*pi))))*wofz((1j*v06_gamma)/(max(1e-15, v06_sigma*sqrt(2)))).real'
+    v07_amplitude:  61.1660677 +/- 7.87509200 (12.87%) (init = 8.5)
+    v07_center:     1650.61229 +/- 2.66239619 (0.16%) (init = 1641.301)
+    v07_sigma:      23.5121277 +/- 1.06632400 (4.54%) (init = 9)
+    v07_gamma:      5.5 (fixed)
+    v07_fwhm:       61.4831378 +/- 2.50031400 (4.07%) == '1.0692*v07_gamma+sqrt(0.8664*v07_gamma**2+5.545083*v07_sigma**2)'
+    v07_height:     0.86934630 +/- 0.08250396 (9.49%) == '(v07_amplitude/(max(1e-15, v07_sigma*sqrt(2*pi))))*wofz((1j*v07_gamma)/(max(1e-15, v07_sigma*sqrt(2)))).real'
+[[Correlations]] (unreported correlations are < 0.500)
+    C(v04_amplitude, v04_sigma)     = 0.998
+    C(v01_amplitude, v06_center)    = -0.991
+    C(v06_amplitude, v06_sigma)     = 0.989
+    C(v05_amplitude, v05_sigma)     = 0.970
+    C(v04_sigma, v07_center)        = 0.963
+    C(v04_amplitude, v07_center)    = 0.963
+    C(v04_amplitude, v07_amplitude) = -0.955
+    C(v02_amplitude, v02_sigma)     = 0.954
+    C(v04_sigma, v05_amplitude)     = -0.949
+    C(v02_amplitude, v05_sigma)     = -0.939
+    C(v04_amplitude, v05_amplitude) = -0.936
+    C(v04_sigma, v07_amplitude)     = -0.935
+    C(v01_amplitude, v06_sigma)     = -0.934
+    C(v01_amplitude, v01_sigma)     = 0.932
+    C(v01_amplitude, v06_amplitude) = -0.928
+    C(v07_amplitude, v07_sigma)     = 0.926
+    C(v06_center, v06_sigma)        = 0.923
+    C(v06_amplitude, v06_center)    = 0.922
+    C(v04_center, v07_amplitude)    = -0.922
+    C(v01_center, v06_center)       = 0.915
+    C(v01_sigma, v06_center)        = -0.908
+    C(v01_amplitude, v01_center)    = -0.900
+    C(v04_center, v07_sigma)        = -0.890
+    C(v02_center, v02_sigma)        = 0.882
+    C(v07_amplitude, v07_center)    = -0.879
+    C(v05_amplitude, v07_center)    = -0.872
+    C(v02_amplitude, v02_center)    = 0.871
+    C(v04_center, v07_center)       = 0.867
+    C(v01_center, v01_sigma)        = -0.864
+    C(v04_amplitude, v04_center)    = 0.858
+    C(v02_amplitude, v05_amplitude) = -0.850
+    C(v02_sigma, v05_sigma)         = -0.849
+    C(v04_sigma, v05_sigma)         = -0.849
+    C(v01_center, v06_amplitude)    = 0.847
+    C(v04_amplitude, v05_sigma)     = -0.833
+    C(v05_amplitude, v07_amplitude) = 0.831
+    C(v04_center, v04_sigma)        = 0.829
+    C(v01_center, v06_sigma)        = 0.799
+    C(v01_sigma, v06_sigma)         = -0.779
+    C(v01_sigma, v06_amplitude)     = -0.779
+    C(v04_amplitude, v07_sigma)     = -0.778
+    C(v04_sigma, v05_center)        = -0.771
+    C(v05_center, v07_center)       = -0.763
+    C(v04_amplitude, v05_center)    = -0.763
+    C(v02_sigma, v05_amplitude)     = -0.759
+    C(v05_sigma, v07_center)        = -0.751
+    C(v04_sigma, v07_sigma)         = -0.737
+    C(v02_center, v05_sigma)        = -0.716
+    C(v05_center, v07_amplitude)    = 0.716
+    C(v05_sigma, v07_amplitude)     = 0.714
+    C(v04_center, v05_center)       = -0.683
+    C(v07_center, v07_sigma)        = -0.675
+    C(v02_amplitude, v04_sigma)     = 0.662
+    C(v06_sigma, v07_center)        = -0.650
+    C(v02_amplitude, v04_amplitude) = 0.648
+    C(v06_amplitude, v07_center)    = -0.643
+    C(v04_center, v05_amplitude)    = -0.635
+    C(v05_amplitude, v05_center)    = 0.617
+    C(v02_center, v05_amplitude)    = -0.616
+    C(v05_amplitude, v07_sigma)     = 0.598
+    C(v01_sigma, v04_center)        = 0.575
+    C(v02_sigma, v04_sigma)         = 0.571
+    C(v01_amplitude, v07_center)    = 0.567
+    C(v02_amplitude, v07_center)    = 0.560
+    C(v02_sigma, v04_amplitude)     = 0.558
+    C(v05_center, v07_sigma)        = 0.547
+    C(v01_amplitude, v04_center)    = 0.538
+    C(v02_amplitude, v07_amplitude) = -0.533
+    C(v01_sigma, v07_sigma)         = -0.528
+    C(v04_amplitude, v06_sigma)     = -0.509
+    C(v01_sigma, v07_center)        = 0.509
+    C(v04_sigma, v06_sigma)         = -0.508
+    C(v04_center, v06_sigma)        = -0.505
+    C(v01_sigma, v07_amplitude)     = -0.504
+    C(v04_sigma, v06_amplitude)     = -0.501
