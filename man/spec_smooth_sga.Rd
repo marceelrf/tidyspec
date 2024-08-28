@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_smooth_sga.R
 \name{spec_smooth_sga}
 \alias{spec_smooth_sga}
-\title{Smooth spectra using the S-Golay filter}
+\title{Smooth Spectra Using the S-Golay Filter}
 \usage{
 spec_smooth_sga(.data, wn_col = "Wn", window = 15, forder = 4, degree = 0)
 }
@@ -31,11 +31,9 @@ A data frame with the smoothed spectra, where the first column is
   spectra values.
 }
 \description{
-This function smooths spectra using the S-Golay filter. It smooths the data
-by taking the local polynomial regression of the data. The polynomial
-regression is performed with the S-Golay filter, which is a
-least-squares fit of the data to a polynomial over a sliding window of
-`window` points.
+This function smooths spectra using the Savitzky-Golay (S-Golay) filter.
+It applies local polynomial regression to the data, fitting a polynomial over
+a sliding window of `window` points to smooth the spectra.
 }
 \examples{
 # Load example spectra data

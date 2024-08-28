@@ -2,26 +2,25 @@
 % Please edit documentation in R/spec_smooth_avg.R
 \name{spec_smooth_avg}
 \alias{spec_smooth_avg}
-\title{Perform a smoothed average on the spectra data}
+\title{Perform a Smoothed Average on the Spectra Data}
 \usage{
 spec_smooth_avg(.data, wn_col = "Wn", window = 15, degree = 2)
 }
 \arguments{
-\item{.data}{A data frame or matrix that contains the spectra data.}
+\item{.data}{A data frame containing the spectra data.}
 
-\item{wn_col}{A character string that represents the column name of the wavenumber.}
+\item{wn_col}{A character string representing the column name of the wavenumber.}
 
-\item{window}{An integer value that represents the window size to be used in the smoothed average calculation.}
+\item{window}{An integer value specifying the window size to be used in the smoothed average calculation.}
 
-\item{degree}{An integer value that represents the polynomial degree to be used in the smoothed average calculation.}
+\item{degree}{An integer value specifying the polynomial degree to be used in the smoothed average calculation.}
 }
 \value{
-A matrix or data frame that contains the wavenumber column and smoothed average values of the spectra data.
+A data frame containing the wavenumber column and the smoothed average values of the spectra data.
 }
 \description{
-Perform a smoothed average on the spectra data
+This function calculates a smoothed average of the spectral data using a specified window size and polynomial degree. The smoothed average is useful for reducing noise in the spectra.
 }
 \examples{
 spec_smooth_avg(.data = spectra_data, wn_col = "Wn", window = 15, degree = 2)
-
 }

@@ -1,36 +1,41 @@
-#' Convert transmittance spectra to absorbance spectra
+#' Convert Transmittance Spectra to Absorbance Spectra
 #'
 #' Given a data frame with transmittance spectra, this function converts it to
-#' absorbance spectra. The result is a new data frame with the same wavenumber
-#' column and absorbance values in place of the transmittance values.
+#' absorbance spectra using the formula: \code{Absorbance = 2 - log10(Transmittance)}.
+#' The result is a new data frame with the same wavenumber column and absorbance values.
 #'
-#' @param .data A data frame with the spectra data
-#' @param wn_col A string specifying the name of the wavenumber column
+#' @param .data A data frame with the spectra data. The first column should be the wavenumber column.
+#' @param wn_col A string specifying the name of the wavenumber column. Default is "Wn".
 #'
 #' @return A data frame with the same wavenumber column and absorbance values in
-#' place of the transmittance values. Infinite values are filtered out.
+#'   place of the transmittance values. Infinite values are filtered out.
 #'
-#' @examples
-#'
-#' spec_trans2abs(.data = spectra_data, wn_col = "Wn")
-#'
+#' @importFrom recipes recipe step_mutate_at prep bake
+#' @importFrom rlang as.formula
+#' @importFrom dplyr select filter_all all_vars
 #' @export
+#' @examples
+#' # Load example spectra data
+#' data(spectra_data)
 #'
-
-spec_trans2abs <- function(.data, wn_col = "Wn"){
+#' # Convert transmittance spectra to absorbance
+#' absorbance_spectra <- spec_trans2abs(spectra_data, wn_col = "Wn")
+#'
+#' # View the result
+#' head(absorbance_spectra)
+#'
+spec_trans2abs <- function(.data, wn_col = "Wn") {
   require(recipes)
   require(rlang)
   require(dplyr)
 
-
-  fmla <- as.formula(paste({{wn_col}}," ~ .",sep = ""))
+  fmla <- as.formula(paste(wn_col, " ~ .", sep = ""))
 
   .data %>%
-    recipe(formula = fmla,
-           data = .) %>%
-    step_mutate_at(all_predictors(), fn = function(x) 2-log10(x)) %>%
+    recipe(formula = fmla, data = .) %>%
+    step_mutate_at(all_numeric_predictors(), fn = ~ 2 - log10(.)) %>%
     prep() %>%
     bake(NULL) %>%
-    select({{wn_col}},where(is.numeric)) %>%
+    select({{wn_col}}, where(is.numeric)) %>%
     filter_all(all_vars(!is.infinite(.)))
 }

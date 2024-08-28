@@ -7,11 +7,11 @@
 spec_diff(.data, wn_col = "Wn", degree = 1)
 }
 \arguments{
-\item{.data}{a tibble or data.frame containing the spectral data.}
+\item{.data}{A tibble or data.frame containing the spectral data.}
 
-\item{wn_col}{character string representing the column name for the Wn data.}
+\item{wn_col}{Character string representing the column name for the Wn data.}
 
-\item{degree}{numeric value for the derivative degree, default is 1.}
+\item{degree}{Numeric value for the derivative degree, default is 1.}
 }
 \value{
 A tibble or data.frame with columns for each derivative of the input data and the Wn column.

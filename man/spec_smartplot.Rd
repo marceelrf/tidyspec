@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_smartplot.R
 \name{spec_smartplot}
 \alias{spec_smartplot}
-\title{Plot spectral data}
+\title{Plot Spectral Data}
 \usage{
 spec_smartplot(
   .data,
@@ -18,7 +18,7 @@ spec_smartplot(
 \arguments{
 \item{.data}{data.frame to plot}
 
-\item{wn_col}{character string column name of the wavenumber}
+\item{wn_col}{character string, the column name of the wavenumber}
 
 \item{type}{character string, plot type "absorbance" or "transmittance"}
 
@@ -26,20 +26,20 @@ spec_smartplot(
 
 \item{geom}{character string, plot style "point" or "line"}
 
-\item{xmin}{numeric, lower bound of x axis}
+\item{xmin}{numeric, lower bound of the x-axis}
 
-\item{xmax}{numeric, upper bound of x axis}
+\item{xmax}{numeric, upper bound of the x-axis}
 
 \item{alpha}{numeric, plot transparency between 0 and 1}
 }
 \value{
-plot with specified parameters
+A ggplot object with the specified parameters
 }
 \description{
-Plot spectral data with the given parameters. The plot is created using ggplot2. The spectral data is plotted as either absorbance or transmittance, using either a line or a point plot, with a selectable color map, and can be reversed on the x-axis. The plot is displayed with a white background, text with a serif font, major and minor gridlines, a border, and labeled axes.
+Plot spectral data with the given parameters using ggplot2. The spectral data is plotted as either absorbance or transmittance, using either a line or a point plot, with a selectable color map, and can be reversed on the x-axis.
 }
 \examples{
 spec_smartplot(.data = iris, wn_col = "Sepal.Length",
-type = "transmittance", xdir = "standard",
-geom = "line", xmin = 3, xmax = 8, alpha = .8)
+               type = "transmittance", xdir = "standard",
+               geom = "line", xmin = 3, xmax = 8, alpha = .8)
 }

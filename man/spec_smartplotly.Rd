@@ -20,24 +20,24 @@ spec_smartplotly(
 
 \item{wn_col}{A character string specifying the name of the wavenumber column in the data.}
 
-\item{type}{A character string that specifies the type of spectra (absorbance or transmittance).}
+\item{type}{A character string specifying the type of spectra ("absorbance" or "transmittance").}
 
-\item{xdir}{A character string that specifies the direction of the x-axis (reverse or standard).}
+\item{xdir}{A character string specifying the direction of the x-axis ("reverse" or "standard").}
 
-\item{geom}{A character string that specifies the type of plot geometry to use (point or line).}
+\item{geom}{A character string specifying the type of plot geometry to use ("point" or "line").}
 
-\item{xmin}{Numeric value that specifies the minimum x-axis value.}
+\item{xmin}{Numeric value specifying the minimum x-axis value.}
 
-\item{xmax}{Numeric value that specifies the maximum x-axis value.}
+\item{xmax}{Numeric value specifying the maximum x-axis value.}
 
-\item{alpha}{A numeric value specifying the alpha value for the plot.}
+\item{alpha}{A numeric value specifying the transparency level for the plot.}
 }
 \value{
-A interactive plotly plot of the spectra data.
+An interactive `plotly` plot of the spectra data.
 }
 \description{
-This function is used to create a interactive plot of spectral data. The user can specify the type of spectra (absorbance or transmittance), the wavenumber column, and the minimum and maximum x-axis values.
+Create an interactive plot of spectral data using `plotly`. The user can specify the type of spectra (absorbance or transmittance), the wavenumber column, and the minimum and maximum x-axis values.
 }
 \examples{
-spec_smartplotly(spectra_data,wn_col="Wn",type="absorbance",xmin=400,xmax=4000)
+spec_smartplotly(spectra_data, wn_col="Wn", type="absorbance", xmin=400, xmax=4000)
 }

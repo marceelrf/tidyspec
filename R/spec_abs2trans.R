@@ -18,19 +18,15 @@
 #' @import dplyr
 #' @export
 
-spec_abs2trans <- function(.data, wn_col = "Wn"){
-  require(recipes)
-  require(rlang)
-  require(dplyr)
+spec_abs2trans <- function(.data, wn_col = "Wn") {
 
+  fmla <- stats::as.formula(paste({{wn_col}}, " ~ .", sep = ""))
 
-  fmla <- as.formula(paste({{wn_col}}," ~ .",sep = ""))
   .data %>%
-    recipe(formula = fmla,
-           data = .) %>%
-    step_mutate_at(all_predictors(), fn = function(x) 10^(2-x)) %>%
-    prep() %>%
-    bake(NULL) %>%
-    select({{wn_col}},where(is.numeric)) %>%
-    filter_all(all_vars(!is.infinite(.)))
+    recipes::recipe(formula = fmla, data = .) %>%
+    recipes::step_mutate_at(recipes::all_predictors(), fn = ~ 10^(2 - .)) %>%
+    recipes::prep() %>%
+    recipes::bake(NULL) %>%
+    dplyr::select({{wn_col}}, dplyr::where(is.numeric)) %>%
+    dplyr::filter_all(dplyr::all_vars(!is.infinite(.)))
 }

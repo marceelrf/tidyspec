@@ -20,28 +20,28 @@ spec_blc_rollingBall <- function(.data,
                                  ws,
                                  is_abs = TRUE) {
 
-  mat <- .data[.data[[wn_col]] >= Wn_min & .data[[wn_col]] <= Wn_max,]
-  if(is_abs){
+  mat <- .data[.data[[wn_col]] >= Wn_min & .data[[wn_col]] <= Wn_max, ]
+
+  if (is_abs) {
     mat %>%
-      select(-{{wn_col}}) %>%
+      dplyr::select(-{{wn_col}}) %>%
       t() %>%
-      baseline(method = "rollingBall",wm=wm, ws=ws) %>%
-      pluck("corrected") %>%
+      baseline::baseline(method = "rollingBall", wm = wm, ws = ws) %>%
+      purrr::pluck("corrected") %>%
       t() %>%
-      as_tibble() %>%
-      mutate({{wn_col}} := mat[[wn_col]]) %>%
-      select({{wn_col}},where(is.numeric))
+      tibble::as_tibble() %>%
+      dplyr::mutate({{wn_col}} := mat[[wn_col]]) %>%
+      dplyr::select({{wn_col}}, dplyr::where(is.numeric))
   } else {
     mat %>%
       spec_trans2abs(wn_col = {{wn_col}}) %>%
-      select(-{{wn_col}}) %>%
+      dplyr::select(-{{wn_col}}) %>%
       t() %>%
-      baseline(method = "rollingBall",wm=wm, ws=ws) %>%
-      pluck("corrected") %>%
+      baseline::baseline(method = "rollingBall", wm = wm, ws = ws) %>%
+      purrr::pluck("corrected") %>%
       t() %>%
-      as_tibble() %>%
-      mutate({{wn_col}} := mat[[wn_col]]) %>%
-      select({{wn_col}},where(is.numeric))
+      tibble::as_tibble() %>%
+      dplyr::mutate({{wn_col}} := mat[[wn_col]]) %>%
+      dplyr::select({{wn_col}}, dplyr::where(is.numeric))
   }
-
 }

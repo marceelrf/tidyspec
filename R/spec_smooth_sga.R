@@ -1,10 +1,8 @@
-#' Smooth spectra using the S-Golay filter
+#' Smooth Spectra Using the S-Golay Filter
 #'
-#' This function smooths spectra using the S-Golay filter. It smooths the data
-#' by taking the local polynomial regression of the data. The polynomial
-#' regression is performed with the S-Golay filter, which is a
-#' least-squares fit of the data to a polynomial over a sliding window of
-#' `window` points.
+#' This function smooths spectra using the Savitzky-Golay (S-Golay) filter.
+#' It applies local polynomial regression to the data, fitting a polynomial over
+#' a sliding window of `window` points to smooth the spectra.
 #'
 #' @param .data A data frame with spectra data, where the first column is
 #'   the wavenumber (Wn) column.
@@ -36,28 +34,21 @@
 #'
 #' # Plot the smoothed spectra
 #' plot(smooth_spectra)
-#' ```
+#'
 
-spec_smooth_sga <- function(.data, wn_col = "Wn", window = 15,forder = 4,degree = 0){
+spec_smooth_sga <- function(.data, wn_col = "Wn", window = 15, forder = 4, degree = 0) {
   require(recipes)
   require(signal)
   require(rlang)
   require(dplyr)
 
-
-  fmla <- as.formula(paste({{wn_col}}," ~ .",sep = ""))
-
-
+  fmla <- as.formula(paste(wn_col, " ~ .", sep = ""))
 
   .data %>%
-    recipe(formula = fmla,
-           data = .) %>%
+    recipe(formula = fmla, data = .) %>%
     step_mutate_at(all_numeric_predictors(),
-                   fn = function(x) sgolayfilt(x = x,
-                                               p = forder,
-                                               n = window,
-                                               m = degree)) %>%
+                   fn = function(x) signal::sgolayfilt(x = x, p = forder, n = window, m = degree)) %>%
     prep() %>%
     bake(NULL) %>%
-    select({{wn_col}},where(is.numeric))
+    select({{wn_col}}, where(is.numeric))
 }
