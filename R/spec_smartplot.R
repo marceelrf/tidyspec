@@ -13,11 +13,7 @@
 #'
 #' @return A ggplot object with the specified parameters
 #' @export
-#'
-#' @examples
-#' spec_smartplot(.data = iris, wn_col = "Sepal.Length",
-#'                type = "transmittance", xdir = "standard",
-#'                geom = "line", xmin = 3, xmax = 8, alpha = .8)
+
 
 spec_smartplot <- function(.data,
                            wn_col = "Wn",

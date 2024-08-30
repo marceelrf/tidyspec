@@ -6,17 +6,7 @@
 #' @param .data A tibble or data.frame containing the spectral data.
 #' @param wn_col Character string representing the column name for the Wn data.
 #' @param degree Numeric value for the derivative degree, default is 1.
-#'
 #' @return A tibble or data.frame with columns for each derivative of the input data and the Wn column.
-#'
-#' @examples
-#' library(recipes)
-#' library(timetk)
-#' library(rlang)
-#' library(dplyr)
-#'
-#' spec_diff(.data = iris, wn_col = "Species", degree = 2)
-#'
 #' @import recipes
 #' @import timetk
 #' @import rlang
@@ -26,14 +16,14 @@
 
 spec_diff <- function(.data, wn_col = "Wn", degree = 1) {
 
-  fmla <- stats::as.formula(paste({{wn_col}}, " ~ .", sep = ""))
+  fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
   if (degree == 0) {
     return(.data)
   } else {
     .data %>%
       recipes::recipe(formula = fmla, data = .) %>%
-      recipes::step_diff(recipes::all_numeric_predictors(), difference = degree, lag = 1) %>%
+      timetk::step_diff(recipes::all_numeric_predictors(), difference = degree, lag = 1) %>%
       recipes::prep() %>%
       recipes::bake(NULL) %>%
       dplyr::select({{wn_col}}, dplyr::where(is.numeric)) %>%

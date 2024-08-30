@@ -17,11 +17,3 @@ a data.frame with normalized values of the predictors in [0,1] range, Wn column 
 \description{
 Normalize Spectra Data to [0,1] Range
 }
-\examples{
-
-\dontrun{
-data(iris)
-norm_iris <- spec_norm_01(iris)
-}
-
-}

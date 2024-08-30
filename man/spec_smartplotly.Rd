@@ -38,6 +38,3 @@ An interactive `plotly` plot of the spectra data.
 \description{
 Create an interactive plot of spectral data using `plotly`. The user can specify the type of spectra (absorbance or transmittance), the wavenumber column, and the minimum and maximum x-axis values.
 }
-\examples{
-spec_smartplotly(spectra_data, wn_col="Wn", type="absorbance", xmin=400, xmax=4000)
-}

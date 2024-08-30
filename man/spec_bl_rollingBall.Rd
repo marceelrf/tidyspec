@@ -33,7 +33,3 @@ A data frame with Wn and the corrected spectral data
 \description{
 Remove baseline drift from a spectral data set
 }
-\examples{
-spec_blc_rollingBall(data, 2000, 4000, wm=15, ws=30)
-
-}

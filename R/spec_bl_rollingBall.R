@@ -8,9 +8,6 @@
 #' @param is_abs A logical indicating if the input data is in absorbance units
 #' @return A data frame with Wn and the corrected spectral data
 #' @export
-#' @examples
-#' spec_blc_rollingBall(data, 2000, 4000, wm=15, ws=30)
-#'
 
 spec_bl_rollingBall <- function(.data,
                                 wn_col = "Wn",

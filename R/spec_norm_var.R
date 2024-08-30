@@ -9,11 +9,11 @@
 #' @import recipes
 #' @import rlang
 #' @export
-#' @examples
+
 
 spec_norm_var <- function(.data, wn_col = "Wn") {
 
-  fmla <- stats::as.formula(paste({{wn_col}}, " ~ .", sep = ""))
+  fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
   .data %>%
     recipes::recipe(formula = fmla, data = .) %>%

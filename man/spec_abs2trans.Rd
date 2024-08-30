@@ -17,12 +17,3 @@ A tibble containing the wavenumber and corresponding transmittance spectra.
 \description{
 Converts a spectra in absorbance to transmittance by applying the formula: T = 10^(2-A).
 }
-\examples{
-# Load example data
-library(tidyspec)
-data(spectra_abs)
-
-# Convert to transmittance
-spectra_trans <- spec_abs2trans(spectra_abs)
-
-}

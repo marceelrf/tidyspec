@@ -38,8 +38,3 @@ A ggplot object with the specified parameters
 \description{
 Plot spectral data with the given parameters using ggplot2. The spectral data is plotted as either absorbance or transmittance, using either a line or a point plot, with a selectable color map, and can be reversed on the x-axis.
 }
-\examples{
-spec_smartplot(.data = iris, wn_col = "Sepal.Length",
-               type = "transmittance", xdir = "standard",
-               geom = "line", xmin = 3, xmax = 8, alpha = .8)
-}

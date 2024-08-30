@@ -16,8 +16,6 @@
 #' @import ggplot2
 #' @import glue
 #' @export
-#' @examples
-#' spec_smartplotly(spectra_data, wn_col="Wn", type="absorbance", xmin=400, xmax=4000)
 
 spec_smartplotly <- function(.data,
                              wn_col = "Wn",

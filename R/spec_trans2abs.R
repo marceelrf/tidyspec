@@ -14,28 +14,18 @@
 #' @importFrom rlang as.formula
 #' @importFrom dplyr select filter_all all_vars
 #' @export
-#' @examples
-#' # Load example spectra data
-#' data(spectra_data)
-#'
-#' # Convert transmittance spectra to absorbance
-#' absorbance_spectra <- spec_trans2abs(spectra_data, wn_col = "Wn")
-#'
-#' # View the result
-#' head(absorbance_spectra)
-#'
-spec_trans2abs <- function(.data, wn_col = "Wn") {
-  require(recipes)
-  require(rlang)
-  require(dplyr)
 
-  fmla <- as.formula(paste(wn_col, " ~ .", sep = ""))
+spec_trans2abs <- function(.data, wn_col = "Wn") {
+
+
+  fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
   .data %>%
-    recipe(formula = fmla, data = .) %>%
-    step_mutate_at(all_numeric_predictors(), fn = ~ 2 - log10(.)) %>%
-    prep() %>%
-    bake(NULL) %>%
-    select({{wn_col}}, where(is.numeric)) %>%
-    filter_all(all_vars(!is.infinite(.)))
+    recipes::recipe(formula = fmla, data = .) %>%
+    recipes::step_mutate_at(recipes::all_numeric_predictors(),
+                            fn = ~ 2 - log10(.)) %>%
+    recipes::prep() %>%
+    recipes::bake(NULL) %>%
+    dplyr::select({{wn_col}}, dplyr::where(is.numeric)) %>%
+    dplyr::filter_all(dplyr::all_vars(!is.infinite(.)))
 }

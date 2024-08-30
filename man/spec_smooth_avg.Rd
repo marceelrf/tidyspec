@@ -21,6 +21,3 @@ A data frame containing the wavenumber column and the smoothed average values of
 \description{
 This function calculates a smoothed average of the spectral data using a specified window size and polynomial degree. The smoothed average is useful for reducing noise in the spectra.
 }
-\examples{
-spec_smooth_avg(.data = spectra_data, wn_col = "Wn", window = 15, degree = 2)
-}

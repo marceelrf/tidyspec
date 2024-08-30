@@ -5,14 +5,6 @@
 #' @param .data A data.frame or tibble containing the absorbance spectra.
 #' @param wn_col The name of the column in the data containing the wavenumber. Default is "Wn".
 #' @return A tibble containing the wavenumber and corresponding transmittance spectra.
-#' @examples
-#' # Load example data
-#' library(tidyspec)
-#' data(spectra_abs)
-#'
-#' # Convert to transmittance
-#' spectra_trans <- spec_abs2trans(spectra_abs)
-#'
 #' @import recipes
 #' @import rlang
 #' @import dplyr
@@ -20,7 +12,7 @@
 
 spec_abs2trans <- function(.data, wn_col = "Wn") {
 
-  fmla <- stats::as.formula(paste({{wn_col}}, " ~ .", sep = ""))
+  fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
   .data %>%
     recipes::recipe(formula = fmla, data = .) %>%

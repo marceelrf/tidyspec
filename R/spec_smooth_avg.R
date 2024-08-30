@@ -11,23 +11,18 @@
 #' @import dplyr
 #' @import timetk
 #' @export
-#' @examples
-#' spec_smooth_avg(.data = spectra_data, wn_col = "Wn", window = 15, degree = 2)
 spec_smooth_avg <- function(.data, wn_col = "Wn", window = 15, degree = 2) {
-  require(recipes)
-  require(timetk)
-  require(rlang)
-  require(dplyr)
 
-  fmla <- as.formula(paste({{wn_col}}," ~ .", sep = ""))
+
+  fmla <- stats::as.formula(paste(wn_col," ~ .", sep = ""))
 
   .data %>%
-    recipe(formula = fmla,
+    recipes::recipe(formula = fmla,
            data = .) %>%
-    step_smooth(all_numeric_predictors(),
+    timetk::step_smooth(recipes::all_numeric_predictors(),
                 period = window,
                 degree = degree) %>%
-    prep() %>%
-    bake(NULL) %>%
-    select({{wn_col}}, where(is.numeric))
+    recipes::prep() %>%
+    recipes::bake(NULL) %>%
+    dplyr::select({{wn_col}}, dplyr::where(is.numeric))
 }

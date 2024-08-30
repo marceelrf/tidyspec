@@ -5,13 +5,6 @@
 #'
 #' @return a data.frame with normalized values of the predictors in [0,1] range, Wn column is preserved.
 #'
-#' @examples
-#'
-#' \dontrun{
-#' data(iris)
-#' norm_iris <- spec_norm_01(iris)
-#' }
-#'
 #' @import dplyr
 #' @import recipes
 #' @import rlang
@@ -21,7 +14,7 @@
 
 spec_norm_01 <- function(.data, wn_col = "Wn") {
 
-  fmla <- stats::as.formula(paste({{wn_col}}, " ~ .", sep = ""))
+  fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
   .data %>%
     recipes::recipe(formula = fmla, data = .) %>%

@@ -20,14 +20,3 @@ Given a data frame with transmittance spectra, this function converts it to
 absorbance spectra using the formula: \code{Absorbance = 2 - log10(Transmittance)}.
 The result is a new data frame with the same wavenumber column and absorbance values.
 }
-\examples{
-# Load example spectra data
-data(spectra_data)
-
-# Convert transmittance spectra to absorbance
-absorbance_spectra <- spec_trans2abs(spectra_data, wn_col = "Wn")
-
-# View the result
-head(absorbance_spectra)
-
-}

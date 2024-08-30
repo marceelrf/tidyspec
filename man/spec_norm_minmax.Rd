@@ -21,6 +21,3 @@ A data.frame with only the dependent variable column and the normalized predicto
 \description{
 Normalize the numeric predictors using Min-Max Scaler, with custom values of minimum and maximum scaling.
 }
-\examples{
-spec_norm_minmax(mtcars, "mpg", 0, 10)
-}
