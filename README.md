@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# tidyspec
+# tidyspec <img src="tidyspec_ggplot2.png" align="right" height="138" alt="" />
 
 <!-- badges: start -->
 <!-- badges: end -->
