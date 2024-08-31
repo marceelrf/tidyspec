@@ -1,19 +1,21 @@
-#' Plot Spectral Data
+#' Create a Custom Plot for Spectral Data
 #'
-#' Plot spectral data with the given parameters using ggplot2. The spectral data is plotted as either absorbance or transmittance, using either a line or a point plot, with a selectable color map, and can be reversed on the x-axis.
+#' This function generates a customizable plot for spectral data, allowing for the selection of plot type (absorbance or transmittance), x-axis direction, and plot geometry (points or lines).
 #'
-#' @param .data data.frame to plot
-#' @param wn_col character string, the column name of the wavenumber
-#' @param type character string, plot type "absorbance" or "transmittance"
-#' @param xdir character string, plot direction "reverse" or "standard"
-#' @param geom character string, plot style "point" or "line"
-#' @param xmin numeric, lower bound of the x-axis
-#' @param xmax numeric, upper bound of the x-axis
-#' @param alpha numeric, plot transparency between 0 and 1
+#' @param .data A `data.frame` or `tibble` containing spectral data.
+#' @param wn_col A character string specifying the column name for the wavelength or wavenumber data. Default is `"Wn"`.
+#' @param type A character string specifying the type of data to plot. Choices are `"absorbance"` or `"transmittance"`.
+#' @param xdir A character string specifying the direction of the x-axis. Choices are `"reverse"` for reverse direction (typically used for wavenumber) or `"standard"` for standard direction.
+#' @param geom A character string specifying the geometry of the plot. Choices are `"point"` for a scatter plot or `"line"` for a line plot.
+#' @param xmin A numeric value specifying the minimum x-axis value for the plot. Default is 400.
+#' @param xmax A numeric value specifying the maximum x-axis value for the plot. Default is 4000.
+#' @param alpha A numeric value specifying the transparency level of the plotted points or lines. Default is 0.8.
 #'
-#' @return A ggplot object with the specified parameters
-#' @export
-
+#' @return A `ggplot` object representing the customized spectral plot.
+#'
+#' @importFrom ggplot2 ggplot aes scale_x_continuous scale_color_viridis_d xlab ylab theme element_text element_rect element_line element_blank geom_line geom_point scale_x_reverse
+#' @importFrom dplyr all_of filter
+#' @importFrom tidyr pivot_longer
 
 spec_smartplot <- function(.data,
                            wn_col = "Wn",

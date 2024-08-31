@@ -1,19 +1,17 @@
-#' Title: Spectral Derivative
+#' Apply Differentiation to Spectral Data
 #'
-#' @description
-#' The `spec_diff` function calculates the derivative of a spectral data set. The default derivative degree is 1, but this can be changed to any positive integer. The resulting data set will contain columns for each derivative and the Wn column.
+#' This function applies numerical differentiation to spectral data, allowing for the calculation of the first or higher-order differences.
 #'
-#' @param .data A tibble or data.frame containing the spectral data.
-#' @param wn_col Character string representing the column name for the Wn data.
-#' @param degree Numeric value for the derivative degree, default is 1.
-#' @return A tibble or data.frame with columns for each derivative of the input data and the Wn column.
-#' @import recipes
-#' @import timetk
-#' @import rlang
-#' @import dplyr
-#' @export
+#' @param .data A `data.frame` or `tibble` containing spectral data.
+#' @param wn_col A character string specifying the column name for the wavelength data. Default is `"Wn"`.
+#' @param degree A numeric value specifying the degree of differentiation. If `degree` is 0, the original data is returned without any changes.
 #'
-
+#' @return A `tibble` with the differentiated spectral data, containing the wavelength column and the differentiated numeric columns. If `degree` is 0, the original data is returned.
+#'
+#' @importFrom dplyr select where starts_with
+#' @importFrom recipes recipe prep bake all_numeric_predictors
+#' @importFrom timetk step_diff
+#' @importFrom stats as.formula
 spec_diff <- function(.data, wn_col = "Wn", degree = 1) {
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))

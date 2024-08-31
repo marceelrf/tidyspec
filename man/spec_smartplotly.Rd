@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_smartplotly.R
 \name{spec_smartplotly}
 \alias{spec_smartplotly}
-\title{Plot Spectral Data}
+\title{Create an Interactive Plot for Spectral Data using Plotly}
 \usage{
 spec_smartplotly(
   .data,
@@ -16,25 +16,25 @@ spec_smartplotly(
 )
 }
 \arguments{
-\item{.data}{A data frame containing the spectra data.}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{wn_col}{A character string specifying the name of the wavenumber column in the data.}
+\item{wn_col}{A character string specifying the column name for the wavelength or wavenumber data. Default is `"Wn"`.}
 
-\item{type}{A character string specifying the type of spectra ("absorbance" or "transmittance").}
+\item{type}{A character string specifying the type of data to plot. Choices are `"absorbance"` or `"transmittance"`.}
 
-\item{xdir}{A character string specifying the direction of the x-axis ("reverse" or "standard").}
+\item{xdir}{A character string specifying the direction of the x-axis. Choices are `"reverse"` for reverse direction (typically used for wavenumber) or `"standard"` for standard direction.}
 
-\item{geom}{A character string specifying the type of plot geometry to use ("point" or "line").}
+\item{geom}{A character string specifying the geometry of the plot. Choices are `"point"` for a scatter plot or `"line"` for a line plot.}
 
-\item{xmin}{Numeric value specifying the minimum x-axis value.}
+\item{xmin}{A numeric value specifying the minimum x-axis value for the plot. Default is 400.}
 
-\item{xmax}{Numeric value specifying the maximum x-axis value.}
+\item{xmax}{A numeric value specifying the maximum x-axis value for the plot. Default is 4000.}
 
-\item{alpha}{A numeric value specifying the transparency level for the plot.}
+\item{alpha}{A numeric value specifying the transparency level of the plotted points or lines. Default is 0.8.}
 }
 \value{
-An interactive `plotly` plot of the spectra data.
+A `plotly` object representing the interactive spectral plot.
 }
 \description{
-Create an interactive plot of spectral data using `plotly`. The user can specify the type of spectra (absorbance or transmittance), the wavenumber column, and the minimum and maximum x-axis values.
+This function generates an interactive Plotly plot for spectral data, allowing for the selection of plot type (absorbance or transmittance), x-axis direction, and plot geometry (points or lines).
 }

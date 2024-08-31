@@ -2,20 +2,20 @@
 % Please edit documentation in R/spec_diff.R
 \name{spec_diff}
 \alias{spec_diff}
-\title{Title: Spectral Derivative}
+\title{Apply Differentiation to Spectral Data}
 \usage{
 spec_diff(.data, wn_col = "Wn", degree = 1)
 }
 \arguments{
-\item{.data}{A tibble or data.frame containing the spectral data.}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{wn_col}{Character string representing the column name for the Wn data.}
+\item{wn_col}{A character string specifying the column name for the wavelength data. Default is `"Wn"`.}
 
-\item{degree}{Numeric value for the derivative degree, default is 1.}
+\item{degree}{A numeric value specifying the degree of differentiation. If `degree` is 0, the original data is returned without any changes.}
 }
 \value{
-A tibble or data.frame with columns for each derivative of the input data and the Wn column.
+A `tibble` with the differentiated spectral data, containing the wavelength column and the differentiated numeric columns. If `degree` is 0, the original data is returned.
 }
 \description{
-The `spec_diff` function calculates the derivative of a spectral data set. The default derivative degree is 1, but this can be changed to any positive integer. The resulting data set will contain columns for each derivative and the Wn column.
+This function applies numerical differentiation to spectral data, allowing for the calculation of the first or higher-order differences.
 }

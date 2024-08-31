@@ -1,14 +1,22 @@
-#' Remove baseline drift from a spectral data set
+#' Apply Rolling Ball Baseline Correction to Spectral Data
 #'
-#' @param .data A data frame with columns Wn and one or more spectral data
-#' @param Wn_min Minimum Wn value to consider
-#' @param Wn_max Maximum Wn value to consider
-#' @param wm Window size for moving average calculation
-#' @param ws Window size for baseline determination
-#' @param is_abs A logical indicating if the input data is in absorbance units
-#' @return A data frame with Wn and the corrected spectral data
-#' @export
-
+#' This function applies a rolling ball baseline correction to spectral data within a specified wavelength range.
+#' It allows for correction of either absorbance or transmittance data.
+#'
+#' @param .data A `data.frame` or `tibble` containing spectral data.
+#' @param wn_col A character string specifying the column name for the wavelength data. Default is `"Wn"`.
+#' @param Wn_min A numeric value specifying the minimum wavelength to consider for the baseline correction.
+#' @param Wn_max A numeric value specifying the maximum wavelength to consider for the baseline correction.
+#' @param wm A numeric value for the window size of the rolling ball algorithm.
+#' @param ws A numeric value for the smoothing factor of the rolling ball algorithm.
+#' @param is_abs A logical value indicating whether the data is already in absorbance. If `TRUE`, absorbance is used directly; if `FALSE`, the data is converted to absorbance before applying the baseline correction.
+#'
+#' @return A `tibble` with the baseline-corrected spectral data, containing the wavelength column and the corrected numeric columns.
+#'
+#' @importFrom dplyr select mutate where
+#' @importFrom baseline baseline
+#' @importFrom purrr pluck
+#' @importFrom tibble as_tibble
 spec_blc_rollingBall <- function(.data,
                                  wn_col = "Wn",
                                  Wn_min,

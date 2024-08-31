@@ -2,21 +2,18 @@
 % Please edit documentation in R/spec_trans2abs.R
 \name{spec_trans2abs}
 \alias{spec_trans2abs}
-\title{Convert Transmittance Spectra to Absorbance Spectra}
+\title{Convert Spectral Data from Transmittance to Absorbance}
 \usage{
 spec_trans2abs(.data, wn_col = "Wn")
 }
 \arguments{
-\item{.data}{A data frame with the spectra data. The first column should be the wavenumber column.}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{wn_col}{A string specifying the name of the wavenumber column. Default is "Wn".}
+\item{wn_col}{A character string specifying the column name for the wavelength data. Default is `"Wn"`.}
 }
 \value{
-A data frame with the same wavenumber column and absorbance values in
-  place of the transmittance values. Infinite values are filtered out.
+A `tibble` with the converted absorbance data, containing the wavelength column and the absorbance numeric columns.
 }
 \description{
-Given a data frame with transmittance spectra, this function converts it to
-absorbance spectra using the formula: \code{Absorbance = 2 - log10(Transmittance)}.
-The result is a new data frame with the same wavenumber column and absorbance values.
+This function converts transmittance data to absorbance using the formula `A = 2 - log10(T)`, where `T` is the transmittance. It also filters out any infinite values resulting from the transformation, while preserving the wavelength column.
 }

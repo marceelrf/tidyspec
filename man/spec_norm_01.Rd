@@ -2,18 +2,18 @@
 % Please edit documentation in R/spec_norm_01.R
 \name{spec_norm_01}
 \alias{spec_norm_01}
-\title{Normalize Spectra Data to [0,1] Range}
+\title{Normalize Spectral Data to the [0, 1] Range}
 \usage{
 spec_norm_01(.data, wn_col = "Wn")
 }
 \arguments{
-\item{.data}{data.frame, the input data set}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{wn_col}{character, the name of the column representing the Wavenumber, default is "Wn"}
+\item{wn_col}{A character string specifying the column name for the wavelength data. Default is `"Wn"`.}
 }
 \value{
-a data.frame with normalized values of the predictors in [0,1] range, Wn column is preserved.
+A `tibble` with the normalized spectral data, containing the wavelength column and the normalized numeric columns.
 }
 \description{
-Normalize Spectra Data to [0,1] Range
+This function normalizes the numeric spectral data in each column to the [0, 1] range, preserving the wavelength column.
 }

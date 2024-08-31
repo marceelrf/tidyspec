@@ -1,19 +1,15 @@
-#' Convert Transmittance Spectra to Absorbance Spectra
+#' Convert Spectral Data from Transmittance to Absorbance
 #'
-#' Given a data frame with transmittance spectra, this function converts it to
-#' absorbance spectra using the formula: \code{Absorbance = 2 - log10(Transmittance)}.
-#' The result is a new data frame with the same wavenumber column and absorbance values.
+#' This function converts transmittance data to absorbance using the formula `A = 2 - log10(T)`, where `T` is the transmittance. It also filters out any infinite values resulting from the transformation, while preserving the wavelength column.
 #'
-#' @param .data A data frame with the spectra data. The first column should be the wavenumber column.
-#' @param wn_col A string specifying the name of the wavenumber column. Default is "Wn".
+#' @param .data A `data.frame` or `tibble` containing spectral data.
+#' @param wn_col A character string specifying the column name for the wavelength data. Default is `"Wn"`.
 #'
-#' @return A data frame with the same wavenumber column and absorbance values in
-#'   place of the transmittance values. Infinite values are filtered out.
+#' @return A `tibble` with the converted absorbance data, containing the wavelength column and the absorbance numeric columns.
 #'
-#' @importFrom recipes recipe step_mutate_at prep bake
-#' @importFrom rlang as.formula
-#' @importFrom dplyr select filter_all all_vars
-#' @export
+#' @importFrom dplyr select where filter_all all_vars
+#' @importFrom recipes recipe step_mutate_at prep bake all_numeric_predictors
+#' @importFrom stats as.formula
 
 spec_trans2abs <- function(.data, wn_col = "Wn") {
 

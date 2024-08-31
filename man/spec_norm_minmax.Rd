@@ -2,22 +2,22 @@
 % Please edit documentation in R/spec_norm_minmax.R
 \name{spec_norm_minmax}
 \alias{spec_norm_minmax}
-\title{Normalize Data using Min-Max Scaler}
+\title{Normalize Spectral Data to a Specified Range}
 \usage{
 spec_norm_minmax(.data, wn_col = "Wn", min = 0, max = 1)
 }
 \arguments{
-\item{.data}{data.frame. The input data.}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{wn_col}{character. The column representing the dependent variable (Wavenumber). Default is "Wn".}
+\item{wn_col}{A character string specifying the column name for the wavelength data. Default is `"Wn"`.}
 
-\item{min}{numeric. The minimum value to be used in scaling. Default is 0.}
+\item{min}{A numeric value specifying the minimum value of the desired range. Default is 0.}
 
-\item{max}{numeric. The maximum value to be used in scaling. Default is 1.}
+\item{max}{A numeric value specifying the maximum value of the desired range. Default is 1.}
 }
 \value{
-A data.frame with only the dependent variable column and the normalized predictors.
+A `tibble` with the normalized spectral data, containing the wavelength column and the normalized numeric columns.
 }
 \description{
-Normalize the numeric predictors using Min-Max Scaler, with custom values of minimum and maximum scaling.
+This function normalizes the numeric spectral data in each column to a specified range [min, max], preserving the wavelength column.
 }

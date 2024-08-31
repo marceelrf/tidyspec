@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_smartplot.R
 \name{spec_smartplot}
 \alias{spec_smartplot}
-\title{Plot Spectral Data}
+\title{Create a Custom Plot for Spectral Data}
 \usage{
 spec_smartplot(
   .data,
@@ -16,25 +16,25 @@ spec_smartplot(
 )
 }
 \arguments{
-\item{.data}{data.frame to plot}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{wn_col}{character string, the column name of the wavenumber}
+\item{wn_col}{A character string specifying the column name for the wavelength or wavenumber data. Default is `"Wn"`.}
 
-\item{type}{character string, plot type "absorbance" or "transmittance"}
+\item{type}{A character string specifying the type of data to plot. Choices are `"absorbance"` or `"transmittance"`.}
 
-\item{xdir}{character string, plot direction "reverse" or "standard"}
+\item{xdir}{A character string specifying the direction of the x-axis. Choices are `"reverse"` for reverse direction (typically used for wavenumber) or `"standard"` for standard direction.}
 
-\item{geom}{character string, plot style "point" or "line"}
+\item{geom}{A character string specifying the geometry of the plot. Choices are `"point"` for a scatter plot or `"line"` for a line plot.}
 
-\item{xmin}{numeric, lower bound of the x-axis}
+\item{xmin}{A numeric value specifying the minimum x-axis value for the plot. Default is 400.}
 
-\item{xmax}{numeric, upper bound of the x-axis}
+\item{xmax}{A numeric value specifying the maximum x-axis value for the plot. Default is 4000.}
 
-\item{alpha}{numeric, plot transparency between 0 and 1}
+\item{alpha}{A numeric value specifying the transparency level of the plotted points or lines. Default is 0.8.}
 }
 \value{
-A ggplot object with the specified parameters
+A `ggplot` object representing the customized spectral plot.
 }
 \description{
-Plot spectral data with the given parameters using ggplot2. The spectral data is plotted as either absorbance or transmittance, using either a line or a point plot, with a selectable color map, and can be reversed on the x-axis.
+This function generates a customizable plot for spectral data, allowing for the selection of plot type (absorbance or transmittance), x-axis direction, and plot geometry (points or lines).
 }

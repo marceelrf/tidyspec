@@ -1,14 +1,15 @@
-#' Convert Absorbance Spectra to Transmittance Spectra
+#' Convert Absorbance Data to Transmittance
 #'
-#' Converts a spectra in absorbance to transmittance by applying the formula: T = 10^(2-A).
+#' This function converts absorbance data to transmittance using the formula \eqn{T = 10^{(2 - A)}}, where \eqn{A} is the absorbance and \eqn{T} is the transmittance.
 #'
-#' @param .data A data.frame or tibble containing the absorbance spectra.
-#' @param wn_col The name of the column in the data containing the wavenumber. Default is "Wn".
-#' @return A tibble containing the wavenumber and corresponding transmittance spectra.
-#' @import recipes
-#' @import rlang
-#' @import dplyr
-#' @export
+#' @param .data A `data.frame` or `tibble` containing spectral data in absorbance.
+#' @param wn_col A character string specifying the column name for the wavelength data. Default is `"Wn"`.
+#'
+#' @return A `tibble` with the converted transmittance data, containing the wavelength column and the numeric transmittance columns. Any rows with infinite values are removed.
+#'
+#' @importFrom dplyr select where filter_all all_vars
+#' @importFrom recipes recipe step_mutate_at prep bake all_predictors
+#' @importFrom stats as.formula
 
 spec_abs2trans <- function(.data, wn_col = "Wn") {
 

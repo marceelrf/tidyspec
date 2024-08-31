@@ -1,21 +1,22 @@
-#' Plot Spectral Data
+#' Create an Interactive Plot for Spectral Data using Plotly
 #'
-#' Create an interactive plot of spectral data using `plotly`. The user can specify the type of spectra (absorbance or transmittance), the wavenumber column, and the minimum and maximum x-axis values.
+#' This function generates an interactive Plotly plot for spectral data, allowing for the selection of plot type (absorbance or transmittance), x-axis direction, and plot geometry (points or lines).
 #'
-#' @param .data A data frame containing the spectra data.
-#' @param wn_col A character string specifying the name of the wavenumber column in the data.
-#' @param type A character string specifying the type of spectra ("absorbance" or "transmittance").
-#' @param xdir A character string specifying the direction of the x-axis ("reverse" or "standard").
-#' @param geom A character string specifying the type of plot geometry to use ("point" or "line").
-#' @param xmin Numeric value specifying the minimum x-axis value.
-#' @param xmax Numeric value specifying the maximum x-axis value.
-#' @param alpha A numeric value specifying the transparency level for the plot.
-#' @return An interactive `plotly` plot of the spectra data.
-#' @import plotly
-#' @import dplyr
-#' @import ggplot2
-#' @import glue
-#' @export
+#' @param .data A `data.frame` or `tibble` containing spectral data.
+#' @param wn_col A character string specifying the column name for the wavelength or wavenumber data. Default is `"Wn"`.
+#' @param type A character string specifying the type of data to plot. Choices are `"absorbance"` or `"transmittance"`.
+#' @param xdir A character string specifying the direction of the x-axis. Choices are `"reverse"` for reverse direction (typically used for wavenumber) or `"standard"` for standard direction.
+#' @param geom A character string specifying the geometry of the plot. Choices are `"point"` for a scatter plot or `"line"` for a line plot.
+#' @param xmin A numeric value specifying the minimum x-axis value for the plot. Default is 400.
+#' @param xmax A numeric value specifying the maximum x-axis value for the plot. Default is 4000.
+#' @param alpha A numeric value specifying the transparency level of the plotted points or lines. Default is 0.8.
+#'
+#' @return A `plotly` object representing the interactive spectral plot.
+#'
+#' @importFrom plotly plot_ly layout
+#' @importFrom dplyr all_of filter
+#' @importFrom tidyr pivot_longer
+#' @importFrom glue glue
 
 spec_smartplotly <- function(.data,
                              wn_col = "Wn",

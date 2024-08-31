@@ -1,16 +1,18 @@
-#' Perform a Smoothed Average on the Spectra Data
+#' Apply Smoothing to Spectral Data Using a Moving Average
 #'
-#' This function calculates a smoothed average of the spectral data using a specified window size and polynomial degree. The smoothed average is useful for reducing noise in the spectra.
+#' This function applies a moving average smoothing to numeric spectral data using a specified window size and polynomial degree, while preserving the wavelength column.
 #'
-#' @param .data A data frame containing the spectra data.
-#' @param wn_col A character string representing the column name of the wavenumber.
-#' @param window An integer value specifying the window size to be used in the smoothed average calculation.
-#' @param degree An integer value specifying the polynomial degree to be used in the smoothed average calculation.
-#' @return A data frame containing the wavenumber column and the smoothed average values of the spectra data.
-#' @import recipes
-#' @import dplyr
-#' @import timetk
-#' @export
+#' @param .data A `data.frame` or `tibble` containing spectral data.
+#' @param wn_col A character string specifying the column name for the wavelength data. Default is `"Wn"`.
+#' @param window A numeric value specifying the window size for the moving average smoothing. Default is 15.
+#' @param degree A numeric value specifying the degree of the polynomial for smoothing. Default is 2.
+#'
+#' @return A `tibble` with the smoothed spectral data, containing the wavelength column and the smoothed numeric columns.
+#'
+#' @importFrom dplyr select where
+#' @importFrom recipes recipe prep bake all_numeric_predictors
+#' @importFrom stats as.formula
+#' @importFrom timetk step_smooth
 spec_smooth_avg <- function(.data, wn_col = "Wn", window = 15, degree = 2) {
 
 

@@ -1,16 +1,15 @@
-#' Normalize Spectra Data to [0,1] Range
+#' Normalize Spectral Data to the [0, 1] Range
 #'
-#' @param .data data.frame, the input data set
-#' @param wn_col character, the name of the column representing the Wavenumber, default is "Wn"
+#' This function normalizes the numeric spectral data in each column to the [0, 1] range, preserving the wavelength column.
 #'
-#' @return a data.frame with normalized values of the predictors in [0,1] range, Wn column is preserved.
+#' @param .data A `data.frame` or `tibble` containing spectral data.
+#' @param wn_col A character string specifying the column name for the wavelength data. Default is `"Wn"`.
 #'
-#' @import dplyr
-#' @import recipes
-#' @import rlang
+#' @return A `tibble` with the normalized spectral data, containing the wavelength column and the normalized numeric columns.
 #'
-#' @export
-#'
+#' @importFrom dplyr select where
+#' @importFrom recipes recipe step_range prep bake all_numeric_predictors
+#' @importFrom stats as.formula
 
 spec_norm_01 <- function(.data, wn_col = "Wn") {
 

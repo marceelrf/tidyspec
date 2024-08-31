@@ -2,18 +2,18 @@
 % Please edit documentation in R/spec_norm_var.R
 \name{spec_norm_var}
 \alias{spec_norm_var}
-\title{Normalize the Spectra Data by Feature Scaling}
+\title{Standardize Spectral Data to Unit Variance}
 \usage{
 spec_norm_var(.data, wn_col = "Wn")
 }
 \arguments{
-\item{.data}{A data.frame that contains the Spectra Data.}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{wn_col}{The name of the column that contains the wavenumber of the spectra data.}
+\item{wn_col}{A character string specifying the column name for the wavelength data. Default is `"Wn"`.}
 }
 \value{
-A normalized Spectra Data.
+A `tibble` with the standardized spectral data, containing the wavelength column and the standardized numeric columns.
 }
 \description{
-Normalize the Spectra Data by Feature Scaling so that all the predictors have mean = 0 and variance = 1.
+This function standardizes the numeric spectral data in each column to have a mean of 0 and a standard deviation of 1 (unit variance), while preserving the wavelength column.
 }

@@ -1,40 +1,19 @@
-#' Smooth Spectra Using the S-Golay Filter
+#' Apply Savitzky-Golay Smoothing to Spectral Data
 #'
-#' This function smooths spectra using the Savitzky-Golay (S-Golay) filter.
-#' It applies local polynomial regression to the data, fitting a polynomial over
-#' a sliding window of `window` points to smooth the spectra.
+#' This function applies Savitzky-Golay smoothing to numeric spectral data using a specified window size, polynomial order, and differentiation degree, while preserving the wavelength column.
 #'
-#' @param .data A data frame with spectra data, where the first column is
-#'   the wavenumber (Wn) column.
-#' @param wn_col The name of the wavenumber column in the data frame.
-#'   Default is "Wn".
-#' @param window The size of the sliding window for the S-Golay filter.
-#'   The size of the window must be an odd number.
-#'   Default is 15.
-#' @param forder The order of the polynomial to fit in the S-Golay filter.
-#'   The order must be smaller than the window size.
-#'   Default is 4.
-#' @param degree The degree of the polynomial to fit in the S-Golay filter.
-#'   The degree must be less than or equal to the forder.
-#'   Default is 0.
-#' @return A data frame with the smoothed spectra, where the first column is
-#'   the wavenumber column and the rest of the columns are the smoothed
-#'   spectra values.
+#' @param .data A `data.frame` or `tibble` containing spectral data.
+#' @param wn_col A character string specifying the column name for the wavelength data. Default is `"Wn"`.
+#' @param window A numeric value specifying the window size for the Savitzky-Golay smoothing. Default is 15.
+#' @param forder A numeric value specifying the polynomial order for smoothing. Default is 4.
+#' @param degree A numeric value specifying the degree of differentiation. Default is 0 (no differentiation).
+#'
+#' @return A `tibble` with the smoothed spectral data, containing the wavelength column and the smoothed numeric columns.
+#'
+#' @importFrom dplyr select where
+#' @importFrom recipes recipe step_mutate_at prep bake all_numeric_predictors
+#' @importFrom stats as.formula
 #' @importFrom signal sgolayfilt
-#' @importFrom recipes recipe step_mutate_at prep bake
-#' @importFrom rlang as.formula
-#' @importFrom dplyr select
-#' @export
-#' @examples
-#' # Load example spectra data
-#' data(spectra_data)
-#'
-#' # Smooth spectra using the S-Golay filter
-#' smooth_spectra <- spec_smooth_sga(spectra_data)
-#'
-#' # Plot the smoothed spectra
-#' plot(smooth_spectra)
-#'
 
 spec_smooth_sga <- function(.data, wn_col = "Wn", window = 15, forder = 4, degree = 0) {
 

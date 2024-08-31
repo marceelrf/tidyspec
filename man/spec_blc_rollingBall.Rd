@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_blc_rollingBall.R
 \name{spec_blc_rollingBall}
 \alias{spec_blc_rollingBall}
-\title{Remove baseline drift from a spectral data set}
+\title{Apply Rolling Ball Baseline Correction to Spectral Data}
 \usage{
 spec_blc_rollingBall(
   .data,
@@ -15,21 +15,24 @@ spec_blc_rollingBall(
 )
 }
 \arguments{
-\item{.data}{A data frame with columns Wn and one or more spectral data}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{Wn_min}{Minimum Wn value to consider}
+\item{wn_col}{A character string specifying the column name for the wavelength data. Default is `"Wn"`.}
 
-\item{Wn_max}{Maximum Wn value to consider}
+\item{Wn_min}{A numeric value specifying the minimum wavelength to consider for the baseline correction.}
 
-\item{wm}{Window size for moving average calculation}
+\item{Wn_max}{A numeric value specifying the maximum wavelength to consider for the baseline correction.}
 
-\item{ws}{Window size for baseline determination}
+\item{wm}{A numeric value for the window size of the rolling ball algorithm.}
 
-\item{is_abs}{A logical indicating if the input data is in absorbance units}
+\item{ws}{A numeric value for the smoothing factor of the rolling ball algorithm.}
+
+\item{is_abs}{A logical value indicating whether the data is already in absorbance. If `TRUE`, absorbance is used directly; if `FALSE`, the data is converted to absorbance before applying the baseline correction.}
 }
 \value{
-A data frame with Wn and the corrected spectral data
+A `tibble` with the baseline-corrected spectral data, containing the wavelength column and the corrected numeric columns.
 }
 \description{
-Remove baseline drift from a spectral data set
+This function applies a rolling ball baseline correction to spectral data within a specified wavelength range.
+It allows for correction of either absorbance or transmittance data.
 }

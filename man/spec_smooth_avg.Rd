@@ -2,22 +2,22 @@
 % Please edit documentation in R/spec_smooth_avg.R
 \name{spec_smooth_avg}
 \alias{spec_smooth_avg}
-\title{Perform a Smoothed Average on the Spectra Data}
+\title{Apply Smoothing to Spectral Data Using a Moving Average}
 \usage{
 spec_smooth_avg(.data, wn_col = "Wn", window = 15, degree = 2)
 }
 \arguments{
-\item{.data}{A data frame containing the spectra data.}
+\item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
-\item{wn_col}{A character string representing the column name of the wavenumber.}
+\item{wn_col}{A character string specifying the column name for the wavelength data. Default is `"Wn"`.}
 
-\item{window}{An integer value specifying the window size to be used in the smoothed average calculation.}
+\item{window}{A numeric value specifying the window size for the moving average smoothing. Default is 15.}
 
-\item{degree}{An integer value specifying the polynomial degree to be used in the smoothed average calculation.}
+\item{degree}{A numeric value specifying the degree of the polynomial for smoothing. Default is 2.}
 }
 \value{
-A data frame containing the wavenumber column and the smoothed average values of the spectra data.
+A `tibble` with the smoothed spectral data, containing the wavelength column and the smoothed numeric columns.
 }
 \description{
-This function calculates a smoothed average of the spectral data using a specified window size and polynomial degree. The smoothed average is useful for reducing noise in the spectra.
+This function applies a moving average smoothing to numeric spectral data using a specified window size and polynomial degree, while preserving the wavelength column.
 }

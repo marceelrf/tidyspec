@@ -12,7 +12,23 @@ LazyData: true
 URL: https://github.com/marceelrf/tidyspec
 BugReports: https://github.com/marceelrf/tidyspec/issues
 RoxygenNote: 7.2.3
+Imports:
+    baseline,
+    dplyr,
+    ggplot2,
+    glue,
+    plotly,
+    purrr,
+    RcppFaddeeva,
+    recipes,
+    remotes,
+    signal,
+    tibble,
+    tidyr,
+    timetk
 Suggests: 
     knitr,
     rmarkdown
+Remotes:
+  marceelrf/RcppFaddeeva
 VignetteBuilder: knitr
