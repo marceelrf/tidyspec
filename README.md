@@ -28,19 +28,27 @@ are 6 families of functions in `tidyspec`, all starting with `spec_`:
 - **Transformation**: Convert data from absorbance to transmittance
   (`spec_abs2trans`) & from transmittance to absorbance
   (`spec_trans2abs`).  
+
 - **Normalize**: Normalize the data to range 0-1 (`spec_norm_01`),
   normalize between a custom range (`spec_norm_minmax`), or normalize to
   have a standard deviation of one (`spec_norm_var`).  
+
 - **Baseline correction**: Correct the baseline using the the *rolling
   ball* algorithm (`spec_blc_rollingBall`). The function `spec_bl`
   return the baseline vectors (`spec_bl_rollingBall`).
+
 - **Smooth correction**: Smooth the data using the average window
   (`spec_smooth_avg`) or using the Savitzky-Golay algorithm
   (`spec_smooth_sga`).  
+
 - **Derivative**: Create differential data from the spectra
   (`spec_diff`).  
+
 - **Preview**: Preview your data while applying changes statically
   (`spec_smartplot`) or interactively (`spec_smartplotly`).
+
+- **Import/Export**: This family functions will be created in the next
+  moment.
 
 ## Example
 

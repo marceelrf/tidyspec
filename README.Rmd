@@ -40,6 +40,7 @@ The `tidyspec` package was design to enable the data analysis of spectroscopy da
 - **Derivative**: Create differential data from the spectra (`spec_diff`).  
 - **Preview**: Preview your data while applying changes statically (`spec_smartplot`) or interactively (`spec_smartplotly`).
 
+- **Import/Export**: This family functions will be created in the next moment.
 
 ## Example
 
