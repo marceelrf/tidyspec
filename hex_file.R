@@ -41,13 +41,13 @@ sticker(p, package="tidyspec",
 (
   p <- tibble(x=original_vector,
               b1 = Voigt(x = x,x0 = 1200,sigma = 100,gamma = 2.5) +
-                .2*Voigt(x = x,x0 = 1800,sigma = 50,gamma = 50),
+                .3*Voigt(x = x,x0 = 1800,sigma = 50,gamma = 50),
               b2 = 1.15*Voigt(x = x,x0 = 1205,sigma = 100,gamma = 2.5) +
-                .15*Voigt(x = x,x0 = 1805,sigma = 50,gamma = 50),
+                .25*Voigt(x = x,x0 = 1805,sigma = 50,gamma = 50),
               b3 = 1.3*Voigt(x = x,x0 = 1210,sigma = 100,gamma = 2.5) +
-                .125*Voigt(x = x,x0 = 1810,sigma = 50,gamma = 50),
+                .225*Voigt(x = x,x0 = 1810,sigma = 50,gamma = 50),
               b4 = 1.4*Voigt(x = x,x0 = 1215,sigma = 100,gamma = 1.5) +
-                .115*Voigt(x = x,x0 = 1815,sigma = 50,gamma = 50),
+                .215*Voigt(x = x,x0 = 1815,sigma = 50,gamma = 50),
               b5 = 1.7*Voigt(x = x,x0 = 1230,sigma = 110,gamma = .5) +
                 .105*Voigt(x = x,x0 = 1830,sigma = 50,gamma = 50)
   ) %>%

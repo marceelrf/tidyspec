@@ -35,3 +35,7 @@ A `tibble` with the corrected spectral data, containing the wavelength column an
 \description{
 This function applies a rolling ball baseline correction to spectral data within a specified wavelength range.
 }
+\references{
+Baseline estimation performed using the `baseline` package for R.
+More information can be found at: \url{https://CRAN.R-project.org/package=baseline}
+}

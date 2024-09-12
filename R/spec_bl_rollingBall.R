@@ -16,6 +16,11 @@
 #' @importFrom baseline baseline
 #' @importFrom purrr pluck
 #' @importFrom tibble as_tibble
+#'
+#' @references
+#' Baseline estimation performed using the `baseline` package for R.
+#' More information can be found at: \url{https://CRAN.R-project.org/package=baseline}
+#'
 spec_bl_rollingBall <- function(.data,
                                 wn_col = "Wn",
                                 Wn_min,
