@@ -9,10 +9,12 @@
 #'
 #' @return A `tibble` with the smoothed spectral data, containing the wavelength column and the smoothed numeric columns.
 #'
-#' @importFrom dplyr select where
+#' @importFrom dplyr select where %>%
 #' @importFrom recipes recipe prep bake all_numeric_predictors
 #' @importFrom stats as.formula
 #' @importFrom timetk step_smooth
+#'
+#' @export
 spec_smooth_avg <- function(.data, wn_col = "Wn", window = 15, degree = 2) {
 
 

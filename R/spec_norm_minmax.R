@@ -9,10 +9,11 @@
 #'
 #' @return A `tibble` with the normalized spectral data, containing the wavelength column and the normalized numeric columns.
 #'
-#' @importFrom dplyr select where
+#' @importFrom dplyr select where %>%
 #' @importFrom recipes recipe step_range prep bake all_numeric_predictors
 #' @importFrom stats as.formula
-
+#'
+#' @export
 spec_norm_minmax <- function(.data, wn_col = "Wn", min = 0, max = 1) {
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))

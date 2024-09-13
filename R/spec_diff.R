@@ -8,10 +8,13 @@
 #'
 #' @return A `tibble` with the differentiated spectral data, containing the wavelength column and the differentiated numeric columns. If `degree` is 0, the original data is returned.
 #'
-#' @importFrom dplyr select where starts_with
+#' @importFrom dplyr select where starts_with %>%
 #' @importFrom recipes recipe prep bake all_numeric_predictors
 #' @importFrom timetk step_diff
 #' @importFrom stats as.formula
+#' @importFrom rlang :=
+#'
+#' @export
 spec_diff <- function(.data, wn_col = "Wn", degree = 1) {
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))

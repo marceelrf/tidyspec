@@ -7,10 +7,11 @@
 #'
 #' @return A `tibble` with the standardized spectral data, containing the wavelength column and the standardized numeric columns.
 #'
-#' @importFrom dplyr select where
+#' @importFrom dplyr select where %>%
 #' @importFrom recipes recipe step_scale prep bake all_numeric_predictors
 #' @importFrom stats as.formula
-
+#'
+#' @export
 
 spec_norm_var <- function(.data, wn_col = "Wn") {
 

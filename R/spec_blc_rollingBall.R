@@ -13,15 +13,17 @@
 #'
 #' @return A `tibble` with the baseline-corrected spectral data, containing the wavelength column and the corrected numeric columns.
 #'
-#' @importFrom dplyr select mutate where
+#' @importFrom dplyr select mutate where %>%
 #' @importFrom baseline baseline
 #' @importFrom purrr pluck
 #' @importFrom tibble as_tibble
+#' @importFrom rlang :=
 #'
 #' @references
 #' Baseline estimation performed using the `baseline` package for R.
 #' More information can be found at: \url{https://CRAN.R-project.org/package=baseline}
 #'
+#' @export
 spec_blc_rollingBall <- function(.data,
                                  wn_col = "Wn",
                                  Wn_min,

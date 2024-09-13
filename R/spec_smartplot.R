@@ -14,8 +14,10 @@
 #' @return A `ggplot` object representing the customized spectral plot.
 #'
 #' @importFrom ggplot2 ggplot aes scale_x_continuous scale_color_viridis_d xlab ylab theme element_text element_rect element_line element_blank geom_line geom_point scale_x_reverse
-#' @importFrom dplyr all_of filter
+#' @importFrom dplyr all_of filter %>%
 #' @importFrom tidyr pivot_longer
+#'
+#' @export
 
 spec_smartplot <- function(.data,
                            wn_col = "Wn",

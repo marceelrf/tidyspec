@@ -15,10 +15,11 @@
 #'
 #' @return A tibble with the estimated baseline of the spectral data, including the wavenumber column.
 #'
-#' @importFrom dplyr select mutate where
+#' @importFrom dplyr select mutate where %>%
 #' @importFrom baseline baseline
 #' @importFrom purrr pluck
 #' @importFrom tibble as_tibble
+#' @importFrom rlang :=
 #'
 #' @references
 #' Baseline estimation performed using the `baseline` package for R.

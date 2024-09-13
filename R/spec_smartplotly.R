@@ -14,9 +14,11 @@
 #' @return A `plotly` object representing the interactive spectral plot.
 #'
 #' @importFrom plotly plot_ly layout
-#' @importFrom dplyr all_of filter
+#' @importFrom dplyr all_of filter %>%
 #' @importFrom tidyr pivot_longer
 #' @importFrom glue glue
+#'
+#' @export
 
 spec_smartplotly <- function(.data,
                              wn_col = "Wn",

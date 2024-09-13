@@ -7,9 +7,11 @@
 #'
 #' @return A `tibble` with the converted absorbance data, containing the wavelength column and the absorbance numeric columns.
 #'
-#' @importFrom dplyr select where filter_all all_vars
+#' @importFrom dplyr select where filter_all all_vars %>%
 #' @importFrom recipes recipe step_mutate_at prep bake all_numeric_predictors
 #' @importFrom stats as.formula
+#'
+#' @export
 
 spec_trans2abs <- function(.data, wn_col = "Wn") {
 

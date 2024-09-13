@@ -7,10 +7,10 @@
 #'
 #' @return A `tibble` with the converted transmittance data, containing the wavelength column and the numeric transmittance columns. Any rows with infinite values are removed.
 #'
-#' @importFrom dplyr select where filter_all all_vars
+#' @importFrom dplyr select where filter_all all_vars %>%
 #' @importFrom recipes recipe step_mutate_at prep bake all_predictors
 #' @importFrom stats as.formula
-
+#' @export
 spec_abs2trans <- function(.data, wn_col = "Wn") {
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))

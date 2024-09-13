@@ -22,6 +22,7 @@ Imports:
     RcppFaddeeva,
     recipes,
     remotes,
+    rlang,
     signal,
     tibble,
     tidyr,
