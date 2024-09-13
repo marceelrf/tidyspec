@@ -7,8 +7,8 @@
 #' @param wn_col A character string specifying the column name that contains the wavelength or wavenumber values. Default is `"Wn"`.
 #' @param Wn_min Numeric value indicating the minimum wavenumber to filter the data.
 #' @param Wn_max Numeric value indicating the maximum wavenumber to filter the data.
-#' @param lambda1 A numeric value for the smoothing parameter lambda1 in the IRLS method.
-#' @param lambda2 A numeric value for the smoothing parameter lambda2 in the IRLS method.
+#' @param lambda1 A numeric value for the 2nd derivative constraint for primary smoothing in the IRLS method.
+#' @param lambda2 A numeric value for the 2nd derivative constraint for secondary smoothing in the IRLS method.
 #' @param maxit An integer specifying the maximum number of iterations for the IRLS method. Default is 200.
 #' @param wi A numeric value representing the initial weight for the IRLS algorithm. Default is 0.05.
 #' @param is_abs A logical value indicating whether the input data is in absorbance (`TRUE`) or transmittance (`FALSE`). Default is `TRUE`.

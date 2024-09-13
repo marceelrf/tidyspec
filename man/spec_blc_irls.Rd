@@ -25,9 +25,9 @@ spec_blc_irls(
 
 \item{Wn_max}{Numeric value indicating the maximum wavenumber to filter the data.}
 
-\item{lambda1}{A numeric value for the smoothing parameter lambda1 in the IRLS method.}
+\item{lambda1}{A numeric value for the 2nd derivative constraint for primary smoothing in the IRLS method.}
 
-\item{lambda2}{A numeric value for the smoothing parameter lambda2 in the IRLS method.}
+\item{lambda2}{A numeric value for the 2nd derivative constraint for secondary smoothing in the IRLS method.}
 
 \item{maxit}{An integer specifying the maximum number of iterations for the IRLS method. Default is 200.}
 
