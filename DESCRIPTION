@@ -2,7 +2,8 @@ Package: tidyspec
 Type: Package
 Title: Tidyspec: Spectroscopy Analysis Using The Tidy Data Philosophy
 Version: 0.0.2
-Author: Marcel Ferreira
+Authors@R: person("Marcel", "Ferreira", , "marcel.ferreira@unesp.br", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-3445-0945"))
 Maintainer: Marcel Ferreira <marcel.ferreira@unesp.br>
 Description: The tidyspec package enables the analysis of spectroscopy data, 
     including IR, Raman, and NMR, using the tidy data framework from the 

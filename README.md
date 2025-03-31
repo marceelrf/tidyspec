@@ -51,6 +51,9 @@ are 6 families of functions in `tidyspec`, all starting with `spec_`:
 - **Import/Export**: This family functions will be created in the next
   moment.
 
+The function `set_spec_wn` simplifies the use of functions by globally
+defining the column that contains the wave numbers.
+
 ## Example
 
 This is a basic example which shows you how to solve a common problem:

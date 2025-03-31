@@ -11,7 +11,7 @@
 #'   \item{CoHA100}{Numeric. Absorbance values for CoHA at 10 mM Cobalt concentration.}
 #' }
 #'
-#' @source de Almeida GS, Ferreira MR, da Costa Fernandes CJ, et al. Development of cobalt (Co)-doped monetites for bone regeneration. J Biomed Mater Res. 2024; 112(1):e35319. doi:10.1002/jbm.b.35319
+#' @source de Almeida GS, Ferreira MR, da Costa Fernandes CJ, et al. Development of cobalt (Co)-doped monetites for bone regeneration. J Biomed Mater Res. 2024; 112(1):e35319. <doi:10.1002/jbm.b.35319>
 #'
 #' @examples
 #' data(CoHAspec)
