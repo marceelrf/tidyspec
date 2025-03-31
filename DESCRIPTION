@@ -4,14 +4,18 @@ Title: Tidyspec: Spectroscopy Analysis Using The Tidy Data Philosophy
 Version: 0.0.1
 Author: Marcel Ferreira
 Maintainer: Marcel Ferreira <marcel.ferreira@unesp.br>
-Description: More about what it does (maybe more than one line)
-    Tidyspec was designed to provide a friendly pipeline for spectroscopy analysis using the tidy data philosophy.
-License: What license is it under?
+Description: The tidyspec package enables the analysis of spectroscopy data, 
+    including IR, Raman, and NMR, using the tidy data framework from the 
+    tidyverse. It provides functions for transformation, normalization, 
+    baseline correction, smoothing, derivatives, and visualization, making 
+    spectral analysis more structured and reproducible.
+License: MIT
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/marceelrf/tidyspec
 BugReports: https://github.com/marceelrf/tidyspec/issues
 RoxygenNote: 7.2.3
+Depends: R (>= 4.0.0)
 Imports:
     baseline,
     dplyr,
