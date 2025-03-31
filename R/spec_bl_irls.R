@@ -30,14 +30,23 @@
 #' @export
 
 spec_bl_irls <- function(.data,
-                                wn_col = "Wn",
-                                Wn_min,
-                                Wn_max,
+                         wn_col = NULL,
+                         Wn_min,
+                         Wn_max,
                          lambda1,
                          lambda2,
                          maxit = 200,
                          wi = 0.05,
                                 is_abs = TRUE) {
+
+  if (is.null(wn_col)) {
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
+    if (is.null(wn_col)) {
+      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    }
+  }
+
   mat <- .data[.data[[wn_col]] >= Wn_min & .data[[wn_col]] <= Wn_max, ]
 
   if (is_abs) {

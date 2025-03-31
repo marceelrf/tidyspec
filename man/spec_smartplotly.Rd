@@ -6,7 +6,7 @@
 \usage{
 spec_smartplotly(
   .data,
-  wn_col = "Wn",
+  wn_col = NULL,
   type = c("absorbance", "transmittance"),
   xdir = c("reverse", "standard"),
   geom = c("point", "line"),

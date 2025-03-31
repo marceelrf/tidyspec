@@ -6,7 +6,7 @@
 \usage{
 spec_bl_irls(
   .data,
-  wn_col = "Wn",
+  wn_col = NULL,
   Wn_min,
   Wn_max,
   lambda1,

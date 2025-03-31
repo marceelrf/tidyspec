@@ -25,12 +25,20 @@
 #'
 #' @export
 spec_blc_rollingBall <- function(.data,
-                                 wn_col = "Wn",
+                                 wn_col = NULL,
                                  Wn_min,
                                  Wn_max,
                                  wm,
                                  ws,
                                  is_abs = TRUE) {
+
+  if (is.null(wn_col)) {
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
+    if (is.null(wn_col)) {
+      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    }
+  }
 
   mat <- .data[.data[[wn_col]] >= Wn_min & .data[[wn_col]] <= Wn_max, ]
 

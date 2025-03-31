@@ -4,7 +4,7 @@
 \alias{spec_abs2trans}
 \title{Convert Absorbance Data to Transmittance}
 \usage{
-spec_abs2trans(.data, wn_col = "Wn")
+spec_abs2trans(.data, wn_col = NULL)
 }
 \arguments{
 \item{.data}{A `data.frame` or `tibble` containing spectral data in absorbance.}

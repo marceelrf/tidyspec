@@ -6,7 +6,7 @@
 \usage{
 spec_blc_rollingBall(
   .data,
-  wn_col = "Wn",
+  wn_col = NULL,
   Wn_min,
   Wn_max,
   wm,

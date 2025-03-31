@@ -4,7 +4,7 @@
 \alias{spec_smooth_sga}
 \title{Apply Savitzky-Golay Smoothing to Spectral Data}
 \usage{
-spec_smooth_sga(.data, wn_col = "Wn", window = 15, forder = 4, degree = 0)
+spec_smooth_sga(.data, wn_col = NULL, window = 15, forder = 4, degree = 0)
 }
 \arguments{
 \item{.data}{A `data.frame` or `tibble` containing spectral data.}

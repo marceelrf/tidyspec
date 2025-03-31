@@ -4,7 +4,7 @@
 \alias{spec_diff}
 \title{Apply Differentiation to Spectral Data}
 \usage{
-spec_diff(.data, wn_col = "Wn", degree = 1)
+spec_diff(.data, wn_col = NULL, degree = 1)
 }
 \arguments{
 \item{.data}{A `data.frame` or `tibble` containing spectral data.}

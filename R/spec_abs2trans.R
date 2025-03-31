@@ -11,7 +11,15 @@
 #' @importFrom recipes recipe step_mutate_at prep bake all_predictors
 #' @importFrom stats as.formula
 #' @export
-spec_abs2trans <- function(.data, wn_col = "Wn") {
+spec_abs2trans <- function(.data, wn_col = NULL) {
+
+  if (is.null(wn_col)) {
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
+    if (is.null(wn_col)) {
+      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    }
+  }
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 

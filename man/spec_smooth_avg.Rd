@@ -4,7 +4,7 @@
 \alias{spec_smooth_avg}
 \title{Apply Smoothing to Spectral Data Using a Moving Average}
 \usage{
-spec_smooth_avg(.data, wn_col = "Wn", window = 15, degree = 2)
+spec_smooth_avg(.data, wn_col = NULL, window = 15, degree = 2)
 }
 \arguments{
 \item{.data}{A `data.frame` or `tibble` containing spectral data.}

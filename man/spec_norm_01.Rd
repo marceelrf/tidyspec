@@ -4,7 +4,7 @@
 \alias{spec_norm_01}
 \title{Normalize Spectral Data to the [0, 1] Range}
 \usage{
-spec_norm_01(.data, wn_col = "Wn")
+spec_norm_01(.data, wn_col = NULL)
 }
 \arguments{
 \item{.data}{A `data.frame` or `tibble` containing spectral data.}

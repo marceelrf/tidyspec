@@ -4,7 +4,7 @@
 \alias{spec_norm_minmax}
 \title{Normalize Spectral Data to a Specified Range}
 \usage{
-spec_norm_minmax(.data, wn_col = "Wn", min = 0, max = 1)
+spec_norm_minmax(.data, wn_col = NULL, min = 0, max = 1)
 }
 \arguments{
 \item{.data}{A `data.frame` or `tibble` containing spectral data.}

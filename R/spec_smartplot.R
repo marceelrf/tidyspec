@@ -20,13 +20,20 @@
 #' @export
 
 spec_smartplot <- function(.data,
-                           wn_col = "Wn",
+                           wn_col = NULL,
                            type = c("absorbance", "transmittance"),
                            xdir = c("reverse", "standard"),
                            geom = c("point", "line"),
                            xmin = 400,
                            xmax = 4000,
                            alpha = 0.8) {
+  if (is.null(wn_col)) {
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
+    if (is.null(wn_col)) {
+      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    }
+  }
 
   type <- match.arg(type)
   xdir <- match.arg(xdir)
@@ -39,7 +46,6 @@ spec_smartplot <- function(.data,
     dplyr::filter(.data[[wn_col]] <= xmax, .data[[wn_col]] >= xmin)
 
   p <- ggplot2::ggplot(plot_data, ggplot2::aes(x = .data[[wn_col]], y = vals, col = spectra)) +
-    ggplot2::scale_x_continuous(limits = c(xmin, xmax)) +
     ggplot2::scale_color_viridis_d() +
     ggplot2::xlab(expression(Wavenumber~(cm^-1))) +
     ggplot2::ylab(type) +
@@ -50,7 +56,9 @@ spec_smartplot <- function(.data,
                    panel.border = ggplot2::element_rect(linetype = "solid", fill = NA, size = 1))
 
   if (xdir == "reverse") {
-    p <- p + ggplot2::scale_x_reverse()
+    p <- p + ggplot2::scale_x_reverse(limits = c(xmax, xmin))
+  } else {
+    p <- p + ggplot2::scale_x_continuous(limits = c(xmin, xmax))
   }
 
   if (geom == "line") {

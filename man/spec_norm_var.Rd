@@ -4,7 +4,7 @@
 \alias{spec_norm_var}
 \title{Standardize Spectral Data to Unit Variance}
 \usage{
-spec_norm_var(.data, wn_col = "Wn")
+spec_norm_var(.data, wn_col = NULL)
 }
 \arguments{
 \item{.data}{A `data.frame` or `tibble` containing spectral data.}

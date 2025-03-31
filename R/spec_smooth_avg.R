@@ -15,7 +15,15 @@
 #' @importFrom timetk step_smooth
 #'
 #' @export
-spec_smooth_avg <- function(.data, wn_col = "Wn", window = 15, degree = 2) {
+spec_smooth_avg <- function(.data, wn_col = NULL, window = 15, degree = 2) {
+
+  if (is.null(wn_col)) {
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
+    if (is.null(wn_col)) {
+      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    }
+  }
 
 
   fmla <- stats::as.formula(paste(wn_col," ~ .", sep = ""))

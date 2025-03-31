@@ -15,7 +15,15 @@
 #' @importFrom rlang :=
 #'
 #' @export
-spec_diff <- function(.data, wn_col = "Wn", degree = 1) {
+spec_diff <- function(.data, wn_col = NULL, degree = 1) {
+
+  if (is.null(wn_col)) {
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
+    if (is.null(wn_col)) {
+      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    }
+  }
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 

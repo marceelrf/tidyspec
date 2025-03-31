@@ -14,7 +14,15 @@
 #' @importFrom stats as.formula
 #'
 #' @export
-spec_norm_minmax <- function(.data, wn_col = "Wn", min = 0, max = 1) {
+spec_norm_minmax <- function(.data, wn_col = NULL, min = 0, max = 1) {
+
+  if (is.null(wn_col)) {
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
+    if (is.null(wn_col)) {
+      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    }
+  }
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 

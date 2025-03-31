@@ -21,13 +21,21 @@
 #' @export
 
 spec_smartplotly <- function(.data,
-                             wn_col = "Wn",
+                             wn_col = NULL,
                              type = c("absorbance", "transmittance"),
                              xdir = c("reverse", "standard"),
                              geom = c("point", "line"),
                              xmin = 400,
                              xmax = 4000,
                              alpha = 0.8) {
+
+  if (is.null(wn_col)) {
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
+    if (is.null(wn_col)) {
+      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    }
+  }
 
   type <- match.arg(type)
   xdir <- match.arg(xdir)
