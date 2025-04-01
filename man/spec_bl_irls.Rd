@@ -7,8 +7,8 @@
 spec_bl_irls(
   .data,
   wn_col = NULL,
-  Wn_min,
-  Wn_max,
+  Wn_min = NULL,
+  Wn_max = NULL,
   lambda1,
   lambda2,
   maxit = 200,

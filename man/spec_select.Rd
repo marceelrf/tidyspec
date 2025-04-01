@@ -4,12 +4,10 @@
 \alias{spec_select}
 \title{Select Specific Columns in a Spectral Data Frame}
 \usage{
-spec_select(.data, wn_col = NULL, ...)
+spec_select(.data, ...)
 }
 \arguments{
 \item{.data}{A data frame containing spectral data.}
-
-\item{wn_col}{A string specifying the column name that represents the wavenumber values. If NULL, the function will attempt to retrieve a default value set with `set_spec_wn()`.}
 
 \item{...}{Additional column names to be selected, provided as unquoted variable names.}
 }

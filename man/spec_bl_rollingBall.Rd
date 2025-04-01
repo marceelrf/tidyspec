@@ -7,8 +7,8 @@
 spec_bl_rollingBall(
   .data,
   wn_col = NULL,
-  Wn_min,
-  Wn_max,
+  Wn_min = NULL,
+  Wn_max = NULL,
   wm,
   ws,
   is_abs = TRUE

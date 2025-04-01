@@ -7,8 +7,8 @@
 #' @param type A character string specifying the type of data to plot. Choices are `"absorbance"` or `"transmittance"`.
 #' @param xdir A character string specifying the direction of the x-axis. Choices are `"reverse"` for reverse direction (typically used for wavenumber) or `"standard"` for standard direction.
 #' @param geom A character string specifying the geometry of the plot. Choices are `"point"` for a scatter plot or `"line"` for a line plot.
-#' @param xmin A numeric value specifying the minimum x-axis value for the plot. Default is 400.
-#' @param xmax A numeric value specifying the maximum x-axis value for the plot. Default is 4000.
+#' @param xmin A numeric value specifying the minimum x-axis value for the plot. If not provided, the minimum value from the `wn_col` data will be used.
+#' @param xmax A numeric value specifying the maximum x-axis value for the plot. If not provided, the maximum value from the `wn_col` data will be used.
 #' @param alpha A numeric value specifying the transparency level of the plotted points or lines. Default is 0.8.
 #'
 #' @return A `plotly` object representing the interactive spectral plot.
@@ -25,8 +25,8 @@ spec_smartplotly <- function(.data,
                              type = c("absorbance", "transmittance"),
                              xdir = c("reverse", "standard"),
                              geom = c("point", "line"),
-                             xmin = 400,
-                             xmax = 4000,
+                             xmin = NULL,
+                             xmax = NULL,
                              alpha = 0.8) {
 
   if (is.null(wn_col)) {
@@ -35,6 +35,15 @@ spec_smartplotly <- function(.data,
     if (is.null(wn_col)) {
       stop("wn_col not specified and no pattern defined with set_spec_wn()")
     }
+  }
+
+  wn_values <- .data[[wn_col]]
+
+  if (is.null(xmin)) {
+    xmin <- min(wn_values)
+  }
+  if (is.null(xmax)) {
+    xmax <- max(wn_values)
   }
 
   type <- match.arg(type)

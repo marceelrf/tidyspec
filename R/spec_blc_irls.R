@@ -39,6 +39,9 @@ spec_blc_irls <- function(.data,
                           maxit = 200,
                           wi = 0.05,
                           is_abs = TRUE) {
+  if (missing(lambda1) || missing(lambda2)) {
+    stop("ws and wm are mandatory arguments.")
+  }
 
   if (is.null(wn_col)) {
     wn_col <- get0(".wn_col_default", envir = tidyspec_env,
@@ -46,6 +49,15 @@ spec_blc_irls <- function(.data,
     if (is.null(wn_col)) {
       stop("wn_col not specified and no pattern defined with set_spec_wn()")
     }
+  }
+
+  wn_values <- .data[[wn_col]]
+
+  if (is.null(Wn_min)) {
+    Wn_min <- min(wn_values)
+  }
+  if (is.null(Wn_max)) {
+    Wn_max <- max(wn_values)
   }
 
   mat <- .data[.data[[wn_col]] >= Wn_min & .data[[wn_col]] <= Wn_max, ]
