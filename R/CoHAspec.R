@@ -4,7 +4,7 @@
 #'
 #' @format A data frame with 6 rows and 5 columns:
 #' \describe{
-#'   \item{Wavenumber}{Numeric. The spectral wavenumber (cm⁻¹).}
+#'   \item{Wavenumber}{Numeric. The spectral wavenumber (cm-1).}
 #'   \item{CoHA01}{Numeric. Absorbance values for CoHA at 1 mM Cobalt concentration.}
 #'   \item{CoHA025}{Numeric. Absorbance values for CoHA at 2.5 mM Cobalt concentration.}
 #'   \item{CoHA05}{Numeric. Absorbance values for CoHA at 5 mM Cobalt concentration.}
