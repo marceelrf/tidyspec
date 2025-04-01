@@ -48,11 +48,14 @@ are 6 families of functions in `tidyspec`, all starting with `spec_`:
 - **Preview**: Preview your data while applying changes statically
   (`spec_smartplot`) or interactively (`spec_smartplotly`).
 
-- **Import/Export**: This family functions will be created in the next
-  moment.
+- **Import/Export**: Import spectra data from common data formats, like
+  csv, txt, tsv, xslx and xls, with `spec_read`. Export functions will
+  be created in next moment, but user can easily use `{readr}` or
+  `{writexl}` functions.
 
 The function `set_spec_wn` simplifies the use of functions by globally
-defining the column that contains the wave numbers.
+defining the column that contains the wave numbers. User can check the
+wavenumber column with `check_wn_col`.
 
 ## Example
 
