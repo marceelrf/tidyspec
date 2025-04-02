@@ -28,9 +28,7 @@ spec_smooth_avg <- function(.data, wn_col = NULL, window = 15, degree = 2) {
 
   fmla <- stats::as.formula(paste(wn_col," ~ .", sep = ""))
 
-  .data %>%
-    recipes::recipe(formula = fmla,
-           data = .) %>%
+  recipes::recipe(formula = fmla, data = .data) %>%
     timetk::step_smooth(recipes::all_numeric_predictors(),
                 period = window,
                 degree = degree) %>%

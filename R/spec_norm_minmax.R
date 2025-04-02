@@ -26,8 +26,7 @@ spec_norm_minmax <- function(.data, wn_col = NULL, min = 0, max = 1) {
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
-  .data %>%
-    recipes::recipe(formula = fmla, data = .) %>%
+  recipes::recipe(formula = fmla, data = .data) %>%
     recipes::step_range(recipes::all_numeric_predictors(), min = min, max = max) %>%
     recipes::prep() %>%
     recipes::bake(NULL) %>%

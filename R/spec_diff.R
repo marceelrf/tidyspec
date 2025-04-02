@@ -30,8 +30,8 @@ spec_diff <- function(.data, wn_col = NULL, degree = 1) {
   if (degree == 0) {
     return(.data)
   } else {
-    .data %>%
-      recipes::recipe(formula = fmla, data = .) %>%
+
+    recipes::recipe(formula = fmla, data =  .data) %>%
       timetk::step_diff(recipes::all_numeric_predictors(), difference = degree, lag = 1) %>%
       recipes::prep() %>%
       recipes::bake(NULL) %>%

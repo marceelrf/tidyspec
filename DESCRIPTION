@@ -1,7 +1,7 @@
 Package: tidyspec
 Type: Package
 Title: Tidyspec: Spectroscopy Analysis Using The Tidy Data Philosophy
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: c(
   person("Marcel", "Ferreira", , "marcel.ferreira@unesp.br",
           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3445-0945")),
@@ -39,6 +39,7 @@ Imports:
     signal,
     tibble,
     tidyr,
+    tidyselect,
     timetk
 Suggests: 
     knitr,

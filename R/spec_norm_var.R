@@ -25,8 +25,7 @@ spec_norm_var <- function(.data, wn_col = NULL) {
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
-  .data %>%
-    recipes::recipe(formula = fmla, data = .) %>%
+  recipes::recipe(formula = fmla, data = .data) %>%
     recipes::step_scale(recipes::all_numeric_predictors()) %>%
     recipes::prep() %>%
     recipes::bake(NULL) %>%

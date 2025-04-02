@@ -8,6 +8,7 @@
 #' @return A `tibble` with the converted absorbance data, containing the wavelength column and the absorbance numeric columns.
 #'
 #' @importFrom dplyr select where filter_all all_vars %>%
+#' @importFrom tidyselect everything
 #' @importFrom recipes recipe step_mutate_at prep bake all_numeric_predictors
 #' @importFrom stats as.formula
 #'
@@ -26,12 +27,11 @@ spec_trans2abs <- function(.data, wn_col = NULL) {
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
-  .data %>%
-    recipes::recipe(formula = fmla, data = .) %>%
+  recipes::recipe(formula = fmla, data = .data) %>%
     recipes::step_mutate_at(recipes::all_numeric_predictors(),
-                            fn = ~ 2 - log10(.)) %>%
+                            fn = \(x) 2 - log10(x)) %>%
     recipes::prep() %>%
     recipes::bake(NULL) %>%
     dplyr::select({{wn_col}}, dplyr::where(is.numeric)) %>%
-    dplyr::filter_all(dplyr::all_vars(!is.infinite(.)))
+    dplyr::filter(dplyr::across(tidyselect::everything(), ~ !is.infinite(.)))
 }

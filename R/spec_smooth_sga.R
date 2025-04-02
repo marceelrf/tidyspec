@@ -30,8 +30,7 @@ spec_smooth_sga <- function(.data, wn_col = NULL, window = 15, forder = 4, degre
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))
 
-  .data %>%
-    recipes::recipe(formula = fmla, data = .) %>%
+  recipes::recipe(formula = fmla, data = .data) %>%
     recipes::step_mutate_at(recipes::all_numeric_predictors(),
                    fn = function(x) signal::sgolayfilt(x = x, p = forder, n = window, m = degree)) %>%
     recipes::prep() %>%

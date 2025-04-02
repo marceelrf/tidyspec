@@ -57,10 +57,10 @@ spec_smartplotly <- function(.data,
     dplyr::filter(.data[[wn_col]] <= xmax, .data[[wn_col]] >= xmin)
 
   plotly_plot <- plot_data %>%
-    plotly::plot_ly(x = ~ .data[[wn_col]], y = ~vals,
+    plotly::plot_ly(x = ~ .data[[wn_col]], y = ~plot_data$vals,
                     type = 'scatter',
                     mode = ifelse(geom == "line", "lines", "markers"),
-                    color = ~spectra,
+                    color = ~plot_data$spectra,
                     alpha = alpha) %>%
     plotly::layout(
       title = glue::glue("Interactive plot of {type} spectra"),
