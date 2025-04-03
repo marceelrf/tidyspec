@@ -16,4 +16,34 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(tidyspec)
+library(tidyverse)
 ```
+
+```{r}
+set_spec_wn("Wavenumber")
+check_wn_col()
+```
+
+
+## PCA
+
+```{r}
+PCA <- spec_pca(CoHAspec)
+
+PCA
+```
+
+### Contribuitions per Wavenumber
+
+```{r}
+spec_pca_wn_contrib(PCA)
+```
+
+```{r}
+spec_pca_wn_contrib(PCA) %>%
+  spec_select(PC1,PC2) %>% 
+  spec_smooth_avg() %>% 
+  spec_norm_01() %>% 
+  spec_smartplot(geom = "line")
+```
+

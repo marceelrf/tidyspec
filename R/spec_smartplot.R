@@ -54,7 +54,7 @@ spec_smartplot <- function(.data,
                         values_to = "vals") %>%
     dplyr::filter(.data[[wn_col]] <= xmax, .data[[wn_col]] >= xmin)
 
-  p <- ggplot2::ggplot(plot_data, ggplot2::aes(x = .data[[wn_col]], y = plot_data$vals, col = plot_data$spectra)) +
+  p <- ggplot2::ggplot(plot_data, ggplot2::aes(x = .data[[wn_col]], y = vals, col = spectra)) +
     ggplot2::scale_color_viridis_d() +
     ggplot2::xlab(expression(Wavenumber~(cm^-1))) +
     ggplot2::ylab(type) +
@@ -62,7 +62,8 @@ spec_smartplot <- function(.data,
                    panel.background = ggplot2::element_rect(fill = "white", linetype = "solid"),
                    panel.grid.major = ggplot2::element_line(colour = "black", linewidth = 0.05),
                    panel.grid.minor = ggplot2::element_line(colour = "grey50", linewidth = 0.01),
-                   panel.border = ggplot2::element_rect(linetype = "solid", fill = NA, linewidth = 1))
+                   panel.border = ggplot2::element_rect(linetype = "solid", fill = NA, linewidth = 1)) +
+    ggplot2::labs(col = "spectra")
 
   if (xdir == "reverse") {
     p <- p + ggplot2::scale_x_reverse(limits = c(xmax, xmin))
@@ -71,9 +72,9 @@ spec_smartplot <- function(.data,
   }
 
   if (geom == "line") {
-    p <- p + ggplot2::geom_line(alpha = alpha, size = 1.25)
+    p <- p + ggplot2::geom_line(alpha = alpha, linewidth = 1.25)
   } else {
-    p <- p + ggplot2::geom_point(alpha = alpha, size = 2)
+    p <- p + ggplot2::geom_point(alpha = alpha, linewidth = 2)
   }
 
   return(p)
