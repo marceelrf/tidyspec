@@ -27,7 +27,7 @@ check_wn_col()
 
 ## PCA
 
-```{r}
+```{r,}
 PCA <- spec_pca(CoHAspec)
 
 PCA
@@ -39,7 +39,7 @@ PCA
 spec_pca_wn_contrib(PCA)
 ```
 
-```{r}
+```{r,fig.width=100%}
 spec_pca_wn_contrib(PCA) %>%
   spec_select(PC1,PC2) %>% 
   spec_smooth_avg() %>% 
