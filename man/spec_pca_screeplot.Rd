@@ -2,35 +2,40 @@
 % Please edit documentation in R/spec_pca_screeplot.R
 \name{spec_pca_screeplot}
 \alias{spec_pca_screeplot}
-\title{Create an elegant scree plot for Principal Component Analysis (PCA)}
+\title{Scree plot for PCA results}
 \usage{
-spec_pca_screeplot(.data, N = 10)
+spec_pca_screeplot(
+  pca,
+  n = 10,
+  show_labels = TRUE,
+  show_cumulative = TRUE,
+  bar_color = "steelblue",
+  line_color = "darkred",
+  show_kaiser = FALSE
+)
 }
 \arguments{
-\item{.data}{Result object from `prcomp()` function}
+\item{pca}{A PCA object returned by [prcomp()].}
 
-\item{N}{Maximum number of principal components to display (default: 10)}
+\item{n}{Number of components to display. Defaults to 10.}
+
+\item{show_labels}{Logical. Show percentage labels on bars? Default is TRUE.}
+
+\item{show_cumulative}{Logical. Show cumulative variance line? Default is TRUE.}
+
+\item{bar_color}{Fill color for bars. Default is "steelblue".}
+
+\item{line_color}{Color of the cumulative line and points. Default is "darkred".}
+
+\item{show_kaiser}{Logical. Show Kaiser criterion line? Default is FALSE.}
 }
 \value{
-A ggplot object containing the scree plot
+A ggplot2 scree plot.
 }
 \description{
-Generates a scree plot from a `prcomp` object, showing both the variance explained
-by each principal component and the cumulative variance.
-}
-\details{
-The plot includes:
-- Blue bars representing the proportion of variance explained by each component
-- Red line showing the cumulative variance
-- Green dashed line representing the Kaiser criterion (variance > 1)
-- Variance percentages above each bar
+Creates a customizable scree plot based on a `prcomp` object.
 }
 \examples{
-\dontrun{
-# Example usage:
-pca_result <- prcomp(iris[,1:4], scale. = TRUE)
-spec_pca_screeplot(pca_result)
-spec_pca_screeplot(pca_result, N = 4)  # Showing only 4 components
-}
-
+pca <- prcomp(USArrests, scale. = TRUE)
+spec_pca_screeplot(pca, n = 5)
 }

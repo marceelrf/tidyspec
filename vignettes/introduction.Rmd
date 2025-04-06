@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "100%"
 )
 ```
 
@@ -27,7 +28,7 @@ check_wn_col()
 
 ## PCA
 
-```{r,}
+```{r}
 PCA <- spec_pca(CoHAspec)
 
 PCA
@@ -39,7 +40,7 @@ PCA
 spec_pca_wn_contrib(PCA)
 ```
 
-```{r, fig.width="100%"}
+```{r}
 spec_pca_wn_contrib(PCA) %>%
   spec_select(PC1,PC2) %>% 
   spec_smooth_avg() %>% 
