@@ -1,7 +1,7 @@
 Package: tidyspec
 Type: Package
 Title: Tidyspec: Spectroscopy Analysis Using The Tidy Data Philosophy
-Version: 0.0.9
+Version: 0.1.0
 Authors@R: c(
   person("Marcel", "Ferreira", , "marcel.ferreira@unesp.br",
           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3445-0945")),
