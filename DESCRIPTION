@@ -44,7 +44,8 @@ Imports:
     tidyr,
     tidyselect,
     timetk
-Suggests: 
+Suggests:
+    gridExtra,
     knitr,
     rmarkdown,
     tidyverse

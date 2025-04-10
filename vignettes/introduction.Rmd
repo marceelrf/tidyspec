@@ -10,12 +10,11 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  out.width = "100%"
+  comment = "#>"
 )
 ```
 
-```{r,warning=FALSE}
+```{r,warning=FALSE,message=FALSE}
 library(tidyspec)
 library(tidyverse)
 ```
