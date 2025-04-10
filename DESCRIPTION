@@ -25,6 +25,7 @@ RoxygenNote: 7.2.3
 Depends: R (>= 4.0.0)
 Imports:
     baseline,
+    crayon,
     dplyr,
     ggplot2,
     ggrepel,

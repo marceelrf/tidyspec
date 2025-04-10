@@ -1,28 +1,19 @@
 #' Select Specific Columns in a Spectral Data Frame
 #'
-#' This function selects user-specified columns from a spectral dataset, always ensuring that the wavenumber column (`wn_col`) is included.
+#' This function selects user-specified columns from a spectral dataset, always ensuring that the wavenumber column (`wn_col`) is included, unless explicitly excluded.
 #'
 #' @param .data A data frame containing spectral data.
-#' @param ... Additional column names to be selected, provided as unquoted variable names.
+#' @param ... Column selection helpers (e.g., column names, -column_to_exclude).
 #'
-#' @return A data frame containing only the selected columns.
+#' @return A data frame containing the selected columns.
 #' @export
 #'
 #' @seealso [dplyr::select()], [set_spec_wn()]
-
 spec_select <- function(.data, ...) {
-  wn_col = NULL
-
+  wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
   if (is.null(wn_col)) {
-    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
-                   ifnotfound = NULL)
-    if (is.null(wn_col)) {
-      stop("wn_col not specified and no pattern defined with set_spec_wn()")
-    }
+    stop("wn_col not specified and no pattern defined with set_spec_wn()")
   }
 
-
-  selected_cols <- c(wn_col, sapply(rlang::ensyms(...), rlang::as_name))
-
-  dplyr::select(.data, all_of(selected_cols))
+  dplyr::select(.data, {{ wn_col }}, ...)
 }

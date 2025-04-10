@@ -15,9 +15,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+```{r,warning=FALSE}
 library(tidyspec)
 library(tidyverse)
+```
+
+
+## Data
+
+```{r}
+CoHAspec
 ```
 
 ```{r}
@@ -25,26 +32,164 @@ set_spec_wn("Wavenumber")
 check_wn_col()
 ```
 
-
-## PCA
+## Visualize the data
 
 ```{r}
-PCA <- spec_pca(CoHAspec)
-
-PCA
+spec_smartplot(CoHAspec)
 ```
 
-### Contribuitions per Wavenumber
+
+## Convert to transmittance (and back to absorbance)
 
 ```{r}
-spec_pca_wn_contrib(PCA)
+CoHAspec %>% 
+    spec_abs2trans() %>%
+    spec_smartplot()
+```
+
+## Select spectra
+
+```{r}
+CoHAspec %>% 
+    dplyr::select(Wavenumber,CoHA100) %>%
+    tidyspec::spec_smartplot()
 ```
 
 ```{r}
-spec_pca_wn_contrib(PCA) %>%
-  spec_select(PC1,PC2) %>% 
-  spec_smooth_avg() %>% 
-  spec_norm_01() %>% 
+CoHAspec %>% 
+    tidyspec::spec_select(CoHA100) %>%
+    tidyspec::spec_smartplot()
+```
+
+## Filter spectra
+
+```{r}
+CoHAspec_filt <- 
+    CoHAspec %>% 
+    tidyspec::spec_select(CoHA100) %>%
+    dplyr::filter(Wavenumber > 1000,
+                Wavenumber < 1950)
+```
+
+```{r}
+CoHAspec_filt <- 
+    CoHAspec %>% 
+    spec_select(CoHA100) %>%
+    spec_filter(wn_min = 1000,
+                wn_max = 1950)
+
+spec_smartplot(CoHAspec_filt)
+```
+
+## Smoothing the data
+
+### Moving averages method
+
+```{r}
+CoHAspec_filt %>% 
+  spec_smooth_avg() %>%
   spec_smartplot(geom = "line")
+```
+
+### Savitz-Golay method
+
+```{r}
+CoHAspec_filt %>% 
+  spec_smooth_sga() %>%
+  spec_smartplot(geom = "line")
+```
+
+## Derivatives
+
+```{r}
+CoHAspec_filt %>% 
+    tidyspec::spec_smooth_sga() %>%
+    spec_diff(degree = 2) %>%
+    tidyspec::spec_smartplot(geom = "line")
+```
+
+## Baseline correction
+
+```{r}
+CoHAspec_filt %>% 
+    spec_smooth_sga() %>%
+    spec_blc_rollingBall(wn_col = "Wavenumber",
+                         Wn_min = 1030,
+                         Wn_max = 1285,
+                         ws = 10, wm = 50) %>%
+    tidyspec::spec_smartplot(geom = "line")
+```
+
+## Scaling the spectra
+
+```{r}
+CoHAspec_region <- CoHAspec  %>%
+    dplyr::filter(Wavenumber > 1300,
+                Wavenumber < 1950) 
+
+CoHAspec_region %>% 
+    spec_smartplot(geom = "line")
+```
+
+### Normalize between 0 and 1
+
+```{r}
+CoHAspec_region %>%
+    spec_norm_01() %>% 
+    spec_smartplot(geom = "line")
+```
+
+### Normalize setting the min and max values
+
+```{r}
+CoHAspec_region %>%
+    spec_norm_minmax(min = 1, max = 2) %>% 
+    spec_smartplot(geom = "line")
+```
+
+### Normalize to mean = 0 and variance = 1
+
+```{r}
+CoHAspec_region %>%
+    spec_norm_var() %>% 
+    spec_smartplot(geom = "line")
+```
+
+## Integration with tidyverse
+
+### Case 1: Choosing the best baseline parameters
+
+```{r}
+dados_1030_1285 <- CoHAspec_filt %>% 
+    tidyspec::spec_smooth_sga() %>%
+    dplyr::filter(Wavenumber <= 1285, Wavenumber >= 1030)
+
+params <- tidyr::crossing(ws_val = c(2,4,6,8,10,12),
+                          wm_val = c(10, 25, 40, 50))
+params 
+```
+
+```{r}
+df <- params %>%
+    dplyr::mutate(spectra = list(dados_1030_1285)) %>%
+    dplyr::mutate(spectra_blc = purrr::pmap(list(spectra, ws_val, wm_val),
+                             \(x, y, z ) spec_blc_rollingBall(.data = x, ws = y, wm = z))) %>%
+    dplyr::mutate(title = paste0("ws = ", ws_val," , wm = ", wm_val )) %>%
+    dplyr::mutate(plot = purrr::map2(spectra_blc, title, ~ spec_smartplot(
+            .data = .x,
+            wn_col = "Wavenumber",
+            geom = "line") + labs(title = .y)
+            ))
+```
+
+```{r}
+library(gridExtra)
+
+grid.arrange(grobs = df$plot[1:4], nrow = 2, ncol = 2)
+grid.arrange(grobs = df$plot[5:8], nrow = 2, ncol = 2)
+grid.arrange(grobs = df$plot[9:12], nrow = 2, ncol = 2)
+grid.arrange(grobs = df$plot[13:16], nrow = 2, ncol = 2)
+grid.arrange(grobs = df$plot[17:20], nrow = 2, ncol = 2)
+grid.arrange(grobs = df$plot[21:24], nrow = 2, ncol = 2)
 ```
 

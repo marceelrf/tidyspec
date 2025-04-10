@@ -4,13 +4,12 @@
 #'
 #' @param .data A `data.frame` or `tibble` containing spectral data.
 #' @param wn_col A character string specifying the column name for the wavelength or wavenumber data. This parameter is required.
-#' @param type A character string specifying the type of data to plot. Choices are `"absorbance"` or `"transmittance"`.
 #' @param xdir A character string specifying the direction of the x-axis. Choices are `"reverse"` for reverse direction (typically used for wavenumber) or `"standard"` for standard direction.
 #' @param geom A character string specifying the geometry of the plot. Choices are `"point"` for a scatter plot or `"line"` for a line plot.
 #' @param xmin A numeric value specifying the minimum x-axis value for the plot. If not provided, the minimum value from the `wn_col` data will be used.
 #' @param xmax A numeric value specifying the maximum x-axis value for the plot. If not provided, the maximum value from the `wn_col` data will be used.
 #' @param alpha A numeric value specifying the transparency level of the plotted points or lines. Default is 0.8.
-#'
+#' @param type A character string specifying the y-labes as transmittance or absorbance. Default is absorbance.
 #' @return A `ggplot` object representing the customized spectral plot (absorbance or transmittance as a function of wavelength/wavenumber).
 #'
 #' @importFrom ggplot2 ggplot aes scale_x_continuous scale_color_viridis_d xlab ylab theme element_text element_rect element_line element_blank geom_line geom_point scale_x_reverse
@@ -21,12 +20,12 @@
 
 spec_smartplot <- function(.data,
                            wn_col = NULL,
-                           type = c("absorbance", "transmittance"),
                            xdir = c("reverse", "standard"),
                            geom = c("point", "line"),
                            xmin = NULL,
                            xmax = NULL,
-                           alpha = 0.8) {
+                           alpha = 0.8,
+                           type = c("absorbance", "transmittance")) {
   if (is.null(wn_col)) {
     wn_col <- get0(".wn_col_default", envir = tidyspec_env,
                    ifnotfound = NULL)
@@ -44,9 +43,9 @@ spec_smartplot <- function(.data,
     xmax <- max(wn_values)
   }
 
-  type <- match.arg(type)
   xdir <- match.arg(xdir)
   geom <- match.arg(geom)
+  type <- match.arg(type)
 
   plot_data <- .data %>%
     tidyr::pivot_longer(cols = -dplyr::all_of(wn_col),
@@ -74,7 +73,7 @@ spec_smartplot <- function(.data,
   if (geom == "line") {
     p <- p + ggplot2::geom_line(alpha = alpha, linewidth = 1.25)
   } else {
-    p <- p + ggplot2::geom_point(alpha = alpha, linewidth = 2)
+    p <- p + ggplot2::geom_point(alpha = alpha)
   }
 
   return(p)

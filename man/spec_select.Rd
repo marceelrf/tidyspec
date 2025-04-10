@@ -9,13 +9,13 @@ spec_select(.data, ...)
 \arguments{
 \item{.data}{A data frame containing spectral data.}
 
-\item{...}{Additional column names to be selected, provided as unquoted variable names.}
+\item{...}{Column selection helpers (e.g., column names, -column_to_exclude).}
 }
 \value{
-A data frame containing only the selected columns.
+A data frame containing the selected columns.
 }
 \description{
-This function selects user-specified columns from a spectral dataset, always ensuring that the wavenumber column (`wn_col`) is included.
+This function selects user-specified columns from a spectral dataset, always ensuring that the wavenumber column (`wn_col`) is included, unless explicitly excluded.
 }
 \seealso{
 [dplyr::select()], [set_spec_wn()]

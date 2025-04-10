@@ -7,20 +7,18 @@
 spec_smartplot(
   .data,
   wn_col = NULL,
-  type = c("absorbance", "transmittance"),
   xdir = c("reverse", "standard"),
   geom = c("point", "line"),
   xmin = NULL,
   xmax = NULL,
-  alpha = 0.8
+  alpha = 0.8,
+  type = c("absorbance", "transmittance")
 )
 }
 \arguments{
 \item{.data}{A `data.frame` or `tibble` containing spectral data.}
 
 \item{wn_col}{A character string specifying the column name for the wavelength or wavenumber data. This parameter is required.}
-
-\item{type}{A character string specifying the type of data to plot. Choices are `"absorbance"` or `"transmittance"`.}
 
 \item{xdir}{A character string specifying the direction of the x-axis. Choices are `"reverse"` for reverse direction (typically used for wavenumber) or `"standard"` for standard direction.}
 
@@ -31,6 +29,8 @@ spec_smartplot(
 \item{xmax}{A numeric value specifying the maximum x-axis value for the plot. If not provided, the maximum value from the `wn_col` data will be used.}
 
 \item{alpha}{A numeric value specifying the transparency level of the plotted points or lines. Default is 0.8.}
+
+\item{type}{A character string specifying the y-labes as transmittance or absorbance. Default is absorbance.}
 }
 \value{
 A `ggplot` object representing the customized spectral plot (absorbance or transmittance as a function of wavelength/wavenumber).
