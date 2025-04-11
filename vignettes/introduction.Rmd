@@ -1,5 +1,5 @@
 ---
-title: "introduction"
+title: "Introduction"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{introduction}
@@ -46,6 +46,13 @@ CoHAspec %>%
     spec_smartplot()
 ```
 
+```{r}
+CoHAspec %>% 
+    spec_abs2trans() %>%
+    spec_trans2abs() %>%
+    spec_smartplot()
+```
+
 ## Select spectra
 
 ```{r}
@@ -70,7 +77,7 @@ CoHAspec_filt <-
                 Wavenumber < 1950)
 ```
 
-```{r}
+```{r, out.width = "50%",fig.alt="With `spec_select`"}
 CoHAspec_filt <- 
     CoHAspec %>% 
     spec_select(CoHA100) %>%
@@ -103,7 +110,7 @@ CoHAspec_filt %>%
 ```{r}
 CoHAspec_filt %>% 
     tidyspec::spec_smooth_sga() %>%
-    spec_diff(degree = 2) %>%
+    spec_diff(degree = 1) %>%
     tidyspec::spec_smartplot(geom = "line")
 ```
 
