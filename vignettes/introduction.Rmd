@@ -14,6 +14,48 @@ knitr::opts_chunk$set(
 )
 ```
 
+Spectroscopy datasets often consist of high-dimensional measurements across different wavelengths or wavenumbers, structured in wide-format tables where each column represents a sample and each row corresponds to a spectral position. The `{tidyspec}` package provides a tidyverse-friendly toolkit designed to streamline the processing, visualization, and analysis of such spectral data in R.
+
+By building on top of the `{dplyr}`, `{ggplot2}`, and `{tidyr}` ecosystems, `{tidyspec}` simplifies common workflows such as baseline correction, unit conversion, normalization, filtering, and principal component analysis (PCA). It enforces consistent treatment of spectral dimensions using a customizable reference column (typically wavenumber or wavelength), which can be easily set using `set_spec_wn()`.
+
+This vignette demonstrates a typical usage of the package, from importing and visualizing spectral data to performing PCA and interpreting results. The functions included are designed to make spectral analysis in R more transparent, reproducible, and user-friendly for both beginners and advanced users.
+
+## Instalation
+
+```{r, eval=FALSE}
+remotes::install_github("marceelrf/tidyspec")
+```
+
+## Package overview
+
+The package organizes utilities into 6 families, all prefixed with `spec_`:
+
+**1. Transformation**  
+  `spec_abs2trans()`: Convert absorbance to transmittance.
+  `spec_trans2abs()`: Convert transmittance to absorbance.
+
+**2. Normalization**  
+  `spec_norm_01()`: Normalize spectra to range [0, 1].
+  `spec_norm_minmax()`: Normalize to a custom range.
+  `spec_norm_var()`: Scale to standard deviation = 1.
+
+**3. Baseline Correction**  
+  `spec_blc_rollingBall()`: Correct baseline using rolling ball algorithm.
+  `spec_blc_irls()`: Correct using Iterative Restricted Least Squares.
+  `spec_bl_*()`: Return baseline vectors (e.g., `spec_bl_rollingBall`).
+
+**4. Smoothing**  
+  `spec_smooth_avg()`: Smooth with moving average.
+  `spec_smooth_sga()`: Smooth using Savitzky-Golay.
+
+**5. Derivative**  
+  `spec_diff()`: Compute spectral derivatives.
+
+**6. Preview & I/O**  
+  `spec_smartplot()`: Static preview of spectra.
+  `spec_smartplotly()`: Interactive preview (`{Plotly}`).
+  `spec_read()`: Import from .csv, .txt, .xlsx, etc.
+
 ```{r,warning=FALSE,message=FALSE}
 library(tidyspec)
 library(tidyverse)
@@ -22,9 +64,22 @@ library(tidyverse)
 
 ## Data
 
+The `CoHAspec` dataset is a spectral table in wide format, where:
+
+Rows: Wavenumbers (in cm⁻¹)
+Columns: Samples (CoHA01, CoHA025, CoHA05, CoHA100)
+
+Values: Absorbance/intensity measurements
+
+Here’s a preview of the data:
+
 ```{r}
 CoHAspec
 ```
+
+### Wavenumber Handling
+
+The function `set_spec_wn` simplifies the use of functions by globally defining the column that contains the wave numbers. User can check the wavenumber column with `check_wn_col`.
 
 ```{r}
 set_spec_wn("Wavenumber")
@@ -77,14 +132,14 @@ CoHAspec_filt <-
                 Wavenumber < 1950)
 ```
 
-```{r, out.width = "50%",fig.alt="With `spec_select`"}
+```{r, out.width = "100%",fig.alt="With `spec_select`", fig.dpi=600}
 CoHAspec_filt <- 
     CoHAspec %>% 
     spec_select(CoHA100) %>%
     spec_filter(wn_min = 1000,
                 wn_max = 1950)
 
-spec_smartplot(CoHAspec_filt)
+spec_smartplot(CoHAspec_filt,geom = "line")
 ```
 
 ## Smoothing the data
@@ -110,13 +165,15 @@ CoHAspec_filt %>%
 ```{r}
 CoHAspec_filt %>% 
     tidyspec::spec_smooth_sga() %>%
-    spec_diff(degree = 1) %>%
+    spec_diff(degree = 2) %>%
     tidyspec::spec_smartplot(geom = "line")
 ```
 
 ## Baseline correction
 
-```{r}
+### Rolling ball method
+
+```{r, out.width="100%", fig.dpi=600}
 CoHAspec_filt %>% 
     spec_smooth_sga() %>%
     spec_blc_rollingBall(wn_col = "Wavenumber",
@@ -124,6 +181,34 @@ CoHAspec_filt %>%
                          Wn_max = 1285,
                          ws = 10, wm = 50) %>%
     tidyspec::spec_smartplot(geom = "line")
+```
+
+### Looking to the baseline
+
+```{r, out.width="100%", fig.dpi=600}
+CoHAspec_filt %>% 
+    spec_smooth_sga() %>%
+    spec_bl_rollingBall(wn_col = "Wavenumber",
+                         Wn_min = 1030,
+                         Wn_max = 1285,
+                         ws = 10, wm = 50) %>% 
+  spec_smartplot()
+```
+
+
+```{r, out.width="100%", fig.dpi=600}
+bl <- CoHAspec_filt %>% 
+    spec_smooth_sga() %>%
+    spec_bl_rollingBall(wn_col = "Wavenumber",
+                         Wn_min = 1030,
+                         Wn_max = 1285,
+                         ws = 10, wm = 50)
+
+CoHAspec_filt %>%
+  spec_smooth_sga() %>%
+  spec_filter(wn_min = 1030, wn_max = 1285) %>% 
+  left_join(bl) %>% 
+  spec_smartplot(geom = "line")
 ```
 
 ## Scaling the spectra
