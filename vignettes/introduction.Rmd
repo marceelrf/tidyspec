@@ -2,10 +2,17 @@
 title: "Introduction"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{introduction}
+  %\VignetteIndexEntry{Introduction}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+<style type="text/css">
+.main-container {
+  max-width: 100% !important;
+  margin: auto;
+}
+</style>
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -66,10 +73,11 @@ library(tidyverse)
 
 The `CoHAspec` dataset is a spectral table in wide format, where:
 
-Rows: Wavenumbers (in cm⁻¹)
-Columns: Samples (CoHA01, CoHA025, CoHA05, CoHA100)
+Rows: Wavenumbers (in cm⁻¹).
 
-Values: Absorbance/intensity measurements
+Columns: Samples (CoHA01, CoHA025, CoHA05, CoHA100).
+
+Values: Absorbance/intensity measurements.
 
 Here’s a preview of the data:
 
@@ -88,8 +96,27 @@ check_wn_col()
 
 ## Visualize the data
 
-```{r}
+Scientists who work with spectroscopy data always want to visualize it after each operation. That's why we created the `spec_smartplot` and `spec_smartplotly` functions to help users.
+
+`spec_smartplot` creates a static visualization of the spectra, while `spec_smartplotly` creates an interactive visualization, allowing the user to navigate through the values of the different data.
+
+```{r,out.width = "100%",fig.alt="Static plot", fig.dpi=300}
 spec_smartplot(CoHAspec)
+```
+
+```{r,out.width = "100%",fig.alt="Interactive plot", fig.dpi=200}
+spec_smartplotly(CoHAspec,geom = "line")
+```
+
+These functions simplify the process by automating it, but we invite users to make their own figures for presentations and publications. As part of the efforts to create a community of `tidyspec` users, we plan to create a `ggplot2` extension for high-level spectroscopy graphics. For now, you can produce `ggplot2` graphs by pivoting the data:
+
+```{r, out.width="100%", fig.align="center", fig.height=2, fig.dpi=300, fig.alt="Custom plots", fig.cap="Custom plots"}
+CoHAspec %>% 
+  tidyr::pivot_longer(cols = -Wavenumber,
+                      names_to = "spectrums",
+                      values_to = "absorbance") %>% 
+  ggplot(aes(x = Wavenumber, y = absorbance, col = spectrums)) +
+  geom_line() #<------ Customize your data from here
 ```
 
 
