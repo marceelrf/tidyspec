@@ -122,6 +122,8 @@ CoHAspec %>%
 
 ## Convert to transmittance (and back to absorbance)
 
+The functions `spec_abs2trans` and `spec_trans2abs` are designed to easily convert the spectras.
+
 ```{r}
 CoHAspec %>% 
     spec_abs2trans() %>%
@@ -137,11 +139,15 @@ CoHAspec %>%
 
 ## Select spectra
 
+`Tidyspec` is designed to be easily integrated with the entire `tidyverse` ecosystem. Then the user can easily choose which spectra to keep/discard using `dplyr::select`.
+
 ```{r}
 CoHAspec %>% 
     dplyr::select(Wavenumber,CoHA100) %>%
     tidyspec::spec_smartplot()
 ```
+
+However, since `tidyspec` needs the column containing the wave numbers and the user could end up messing up and not keeping it during operations, we decided to develop `spec_select` which simplifies the process.
 
 ```{r}
 CoHAspec %>% 
@@ -151,6 +157,8 @@ CoHAspec %>%
 
 ## Filter spectra
 
+Similarly to the spectrum selection process, filtering regions of the spectrum can be done using `dplyr::filter`.
+
 ```{r}
 CoHAspec_filt <- 
     CoHAspec %>% 
@@ -159,6 +167,8 @@ CoHAspec_filt <-
                 Wavenumber < 1950)
 ```
 
+`spec_filter` simplifies the process of filtering the desired regions.
+
 ```{r, out.width = "100%",fig.alt="With `spec_select`", fig.dpi=600}
 CoHAspec_filt <- 
     CoHAspec %>% 
@@ -166,7 +176,7 @@ CoHAspec_filt <-
     spec_filter(wn_min = 1000,
                 wn_max = 1950)
 
-spec_smartplot(CoHAspec_filt,geom = "line")
+spec_smartplot(CoHAspec_filt, geom = "line")
 ```
 
 ## Smoothing the data
