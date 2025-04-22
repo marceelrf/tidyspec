@@ -214,8 +214,8 @@ CoHAspec_filt %>%
 CoHAspec_filt %>% 
     spec_smooth_sga() %>%
     spec_blc_rollingBall(wn_col = "Wavenumber",
-                         Wn_min = 1030,
-                         Wn_max = 1285,
+                         wn_min = 1030,
+                         wn_max = 1285,
                          ws = 10, wm = 50) %>%
     tidyspec::spec_smartplot(geom = "line")
 ```
@@ -226,8 +226,8 @@ CoHAspec_filt %>%
 CoHAspec_filt %>% 
     spec_smooth_sga() %>%
     spec_bl_rollingBall(wn_col = "Wavenumber",
-                         Wn_min = 1030,
-                         Wn_max = 1285,
+                         wn_min = 1030,
+                         wn_max = 1285,
                          ws = 10, wm = 50) %>% 
   spec_smartplot()
 ```
@@ -237,8 +237,8 @@ CoHAspec_filt %>%
 bl <- CoHAspec_filt %>% 
     spec_smooth_sga() %>%
     spec_bl_rollingBall(wn_col = "Wavenumber",
-                         Wn_min = 1030,
-                         Wn_max = 1285,
+                         wn_min = 1030,
+                         wn_max = 1285,
                          ws = 10, wm = 50)
 
 CoHAspec_filt %>%

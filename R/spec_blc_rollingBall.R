@@ -5,8 +5,8 @@
 #'
 #' @param .data A `data.frame` or `tibble` containing spectral data.
 #' @param wn_col A character string specifying the column name for the wavelength data. Default is `"Wn"`.
-#' @param Wn_min A numeric value specifying the minimum wavelength to consider for the baseline correction.
-#' @param Wn_max A numeric value specifying the maximum wavelength to consider for the baseline correction.
+#' @param wn_min A numeric value specifying the minimum wavelength to consider for the baseline correction.
+#' @param wn_max A numeric value specifying the maximum wavelength to consider for the baseline correction.
 #' @param wm A numeric value for the window size of the rolling ball algorithm.
 #' @param ws A numeric value for the smoothing factor of the rolling ball algorithm.
 #' @param is_abs A logical value indicating whether the data is already in absorbance. If `TRUE`, absorbance is used directly; if `FALSE`, the data is converted to absorbance before applying the baseline correction.
@@ -26,8 +26,8 @@
 #' @export
 spec_blc_rollingBall <- function(.data,
                                  wn_col = NULL,
-                                 Wn_min = NULL,
-                                 Wn_max = NULL,
+                                 wn_min = NULL,
+                                 wn_max = NULL,
                                  wm,
                                  ws,
                                  is_abs = TRUE) {
@@ -46,15 +46,15 @@ spec_blc_rollingBall <- function(.data,
 
   wn_values <- .data[[wn_col]]
 
-  if (is.null(Wn_min)) {
-    Wn_min <- min(wn_values)
+  if (is.null(wn_min)) {
+    wn_min <- min(wn_values)
   }
-  if (is.null(Wn_max)) {
-    Wn_max <- max(wn_values)
+  if (is.null(wn_max)) {
+    wn_max <- max(wn_values)
   }
 
 
-  mat <- .data[.data[[wn_col]] >= Wn_min & .data[[wn_col]] <= Wn_max, ]
+  mat <- .data[.data[[wn_col]] >= wn_min & .data[[wn_col]] <= wn_max, ]
 
   if (is_abs) {
     mat %>%

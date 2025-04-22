@@ -5,8 +5,8 @@
 #'
 #' @param .data A data frame or tibble containing the spectral data.
 #' @param wn_col A character string specifying the column name that contains the wavelength or wavenumber values. Default is `"Wn"`.
-#' @param Wn_min Numeric value indicating the minimum wavenumber to filter the data.
-#' @param Wn_max Numeric value indicating the maximum wavenumber to filter the data.
+#' @param wn_min Numeric value indicating the minimum wavenumber to filter the data.
+#' @param wn_max Numeric value indicating the maximum wavenumber to filter the data.
 #' @param lambda1 A numeric value for the 2nd derivative constraint for primary smoothing in the IRLS method.
 #' @param lambda2 A numeric value for the 2nd derivative constraint for secondary smoothing in the IRLS method.
 #' @param maxit An integer specifying the maximum number of iterations for the IRLS method. Default is 200.
@@ -31,8 +31,8 @@
 
 spec_bl_irls <- function(.data,
                          wn_col = NULL,
-                         Wn_min = NULL,
-                         Wn_max = NULL,
+                         wn_min = NULL,
+                         wn_max = NULL,
                          lambda1,
                          lambda2,
                          maxit = 200,
@@ -52,14 +52,14 @@ spec_bl_irls <- function(.data,
 
   wn_values <- .data[[wn_col]]
 
-  if (is.null(Wn_min)) {
-    Wn_min <- min(wn_values)
+  if (is.null(wn_min)) {
+    wn_min <- min(wn_values)
   }
-  if (is.null(Wn_max)) {
-    Wn_max <- max(wn_values)
+  if (is.null(wn_max)) {
+    wn_max <- max(wn_values)
   }
 
-  mat <- .data[.data[[wn_col]] >= Wn_min & .data[[wn_col]] <= Wn_max, ]
+  mat <- .data[.data[[wn_col]] >= wn_min & .data[[wn_col]] <= wn_max, ]
 
   if (is_abs) {
     mat %>%

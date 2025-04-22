@@ -7,8 +7,8 @@
 spec_blc_rollingBall(
   .data,
   wn_col = NULL,
-  Wn_min = NULL,
-  Wn_max = NULL,
+  wn_min = NULL,
+  wn_max = NULL,
   wm,
   ws,
   is_abs = TRUE
@@ -19,9 +19,9 @@ spec_blc_rollingBall(
 
 \item{wn_col}{A character string specifying the column name for the wavelength data. Default is `"Wn"`.}
 
-\item{Wn_min}{A numeric value specifying the minimum wavelength to consider for the baseline correction.}
+\item{wn_min}{A numeric value specifying the minimum wavelength to consider for the baseline correction.}
 
-\item{Wn_max}{A numeric value specifying the maximum wavelength to consider for the baseline correction.}
+\item{wn_max}{A numeric value specifying the maximum wavelength to consider for the baseline correction.}
 
 \item{wm}{A numeric value for the window size of the rolling ball algorithm.}
 

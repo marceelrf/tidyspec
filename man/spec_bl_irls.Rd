@@ -7,8 +7,8 @@
 spec_bl_irls(
   .data,
   wn_col = NULL,
-  Wn_min = NULL,
-  Wn_max = NULL,
+  wn_min = NULL,
+  wn_max = NULL,
   lambda1,
   lambda2,
   maxit = 200,
@@ -21,9 +21,9 @@ spec_bl_irls(
 
 \item{wn_col}{A character string specifying the column name that contains the wavelength or wavenumber values. Default is `"Wn"`.}
 
-\item{Wn_min}{Numeric value indicating the minimum wavenumber to filter the data.}
+\item{wn_min}{Numeric value indicating the minimum wavenumber to filter the data.}
 
-\item{Wn_max}{Numeric value indicating the maximum wavenumber to filter the data.}
+\item{wn_max}{Numeric value indicating the maximum wavenumber to filter the data.}
 
 \item{lambda1}{A numeric value for the 2nd derivative constraint for primary smoothing in the IRLS method.}
 
