@@ -29,39 +29,76 @@ spec_smartplotly <- function(.data,
                              xmax = NULL,
                              alpha = 0.8) {
 
+  if (!inherits(.data, "data.frame")) {
+    stop("The argument .data must be a data.frame or tibble.")
+  }
+
   if (is.null(wn_col)) {
-    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
-                   ifnotfound = NULL)
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
     if (is.null(wn_col)) {
-      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+      stop("wn_col not specified and no default defined with set_spec_wn().")
+    } else {
+      warning(sprintf("wn_col not provided. Using the defined default: '%s'.", wn_col))
     }
+  }
+
+  if (!(wn_col %in% names(.data))) {
+    stop(sprintf("Column '%s' was not found in the dataset.", wn_col))
   }
 
   wn_values <- .data[[wn_col]]
 
-  if (is.null(xmin)) {
-    xmin <- min(wn_values)
+  if (!is.numeric(wn_values)) {
+    stop(sprintf("Column '%s' must be numeric for plotting.", wn_col))
   }
+
+  if (is.null(xmin)) {
+    xmin <- min(wn_values, na.rm = TRUE)
+    warning(sprintf("xmin not specified. Using minimum value from column '%s': %f", wn_col, xmin))
+  } else if (!is.numeric(xmin)) {
+    warning("xmin must be numeric. Using the minimum value from the wn_col column.")
+    xmin <- min(wn_values, na.rm = TRUE)
+  }
+
   if (is.null(xmax)) {
-    xmax <- max(wn_values)
+    xmax <- max(wn_values, na.rm = TRUE)
+    warning(sprintf("xmax not specified. Using maximum value from column '%s': %f", wn_col, xmax))
+  } else if (!is.numeric(xmax)) {
+    warning("xmax must be numeric. Using the maximum value from the wn_col column.")
+    xmax <- max(wn_values, na.rm = TRUE)
+  }
+
+  if (xmin >= xmax) {
+    stop("xmin must be less than xmax.")
   }
 
   type <- match.arg(type)
   xdir <- match.arg(xdir)
   geom <- match.arg(geom)
 
+  if (!is.numeric(alpha) || alpha < 0 || alpha > 1) {
+    warning("alpha must be numeric and between 0 and 1. Using default value 0.8.")
+    alpha <- 0.8
+  }
+
   plot_data <- .data %>%
     tidyr::pivot_longer(cols = -dplyr::all_of(wn_col),
                         names_to = "spectra",
                         values_to = "vals") %>%
-    dplyr::filter(.data[[wn_col]] <= xmax, .data[[wn_col]] >= xmin)
+    dplyr::filter(.data[[wn_col]] >= xmin, .data[[wn_col]] <= xmax)
+
+  if (nrow(plot_data) == 0) {
+    warning("No data available after applying xmin and xmax limits. Check the specified values.")
+  }
 
   plotly_plot <- plot_data %>%
-    plotly::plot_ly(x = ~ .data[[wn_col]], y = ~plot_data$vals,
-                    type = 'scatter',
-                    mode = ifelse(geom == "line", "lines", "markers"),
-                    color = ~plot_data$spectra,
-                    alpha = alpha) %>%
+    plotly::plot_ly(
+      x = ~ .data[[wn_col]], y = ~vals,
+      type = 'scatter',
+      mode = ifelse(geom == "line", "lines", "markers"),
+      color = ~spectra,
+      alpha = alpha
+    ) %>%
     plotly::layout(
       title = glue::glue("Interactive plot of {type} spectra"),
       xaxis = list(

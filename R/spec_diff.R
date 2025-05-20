@@ -17,12 +17,44 @@
 #' @export
 spec_diff <- function(.data, wn_col = NULL, degree = 1) {
 
+
+  if (!is.data.frame(.data)) {
+    stop("The argument '.data' must be a data.frame or tibble.")
+  }
+
+
+  if (!is.numeric(degree) || length(degree) != 1 || degree < 0 || degree %% 1 != 0) {
+    stop("The argument 'degree' must be a non-negative integer.")
+  }
+
+
   if (is.null(wn_col)) {
-    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
-                   ifnotfound = NULL)
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
     if (is.null(wn_col)) {
-      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+      stop("The argument 'wn_col' was not specified and no default was defined with set_spec_wn().")
     }
+  }
+
+  if (!wn_col %in% names(.data)) {
+    stop(paste0("Column '", wn_col, "' was not found in '.data'."))
+  }
+
+  if (!is.numeric(.data[[wn_col]])) {
+    stop(paste0("Column '", wn_col, "' must contain numeric values."))
+  }
+
+  num_cols <- setdiff(names(.data), wn_col)
+  if (length(num_cols) == 0) {
+    stop("No numeric column was found besides 'wn_col'.")
+  }
+
+  if (degree == 0) {
+    warning("The argument 'degree' is 0. The original data will be returned without modification.")
+    return(.data)
+  }
+
+  if (degree > 2) {
+    warning("Values of 'degree' greater than 2 may amplify noise in spectral data. Use with caution.")
   }
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))

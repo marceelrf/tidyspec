@@ -16,12 +16,37 @@
 #' @export
 spec_norm_minmax <- function(.data, wn_col = NULL, min = 0, max = 1) {
 
+  if (!is.data.frame(.data)) {
+    stop("The argument '.data' must be a data.frame or tibble.")
+  }
+
+  if (!is.numeric(min) || !is.numeric(max)) {
+    stop("Arguments 'min' and 'max' must be numeric values.")
+  }
+
+  if (min >= max) {
+    stop(glue::glue("The value of 'min' ({min}) must be less than 'max' ({max})."))
+  }
+
   if (is.null(wn_col)) {
-    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
-                   ifnotfound = NULL)
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
     if (is.null(wn_col)) {
-      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+      stop("The 'wn_col' argument was not specified and no default was defined with set_spec_wn().")
     }
+  }
+
+  if (!wn_col %in% names(.data)) {
+    stop(glue::glue("Column '{wn_col}' was not found in the provided data."))
+  }
+
+  if (!is.numeric(.data[[wn_col]])) {
+    stop(glue::glue("Column '{wn_col}' must contain numeric values."))
+  }
+
+  numeric_cols <- dplyr::select(.data, -{{wn_col}}, dplyr::where(is.numeric))
+  if (ncol(numeric_cols) == 0) {
+    warning("No numeric columns found for normalization. Only the wavenumber column will be returned.")
+    return(dplyr::select(.data, {{wn_col}}))
   }
 
   fmla <- stats::as.formula(paste(wn_col, " ~ .", sep = ""))

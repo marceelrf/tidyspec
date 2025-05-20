@@ -3,17 +3,15 @@ Type: Package
 Title: Tidyspec: Spectroscopy Analysis Using The Tidy Data Philosophy
 Version: 0.1.0
 Authors@R: c(
-  person("Marcel", "Ferreira", , "marcel.ferreira@unesp.br",
-          role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3445-0945")),
-  person("Willian", "Zambuzzi", , , role = "dtc",
-          comment = c(ORCID = "0000-0002-4149-5965")),
-  person("Julia", "Moraes", , , role = c("dtc","ctb"),
-          comment = c(ORCID = "0000-0003-4241-5389"))
-          ),
-  person("Emerson", "Santos", "Araujo Alves dos" , , role = c("ctb"),
-          comment = c(ORCID = "0000-0002-8200-0906"))
-          )
-          
+    person("Marcel", "Ferreira", email = "marcel.ferreira@unesp.br",
+           role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3445-0945")),
+    person("Willian", "Zambuzzi", role = "dtc",
+           comment = c(ORCID = "0000-0002-4149-5965")),
+    person("Julia", "Moraes", role = c("dtc", "ctb"),
+           comment = c(ORCID = "0000-0003-4241-5389")),
+    person("Emerson", "Santos", "Araujo Alves dos", role = c("ctb"),
+           comment = c(ORCID = "0000-0002-8200-0906"))
+  )
 Maintainer: Marcel Ferreira <marcel.ferreira@unesp.br>
 Description: The tidyspec package enables the analysis of spectroscopy data, 
     including IR, Raman, and NMR, using the tidy data framework from the 
@@ -54,5 +52,5 @@ Suggests:
     rmarkdown,
     tidyverse
 Remotes:
-  marceelrf/RcppFaddeeva
+    marceelrf/RcppFaddeeva
 VignetteBuilder: knitr

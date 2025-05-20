@@ -29,31 +29,60 @@
 #'
 #' @export
 spec_read <- function(file, wn_col, ...) {
-  # Detect file extension
-  ext <- tools::file_ext(file)
+  # Check if the file exists
+  if (!file.exists(file)) {
+    stop("The specified file does not exist: ", file)
+  }
 
-  # Read the file based on the extension
+  ext <- tolower(tools::file_ext(file))
+
   if (ext %in% c("txt", "tsv")) {
-    df <- readr::read_tsv(file, ...)
-  } else if (ext %in% c("csv")) {
-    df <- readr::read_csv(file, ...)
-  } else if (ext %in% c("csv2")) {
-    df <- readr::read_csv2(file, ...)
+    df <- tryCatch(
+      readr::read_tsv(file, ...),
+      error = function(e) {
+        stop("Error reading TSV/TXT file: ", e$message)
+      }
+    )
+  } else if (ext == "csv") {
+    df <- tryCatch(
+      readr::read_csv(file, ...),
+      error = function(e) {
+        stop("Error reading CSV file: ", e$message)
+      }
+    )
+  } else if (ext == "csv2") {
+    df <- tryCatch(
+      readr::read_csv2(file, ...),
+      error = function(e) {
+        stop("Error reading CSV2 file: ", e$message)
+      }
+    )
   } else if (ext %in% c("xls", "xlsx")) {
-    df <- readxl::read_excel(file, ...)
+    df <- tryCatch(
+      readxl::read_excel(file, ...),
+      error = function(e) {
+        stop("Error reading Excel file: ", e$message)
+      }
+    )
   } else {
     stop("Unsupported file format. Use txt, tsv, csv, csv2, xls, or xlsx.")
   }
 
-  # Check if the wavenumber column exists
-  if (!wn_col %in% names(df)) {
-    stop(paste("Column", wn_col, "not found in the file. Please check the correct column name."))
+  if (nrow(df) == 0) {
+    warning("File was loaded but is empty (0 rows). Please check the file.")
   }
 
-  # Set the wavenumber column
+  if (!wn_col %in% names(df)) {
+    stop(paste0("Column '", wn_col, "' was not found in the file. Please check the column name."))
+  }
+
+  if (all(is.na(df[[wn_col]]))) {
+    warning(paste0("Column '", wn_col, "' exists, but all values are NA."))
+  }
+
   set_spec_wn(wn_col)
 
-  message("File successfully loaded! Wavenumber column set to: ", wn_col)
+  message("File loaded successfully! Wavenumber column set to: ", wn_col)
 
   return(df)
 }

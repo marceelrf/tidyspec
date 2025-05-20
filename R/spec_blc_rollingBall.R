@@ -32,29 +32,66 @@ spec_blc_rollingBall <- function(.data,
                                  ws,
                                  is_abs = TRUE) {
 
+  if (!is.data.frame(.data)) {
+    stop("The argument '.data' must be a data.frame or tibble.")
+  }
+
   if (missing(wm) || missing(ws)) {
-    stop("ws and wm are mandatory arguments.")
+    stop("Arguments 'wm' and 'ws' are required.")
   }
 
   if (is.null(wn_col)) {
-    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
-                   ifnotfound = NULL)
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
     if (is.null(wn_col)) {
-      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+      stop("The 'wn_col' argument was not specified and no default was defined with set_spec_wn().")
     }
+  }
+
+  if (!wn_col %in% names(.data)) {
+    stop(paste0("Column '", wn_col, "' was not found in '.data'."))
+  }
+
+  if (!is.numeric(.data[[wn_col]])) {
+    stop(paste0("Column '", wn_col, "' must contain numeric values."))
   }
 
   wn_values <- .data[[wn_col]]
 
   if (is.null(wn_min)) {
-    wn_min <- min(wn_values)
-  }
-  if (is.null(wn_max)) {
-    wn_max <- max(wn_values)
+    wn_min <- min(wn_values, na.rm = TRUE)
+    warning(paste0("'wn_min' was not provided. Using the minimum of column '", wn_col, "': ", wn_min))
   }
 
+  if (is.null(wn_max)) {
+    wn_max <- max(wn_values, na.rm = TRUE)
+    warning(paste0("'wn_max' was not provided. Using the maximum of column '", wn_col, "': ", wn_max))
+  }
+
+  if (wn_min >= wn_max) {
+    stop("'wn_min' must be less than 'wn_max'.")
+  }
 
   mat <- .data[.data[[wn_col]] >= wn_min & .data[[wn_col]] <= wn_max, ]
+
+  if (nrow(mat) == 0) {
+    stop("No data found in the specified wavenumber range (wn_min to wn_max).")
+  }
+
+  num_cols <- setdiff(names(mat), wn_col)
+  if (length(num_cols) == 0) {
+    stop("No numeric column was found besides 'wn_col'.")
+  }
+
+  if (!is.logical(is_abs) || length(is_abs) != 1) {
+    stop("The 'is_abs' argument must be TRUE or FALSE.")
+  }
+
+  if (!is.numeric(wm) || wm <= 0) {
+    warning("'wm' should be a positive number.")
+  }
+  if (!is.numeric(ws) || ws <= 0) {
+    warning("'ws' should be a positive number.")
+  }
 
   if (is_abs) {
     mat %>%

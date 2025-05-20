@@ -31,27 +31,61 @@ spec_bl_rollingBall <- function(.data,
                                 ws,
                                 is_abs = TRUE) {
   if (missing(wm) || missing(ws)) {
-    stop("ws and wm are mandatory arguments.")
+    stop("Arguments 'wm' and 'ws' are required.")
+  }
+
+  if (!is.data.frame(.data)) {
+    stop("The argument '.data' must be a data.frame or tibble.")
   }
 
   if (is.null(wn_col)) {
-    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
-                   ifnotfound = NULL)
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
     if (is.null(wn_col)) {
-      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+      stop("The 'wn_col' argument was not specified and no default was defined with set_spec_wn().")
+    } else if (!wn_col %in% colnames(.data)) {
+      stop("The column defined in '.wn_col_default' is not present in the dataset.")
     }
+  } else {
+    if (!wn_col %in% colnames(.data)) {
+      stop(glue::glue("The column '{wn_col}' is not present in the dataset."))
+    }
+  }
+
+  if (!is.numeric(.data[[wn_col]])) {
+    warning(glue::glue("The column '{wn_col}' is not numeric. Baseline correction may fail."))
   }
 
   wn_values <- .data[[wn_col]]
 
   if (is.null(wn_min)) {
-    wn_min <- min(wn_values)
+    wn_min <- min(wn_values, na.rm = TRUE)
+    warning("wn_min was not specified. Using the minimum value present in 'wn_col'.")
   }
   if (is.null(wn_max)) {
-    wn_max <- max(wn_values)
+    wn_max <- max(wn_values, na.rm = TRUE)
+    warning("wn_max was not specified. Using the maximum value present in 'wn_col'.")
+  }
+
+  if (wn_min >= wn_max) {
+    stop("wn_min must be less than wn_max.")
+  }
+
+  in_range <- .data[[wn_col]] >= wn_min & .data[[wn_col]] <= wn_max
+  if (!any(in_range)) {
+    stop("No data found within the specified wn_min to wn_max range.")
   }
 
   mat <- .data[.data[[wn_col]] >= wn_min & .data[[wn_col]] <= wn_max, ]
+
+  numeric_cols <- sapply(mat, is.numeric)
+  numeric_cols[[wn_col]] <- FALSE
+  if (sum(numeric_cols) == 0) {
+    stop("No numeric columns found (except the wavenumber column) to apply correction.")
+  }
+
+  if (is_abs && any(mat[numeric_cols] < 0, na.rm = TRUE)) {
+    warning("Negative values detected in absorbance data. Please verify data integrity.")
+  }
 
   if (is_abs) {
     mat %>%

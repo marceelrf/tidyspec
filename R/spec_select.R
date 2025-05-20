@@ -11,9 +11,33 @@
 #' @seealso [dplyr::select()], [set_spec_wn()]
 spec_select <- function(.data, ...) {
   wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
+
   if (is.null(wn_col)) {
-    stop("wn_col not specified and no pattern defined with set_spec_wn()")
+    stop("wn_col not specified and no default defined with set_spec_wn().")
   }
 
-  dplyr::select(.data, {{ wn_col }}, ...)
+  if (!inherits(.data, "data.frame")) {
+    stop("The argument .data must be a data.frame or tibble.")
+  }
+
+  if (!(wn_col %in% names(.data))) {
+    stop(sprintf("The wavenumber column '%s' was not found in the dataset.", wn_col))
+  }
+
+  selected <- tryCatch(
+    dplyr::select(.data, {{ wn_col }}, ...),
+    error = function(e) {
+      stop("Error selecting columns: ", e$message)
+    }
+  )
+
+  if (ncol(selected) == 0) {
+    warning("No columns were selected. Only the wavenumber column is guaranteed.")
+  }
+
+  if (!(wn_col %in% names(selected))) {
+    warning(sprintf("The wavenumber column '%s' was excluded from the selection. This is not recommended.", wn_col))
+  }
+
+  return(selected)
 }

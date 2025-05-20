@@ -1,117 +1,55 @@
-#' Create a PCA Individuals (Scores) Plot
+#' Compute Wavenumber Contributions to Principal Components
 #'
-#' @description
-#' Generates a 2D plot of individual observations based on their PCA scores.
+#' This function calculates the contribution of each wavenumber to the principal components (PCs)
+#' in a PCA result. Contributions are computed as the squared loadings multiplied by 100.
 #'
-#' @param .data Result object from `prcomp()` function
-#' @param pc_x Principal component to plot on x-axis (default: 1)
-#' @param pc_y Principal component to plot on y-axis (default: 2)
-#' @param color_var Optional variable to color points by (length must match input data)
-#' @param label_points Logical, whether to label points (default: FALSE)
-#' @param point_size Size of points (default: 3)
-#' @param alpha Point transparency (default: 0.7)
+#' @param PCA An object of class `prcomp`, containing the results of a principal component analysis.
 #'
-#' @return A ggplot object showing the PCA scores plot
+#' @return A tibble containing the wavenumber column and the percentage contribution of each
+#' wavenumber to each principal component.
 #'
-#' @details
-#' The plot displays:
-#' - Each observation as a point in PC space
-#' - Option to color by a grouping variable
-#' - Percentage of explained variance for each axis
+#' @details The function extracts the PCA loadings (rotation matrix) and computes the squared
+#' values of each loading, scaled to percentage values. This helps interpret the importance of
+#' each wavenumber in defining the principal components.
 #'
 #' @examples
 #' \dontrun{
-#' # Basic usage:
-#' pca_result <- prcomp(iris[,1:4], scale. = TRUE)
-#' spec_pca_individuals(pca_result)
-#'
-#' # With coloring by species:
-#' spec_pca_individuals(pca_result, color_var = iris$Species)
-#'
-#' # Customizing components:
-#' spec_pca_individuals(pca_result, pc_x = 1, pc_y = 3)
+#' pca_result <- spec_pca(CoHAspec)
+#' wn_contrib <- spec_pca_wn_contrib(pca_result)
+#' print(wn_contrib)
 #' }
 #'
-#' @importFrom ggplot2 ggplot aes geom_point geom_text labs theme_minimal
-#' @importFrom ggrepel geom_text_repel
+#' @importFrom dplyr bind_cols mutate across all_of
 #' @export
-spec_pca_individuals <- function(.data, pc_x = 1, pc_y = 2,
-                                 color_var = NULL, label_points = FALSE,
-                                 point_size = 3, alpha = 0.7) {
-
-  # Verify input is a prcomp object
-  if (!inherits(.data, "prcomp")) {
-    stop("The .data argument must be an object returned by prcomp()")
+spec_pca_wn_contrib <- function(PCA) {
+  if (!inherits(PCA, "prcomp")) {
+    stop("The 'PCA' argument must be an object returned by prcomp().")
   }
 
-  # Extract scores
-  scores <- as.data.frame(.data$x)
-
-  # Check requested PCs exist
-  max_pc <- ncol(scores)
-  if (pc_x > max_pc || pc_y > max_pc) {
-    stop(paste("Requested component exceeds available components (max =", max_pc, ")"))
+  wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
+  if (is.null(wn_col)) {
+    stop("wn_col not specified and no default is defined with set_spec_wn().")
   }
 
-  # Prepare data frame for plotting
-  plot_data <- data.frame(
-    x = scores[, pc_x],
-    y = scores[, pc_y],
-    label = rownames(scores)
-  )
-
-  # Add color variable if provided
-  if (!is.null(color_var)) {
-    if (length(color_var) != nrow(scores)) {
-      stop("color_var length must match number of observations in PCA input")
-    }
-    plot_data$color_var <- color_var
+  wn_names <- rownames(PCA$rotation)
+  if (is.null(wn_names)) {
+    stop("The PCA object does not have row names in $rotation corresponding to wavenumbers.")
   }
 
-  # Calculate variance explained
-  variances <- .data$sdev^2
-  prop_var <- round(variances / sum(variances) * 100, 1)
-
-  # Create base plot
-  p <- ggplot2::ggplot(plot_data, ggplot2::aes(x = x, y = y)) +
-    ggplot2::labs(
-      x = paste0("PC", pc_x, " (", prop_var[pc_x], "%)"),
-      y = paste0("PC", pc_y, " (", prop_var[pc_y], "%)"),
-      title = "PCA Individuals Plot"
-    ) +
-    ggplot2::theme_minimal() +
-    ggplot2::theme(
-      plot.title = ggplot2::element_text(face = "bold", hjust = 0.5),
-      legend.position = "bottom"
-    )
-
-  # Add points with or without color
-  if (!is.null(color_var)) {
-    p <- p +
-      ggplot2::geom_point(ggplot2::aes(color = color_var),
-                          size = point_size, alpha = alpha) +
-      ggplot2::labs(color = "")
-  } else {
-    p <- p +
-      ggplot2::geom_point(size = point_size, alpha = alpha, color = "steelblue")
+  wn_numeric <- suppressWarnings(as.numeric(wn_names))
+  if (any(is.na(wn_numeric))) {
+    warning("Not all row names in PCA$rotation could be converted to numeric. Check the wavenumber names.")
   }
 
-  # Add labels if requested
-  if (label_points) {
-    if (!is.null(color_var)) {
-      p <- p + ggrepel::geom_text_repel(
-        ggplot2::aes(label = label, color = color_var),
-        show.legend = FALSE
-      )
-    } else {
-      p <- p + ggrepel::geom_text_repel(ggplot2::aes(label = label))
-    }
+  res <- list()
+  res[[wn_col]] <- wn_numeric
+
+  if (!all(sapply(PCA$rotation, is.numeric))) {
+    stop("All columns in PCA$rotation must be numeric.")
   }
 
-  # Add center lines
-  p <- p +
-    ggplot2::geom_hline(yintercept = 0, linetype = "dashed", alpha = 0.5) +
-    ggplot2::geom_vline(xintercept = 0, linetype = "dashed", alpha = 0.5)
+  res <- dplyr::bind_cols(res, as.data.frame(PCA$rotation)) %>%
+    dplyr::mutate(dplyr::across(-dplyr::all_of(wn_col), ~ 100 * .x^2))
 
-  return(p)
+  return(res)
 }

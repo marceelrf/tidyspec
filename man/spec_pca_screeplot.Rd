@@ -11,7 +11,10 @@ spec_pca_screeplot(
   show_cumulative = TRUE,
   bar_color = "steelblue",
   line_color = "darkred",
-  show_kaiser = FALSE
+  show_kaiser = FALSE,
+  title = "Scree Plot",
+  subtitle = NULL,
+  accuracy = 1
 )
 }
 \arguments{
@@ -28,14 +31,21 @@ spec_pca_screeplot(
 \item{line_color}{Color of the cumulative line and points. Default is "darkred".}
 
 \item{show_kaiser}{Logical. Show Kaiser criterion line? Default is FALSE.}
+
+\item{title}{Plot title. Default is "Scree Plot".}
+
+\item{subtitle}{Optional plot subtitle.}
+
+\item{accuracy}{Number of decimal places for variance percentages. Default is 1.}
 }
 \value{
-A ggplot2 scree plot.
+A ggplot2 scree plot object.
 }
 \description{
-Creates a customizable scree plot based on a `prcomp` object.
+Creates a customizable scree plot based on a `prcomp` object showing variance explained by each component.
 }
 \examples{
 pca <- prcomp(USArrests, scale. = TRUE)
-spec_pca_screeplot(pca, n = 5)
+spec_pca_screeplot(pca, n = 4)
+spec_pca_screeplot(pca, show_kaiser = TRUE, bar_color = "darkblue")
 }

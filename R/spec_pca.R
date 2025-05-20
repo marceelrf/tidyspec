@@ -32,12 +32,33 @@ spec_pca <- function(.data, wn_col = NULL,
                      center = T){
 
 
+  if (!is.data.frame(.data)) {
+    stop("The argument '.data' must be a data.frame or tibble.")
+  }
+
   if (is.null(wn_col)) {
-    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
-                   ifnotfound = NULL)
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
     if (is.null(wn_col)) {
-      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+      stop("The 'wn_col' argument was not specified and no default was defined with set_spec_wn().")
     }
+  }
+
+  if (!wn_col %in% names(.data)) {
+    stop(glue::glue("Column '{wn_col}' was not found in the provided data."))
+  }
+
+  if (!is.numeric(.data[[wn_col]])) {
+    stop(glue::glue("Column '{wn_col}' must contain numeric values."))
+  }
+
+  spec_data <- dplyr::select(.data, -dplyr::all_of(wn_col))
+
+  if (ncol(spec_data) == 0) {
+    stop("There are no numeric columns to perform principal component analysis (PCA).")
+  }
+
+  if (!all(sapply(spec_data, is.numeric))) {
+    stop("All spectral columns (except the wavenumber column) must be numeric.")
   }
 
   spec_matrix <- .data %>%
