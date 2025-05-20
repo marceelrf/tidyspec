@@ -4,6 +4,10 @@
 # tidyspec <img src="man/figures/logo.png" align="right" height="139" alt="" />
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/marceelrf/tidyspec/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/marceelrf/tidyspec/actions/workflows/R-CMD-check.yaml)
+[![License:
+MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
 The goal of **tidyspec** is to provide a friendly pipeline for
