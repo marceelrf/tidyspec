@@ -34,11 +34,9 @@ Imports:
     glue,
     plotly,
     purrr,
-    RcppFaddeeva,
     recipes,
     readr,
     readxl,
-    remotes,
     rlang,
     scales,
     signal,
@@ -51,6 +49,4 @@ Suggests:
     knitr,
     rmarkdown,
     tidyverse
-Remotes:
-    marceelrf/RcppFaddeeva
 VignetteBuilder: knitr
