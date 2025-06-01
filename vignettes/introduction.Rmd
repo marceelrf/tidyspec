@@ -181,7 +181,23 @@ spec_smartplot(CoHAspec_filt, geom = "line")
 
 ## Smoothing the data
 
+Spectroscopic data often contains noise that can interfere with analysis and interpretation. Smoothing techniques help reduce this noise while preserving the essential spectral features. The `tidyspec` package provides two main smoothing methods: moving averages and Savitzky-Golay filtering.
+
 ### Moving averages method
+
+The moving average method (`spec_smooth_avg()`) is one of the simplest and most intuitive smoothing techniques. It works by replacing each data point with the average of its neighboring points within a specified window size. This method is particularly effective for reducing random noise while maintaining the overall shape of spectral peaks.
+
+#### How it works:
+
+- For each point, it calculates the mean of surrounding points within a defined window  
+- Larger windows provide more smoothing but may blur important features  
+- Smaller windows preserve detail but provide less noise reduction  
+
+#### Parameters:
+
+- `wn_col`: Column name for wavelength data (default: "Wn")  
+- `window`: Window size for the moving average (default: 15)  
+- `degree`: Polynomial degree for smoothing (default: 2)
 
 ```{r}
 CoHAspec_filt %>% 
@@ -191,11 +207,32 @@ CoHAspec_filt %>%
 
 ### Savitz-Golay method
 
+The Savitzky-Golay filter (`spec_smooth_sga()`) is a more sophisticated smoothing technique that is particularly well-suited for spectroscopic data. Unlike simple moving averages, this method fits a polynomial to a local subset of data points and uses this polynomial to estimate the smoothed value. This approach is especially effective at preserving peak shapes, heights, and widths while reducing noise.
+
+#### How it works:
+
+- For each data point, it fits a polynomial of specified degree to nearby points within a window  
+- The smoothed value is calculated from this local polynomial fit  
+- This preserves the underlying spectral features better than simple averaging  
+- The method can also calculate derivatives directly during the smoothing process  
+
+#### Parameters:
+
+- `wn_col`: Column name for wavelength data (default: "Wn")  
+- `window`: Window size for smoothing (default: 15, should be odd)  
+- `forder`: Polynomial order for fitting (default: 4)  
+-  `degree`: Degree of differentiation (default: 0 = smoothing only)  
+
 ```{r}
 CoHAspec_filt %>% 
   spec_smooth_sga() %>%
   spec_smartplot(geom = "line")
 ```
+
+### Comparison with moving average:
+
+- Savitzky-Golay: Better peak preservation, more computationally intensive
+- Moving average: Faster computation, simpler implementation, more peak distortion
 
 ## Derivatives
 
