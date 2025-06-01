@@ -51,8 +51,42 @@ The function `set_spec_wn` simplifies the use of functions by globally defining 
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example,eval=FALSE}
+```{r example, warning=FALSE}
 library(tidyspec)
-## basic example code
 ```
+
+```{r the data}
+head(CoHAspec)
+```
+
+```{r set the wavenumber column}
+set_spec_wn("Wavenumber")
+
+check_wn_col()
+```
+
+### Plot the data
+
+```{r plot the data, out.width = "100%",fig.alt="Static plot", fig.dpi=300}
+spec_smartplot(CoHAspec)
+```
+
+### Convert to trasmittance
+
+```{r plot the data in transmittance, out.width = "100%",fig.alt="Transmittance plot", fig.dpi=300}
+CoHAspec |>
+    spec_abs2trans() |>
+    spec_smartplot(type = "transmittance")
+```
+
+### Select the spectra
+
+```{r select the CoHA01 data, out.width = "100%",fig.alt="CoHA01 plot", fig.dpi=300}
+spec_select(CoHAspec, CoHA01) |>
+  spec_smartplot(geom = "line")
+```
+
+## The future of `tidyspec`  
+
+Our plan is for tidyspec to be the first step toward a complete ecosystem for spectral data analysis. For spectral band analysis, we are creating the [bandspec](https://github.com/marceelrf/bandspec) package that handles different band profiles. We also intend to create a package focused on producing publication-level graphics for spectral data. We haven't thought of a name yet, so we welcome suggestions!
 

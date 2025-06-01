@@ -67,5 +67,60 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(tidyspec)
-## basic example code
 ```
+
+``` r
+head(CoHAspec)
+#> # A tibble: 6 x 5
+#>   Wavenumber CoHA01 CoHA025 CoHA05 CoHA100
+#>        <dbl>  <dbl>   <dbl>  <dbl>   <dbl>
+#> 1       399.  0.871    1.36  1.17    1.05 
+#> 2       401.  0.893    1.24  1.05    0.925
+#> 3       403.  0.910    1.20  0.997   0.876
+#> 4       405.  0.914    1.19  0.982   0.867
+#> 5       407.  0.908    1.18  0.965   0.857
+#> 6       409.  0.887    1.14  0.936   0.828
+```
+
+``` r
+set_spec_wn("Wavenumber")
+
+check_wn_col()
+#> The current wavenumber column is: Wavenumber
+```
+
+### Plot the data
+
+``` r
+spec_smartplot(CoHAspec)
+```
+
+<img src="man/figures/README-plot the data-1.png" alt="Static plot" width="100%" />
+
+### Convert to trasmittance
+
+``` r
+CoHAspec |>
+    spec_abs2trans() |>
+    spec_smartplot(type = "transmittance")
+```
+
+<img src="man/figures/README-plot the data in transmittance-1.png" alt="Transmittance plot" width="100%" />
+
+### Select the spectra
+
+``` r
+spec_select(CoHAspec, CoHA01) |>
+  spec_smartplot(geom = "line")
+```
+
+<img src="man/figures/README-select the CoHA01 data-1.png" alt="CoHA01 plot" width="100%" />
+
+## The future of `tidyspec`
+
+Our plan is for tidyspec to be the first step toward a complete
+ecosystem for spectral data analysis. For spectral band analysis, we are
+creating the [bandspec](https://github.com/marceelrf/bandspec) package
+that handles different band profiles. We also intend to create a package
+focused on producing publication-level graphics for spectral data. We
+haven’t thought of a name yet, so we welcome suggestions!
