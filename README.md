@@ -69,6 +69,8 @@ This is a basic example which shows you how to solve a common problem:
 library(tidyspec)
 ```
 
+### The data
+
 ``` r
 head(CoHAspec)
 #> # A tibble: 6 x 5
@@ -81,6 +83,8 @@ head(CoHAspec)
 #> 5       407.  0.908    1.18  0.965   0.857
 #> 6       409.  0.887    1.14  0.936   0.828
 ```
+
+### Set the wavenumber column
 
 ``` r
 set_spec_wn("Wavenumber")

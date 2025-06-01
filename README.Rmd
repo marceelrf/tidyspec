@@ -55,9 +55,13 @@ This is a basic example which shows you how to solve a common problem:
 library(tidyspec)
 ```
 
+### The data  
+
 ```{r the data}
 head(CoHAspec)
 ```
+
+### Set the wavenumber column
 
 ```{r set the wavenumber column}
 set_spec_wn("Wavenumber")
