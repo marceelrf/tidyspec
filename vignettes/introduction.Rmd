@@ -236,6 +236,18 @@ CoHAspec_filt %>%
 
 ## Derivatives
 
+Differentiation of spectral data is a fundamental technique in chemometrics that allows for highlighting specific spectral features, reducing baseline effects, and improving the resolution of overlapping peaks. The `spec_diff()` function implements numerical differentiation for spectral data, offering flexibility to calculate first-order or higher-order derivatives.
+
+### Using the `spec_diff()` Function
+
+The `spec_diff()` function accepts the following arguments:
+
+- `.data`: A data.frame or tibble containing spectral data
+- `wn_col`: A character string specifying the column name for the wavelength data (default: "Wn")
+- `degree`: A numeric value specifying the degree of differentiation. If degree = 0, the original data is returned without any changes
+
+Example:
+
 ```{r}
 CoHAspec_filt %>% 
     tidyspec::spec_smooth_sga() %>%
@@ -243,32 +255,74 @@ CoHAspec_filt %>%
     tidyspec::spec_smartplot(geom = "line")
 ```
 
+In this pipeline:
+
+1. The filtered spectral data (CoHAspec_filt) is first smoothed using the Savitzky-Golay algorithm
+
+2. Then, a second-order derivative is applied using `spec_diff(degree = 2)`
+
+3. The result is visualized through `spec_smartplot()` with line geometry
+
 ## Baseline correction
 
+Baseline correction is a crucial preprocessing step in spectral analysis that removes systematic variations in the baseline that are not related to the analyte of interest. These baseline variations can arise from instrumental drift, scattering effects, sample positioning, or optical interferences. Proper baseline correction enhances spectral quality and improves the accuracy of subsequent quantitative and qualitative analyses.
+
 ### Rolling ball method
+
+The rolling ball algorithm is a popular baseline correction technique that estimates the baseline by "rolling" a virtual ball of specified radius beneath the spectrum. This method is particularly effective for correcting baselines with smooth, curved variations and is widely used in various spectroscopic applications.
+
+#### Function Parameters
+
+The `spec_blc_rollingBall()` function provides comprehensive control over the baseline correction process:
+
+- `.data`: A data.frame or tibble containing spectral data
+- `wn_col`: Column name for wavelength data (default: "Wn")
+- `wn_min`: Minimum wavelength for baseline correction range
+- `wn_max`: Maximum wavelength for baseline correction range
+- `wm`: Window size of the rolling ball algorithm (controls ball radius)
+- `ws`: Smoothing factor of the rolling ball algorithm
+- `is_abs`: Logical indicating if data is in absorbance format
+
+#### Baseline Correction Application
+
+The following example demonstrates baseline correction applied to a specific wavelength range:
 
 ```{r, out.width="100%", fig.dpi=600}
 CoHAspec_filt %>% 
     spec_smooth_sga() %>%
-    spec_blc_rollingBall(wn_col = "Wavenumber",
-                         wn_min = 1030,
+    spec_blc_rollingBall(wn_min = 1030,
                          wn_max = 1285,
-                         ws = 10, wm = 50) %>%
+                         ws = 10,
+                         wm = 50) %>%
     tidyspec::spec_smartplot(geom = "line")
 ```
 
+In this pipeline:
+
+1. Smoothing is applied first to reduce noise  
+2. Rolling ball correction is performed in the 1030-1285 cm⁻¹ range  
+3. Window size (wm = 50) and smoothing factor (ws = 10) are optimized for the data
+
 ### Looking to the baseline
+
+To better understand the correction process, we can examine the estimated baseline using `spec_bl_rollingBall()`:
 
 ```{r, out.width="100%", fig.dpi=600}
 CoHAspec_filt %>% 
     spec_smooth_sga() %>%
     spec_bl_rollingBall(wn_col = "Wavenumber",
-                         wn_min = 1030,
-                         wn_max = 1285,
-                         ws = 10, wm = 50) %>% 
+                        wn_min = 1030,
+                        wn_max = 1285,
+                        ws = 10,
+                        wm = 50) %>% 
   spec_smartplot()
 ```
 
+This visualization shows only the estimated baseline, allowing you to assess whether the algorithm properly captures the underlying baseline trend.
+
+#### Comparing Original and Baseline  
+
+For a comprehensive view of the correction process, we can overlay the original spectrum with the estimated baseline:
 
 ```{r, out.width="100%", fig.dpi=600}
 bl <- CoHAspec_filt %>% 
@@ -284,6 +338,12 @@ CoHAspec_filt %>%
   left_join(bl) %>% 
   spec_smartplot(geom = "line")
 ```
+
+This comparison allows you to:
+
+- Evaluate the baseline estimation quality
+- Identify regions where the algorithm may need parameter adjustment
+- Verify that the baseline follows the expected spectral trend
 
 ## Scaling the spectra
 

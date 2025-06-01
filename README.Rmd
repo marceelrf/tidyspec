@@ -71,13 +71,13 @@ check_wn_col()
 
 ### Plot the data
 
-```{r plot the data, out.width = "100%",fig.alt="Static plot", fig.dpi=300}
+```{r plot_the_data, out.width = "100%",fig.alt="Static plot", fig.dpi=300}
 spec_smartplot(CoHAspec)
 ```
 
 ### Convert to trasmittance
 
-```{r plot the data in transmittance, out.width = "100%",fig.alt="Transmittance plot", fig.dpi=300}
+```{r plot_the_data_in_transmittance, out.width = "100%",fig.alt="Transmittance plot", fig.dpi=300}
 CoHAspec |>
     spec_abs2trans() |>
     spec_smartplot(type = "transmittance")
@@ -85,7 +85,7 @@ CoHAspec |>
 
 ### Select the spectra
 
-```{r select the CoHA01 data, out.width = "100%",fig.alt="CoHA01 plot", fig.dpi=300}
+```{r select_the_CoHA01_data, out.width = "100%",fig.alt="CoHA01 plot", fig.dpi=300}
 spec_select(CoHAspec, CoHA01) |>
   spec_smartplot(geom = "line")
 ```
