@@ -14,7 +14,7 @@ Authors@R: c(
   )
 Maintainer: Marcel Ferreira <marcel.ferreira@unesp.br>
 Description: The tidyspec package enables the analysis of spectroscopy data, 
-    including IR, Raman, and NMR, using the tidy data framework from the 
+    including "IR", "Raman", and "NMR", using the tidy data framework from the 
     tidyverse. It provides functions for transformation, normalization, 
     baseline correction, smoothing, derivatives, and visualization, making 
     spectral analysis more structured and reproducible.
@@ -24,7 +24,7 @@ LazyData: true
 URL: https://github.com/marceelrf/tidyspec
 BugReports: https://github.com/marceelrf/tidyspec/issues
 RoxygenNote: 7.2.3
-Depends: R (>= 4.0.0)
+Depends: R (>= 4.1.0)
 Imports:
     crayon,
     dplyr,
