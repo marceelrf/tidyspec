@@ -34,11 +34,12 @@ spec_smartplotly <- function(.data,
   }
 
   if (is.null(wn_col)) {
-    wn_col <- get0(".wn_col_default", envir = tidyspec_env, ifnotfound = NULL)
+    wn_col <- get0(".wn_col_default", envir = tidyspec_env,
+                   ifnotfound = NULL)
     if (is.null(wn_col)) {
       stop("wn_col not specified and no default defined with set_spec_wn().")
     } else {
-      warning(sprintf("wn_col not provided. Using the defined default: '%s'.", wn_col))
+      warn_missing_param_once("wn_col", wn_col)
     }
   }
 
@@ -54,7 +55,7 @@ spec_smartplotly <- function(.data,
 
   if (is.null(xmin)) {
     xmin <- min(wn_values, na.rm = TRUE)
-    warning(sprintf("xmin not specified. Using minimum value from column '%s': %f", wn_col, xmin))
+    warn_missing_param_once("xmin", xmin)
   } else if (!is.numeric(xmin)) {
     warning("xmin must be numeric. Using the minimum value from the wn_col column.")
     xmin <- min(wn_values, na.rm = TRUE)
@@ -62,7 +63,7 @@ spec_smartplotly <- function(.data,
 
   if (is.null(xmax)) {
     xmax <- max(wn_values, na.rm = TRUE)
-    warning(sprintf("xmax not specified. Using maximum value from column '%s': %f", wn_col, xmax))
+    warn_missing_param_once("xmax", xmax)
   } else if (!is.numeric(xmax)) {
     warning("xmax must be numeric. Using the maximum value from the wn_col column.")
     xmax <- max(wn_values, na.rm = TRUE)

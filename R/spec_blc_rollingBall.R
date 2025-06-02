@@ -59,12 +59,12 @@ spec_blc_rollingBall <- function(.data,
 
   if (is.null(wn_min)) {
     wn_min <- min(wn_values, na.rm = TRUE)
-    warning(paste0("'wn_min' was not provided. Using the minimum of column '", wn_col, "': ", wn_min))
+    warn_missing_param_once("xmin", xmin)
   }
 
   if (is.null(wn_max)) {
     wn_max <- max(wn_values, na.rm = TRUE)
-    warning(paste0("'wn_max' was not provided. Using the maximum of column '", wn_col, "': ", wn_max))
+    warn_missing_param_once("xmax", xmax)
   }
 
   if (wn_min >= wn_max) {
@@ -100,7 +100,7 @@ spec_blc_rollingBall <- function(.data,
       baseline::baseline(method = "rollingBall", wm = wm, ws = ws) %>%
       purrr::pluck("corrected") %>%
       t() %>%
-      tibble::as_tibble() %>%
+      tibble::as_tibble(.name_repair = "unique") %>%
       dplyr::mutate({{wn_col}} := mat[[wn_col]]) %>%
       dplyr::select({{wn_col}}, dplyr::where(is.numeric))
   } else {
@@ -111,7 +111,7 @@ spec_blc_rollingBall <- function(.data,
       baseline::baseline(method = "rollingBall", wm = wm, ws = ws) %>%
       purrr::pluck("corrected") %>%
       t() %>%
-      tibble::as_tibble() %>%
+      tibble::as_tibble(.name_repair = "unique") %>%
       dplyr::mutate({{wn_col}} := mat[[wn_col]]) %>%
       dplyr::select({{wn_col}}, dplyr::where(is.numeric))
   }

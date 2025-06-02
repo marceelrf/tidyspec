@@ -3,29 +3,34 @@ title: "Introduction"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Introduction}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  markdown: 
+    wrap: sentence
 ---
 
-<style type="text/css">
-.main-container {
-  max-width: 100% !important;
-  margin: auto;
-}
-</style>
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.width = 8,
+  fig.height = 5,
+  fig.align = "center",
+  out.width = "85%",
+  dpi = 150
 )
 ```
 
-Spectroscopy datasets often consist of high-dimensional measurements across different wavelengths or wavenumbers, structured in wide-format tables where each column represents a sample and each row corresponds to a spectral position. The `{tidyspec}` package provides a tidyverse-friendly toolkit designed to streamline the processing, visualization, and analysis of such spectral data in R.
+Spectroscopy datasets often consist of high-dimensional measurements across different wavelengths or wavenumbers, structured in wide-format tables where each column represents a sample and each row corresponds to a spectral position.
+The `{tidyspec}` package provides a tidyverse-friendly toolkit designed to streamline the processing, visualization, and analysis of such spectral data in R.
 
-By building on top of the `{dplyr}`, `{ggplot2}`, and `{tidyr}` ecosystems, `{tidyspec}` simplifies common workflows such as baseline correction, unit conversion, normalization, filtering, and principal component analysis (PCA). It enforces consistent treatment of spectral dimensions using a customizable reference column (typically wavenumber or wavelength), which can be easily set using `set_spec_wn()`.
+By building on top of the `{dplyr}`, `{ggplot2}`, and `{tidyr}` ecosystems, `{tidyspec}` simplifies common workflows such as baseline correction, unit conversion, normalization, filtering, and principal component analysis (PCA).
+It enforces consistent treatment of spectral dimensions using a customizable reference column (typically wavenumber or wavelength), which can be easily set using `set_spec_wn()`.
 
-This vignette demonstrates a typical usage of the package, from importing and visualizing spectral data to performing PCA and interpreting results. The functions included are designed to make spectral analysis in R more transparent, reproducible, and user-friendly for both beginners and advanced users.
+This vignette demonstrates a typical usage of the package, from importing and visualizing spectral data to performing PCA and interpreting results.
+The functions included are designed to make spectral analysis in R more transparent, reproducible, and user-friendly for both beginners and advanced users.
 
 ## Instalation
 
@@ -37,37 +42,36 @@ remotes::install_github("marceelrf/tidyspec")
 
 The package organizes utilities into 6 families, all prefixed with `spec_`:
 
-**1. Transformation**  
-  `spec_abs2trans()`: Convert absorbance to transmittance.
-  `spec_trans2abs()`: Convert transmittance to absorbance.
+**1. Transformation**\
+`spec_abs2trans()`: Convert absorbance to transmittance.
+`spec_trans2abs()`: Convert transmittance to absorbance.
 
-**2. Normalization**  
-  `spec_norm_01()`: Normalize spectra to range [0, 1].
-  `spec_norm_minmax()`: Normalize to a custom range.
-  `spec_norm_var()`: Scale to standard deviation = 1.
+**2. Normalization**\
+`spec_norm_01()`: Normalize spectra to range [0, 1].
+`spec_norm_minmax()`: Normalize to a custom range.
+`spec_norm_var()`: Scale to standard deviation = 1.
 
-**3. Baseline Correction**  
-  `spec_blc_rollingBall()`: Correct baseline using rolling ball algorithm.
-  `spec_blc_irls()`: Correct using Iterative Restricted Least Squares.
-  `spec_bl_*()`: Return baseline vectors (e.g., `spec_bl_rollingBall`).
+**3. Baseline Correction**\
+`spec_blc_rollingBall()`: Correct baseline using rolling ball algorithm.
+`spec_blc_irls()`: Correct using Iterative Restricted Least Squares.
+`spec_bl_*()`: Return baseline vectors (e.g., `spec_bl_rollingBall`).
 
-**4. Smoothing**  
-  `spec_smooth_avg()`: Smooth with moving average.
-  `spec_smooth_sga()`: Smooth using Savitzky-Golay.
+**4. Smoothing**\
+`spec_smooth_avg()`: Smooth with moving average.
+`spec_smooth_sga()`: Smooth using Savitzky-Golay.
 
-**5. Derivative**  
-  `spec_diff()`: Compute spectral derivatives.
+**5. Derivative**\
+`spec_diff()`: Compute spectral derivatives.
 
-**6. Preview & I/O**  
-  `spec_smartplot()`: Static preview of spectra.
-  `spec_smartplotly()`: Interactive preview (`{Plotly}`).
-  `spec_read()`: Import from .csv, .txt, .xlsx, etc.
+**6. Preview & I/O**\
+`spec_smartplot()`: Static preview of spectra.
+`spec_smartplotly()`: Interactive preview (`{Plotly}`).
+`spec_read()`: Import from .csv, .txt, .xlsx, etc.
 
 ```{r,warning=FALSE,message=FALSE}
 library(tidyspec)
 library(tidyverse)
 ```
-
 
 ## Data
 
@@ -79,7 +83,7 @@ Columns: Samples (CoHA01, CoHA025, CoHA05, CoHA100).
 
 Values: Absorbance/intensity measurements.
 
-Here’s a preview of the data:
+Here's a preview of the data:
 
 ```{r}
 CoHAspec
@@ -87,7 +91,8 @@ CoHAspec
 
 ### Wavenumber Handling
 
-The function `set_spec_wn` simplifies the use of functions by globally defining the column that contains the wave numbers. User can check the wavenumber column with `check_wn_col`.
+The function `set_spec_wn` simplifies the use of functions by globally defining the column that contains the wave numbers.
+User can check the wavenumber column with `check_wn_col`.
 
 ```{r}
 set_spec_wn("Wavenumber")
@@ -96,21 +101,24 @@ check_wn_col()
 
 ## Visualize the data
 
-Scientists who work with spectroscopy data always want to visualize it after each operation. That's why we created the `spec_smartplot` and `spec_smartplotly` functions to help users.
+Scientists who work with spectroscopy data always want to visualize it after each operation.
+That's why we created the `spec_smartplot` and `spec_smartplotly` functions to help users.
 
 `spec_smartplot` creates a static visualization of the spectra, while `spec_smartplotly` creates an interactive visualization, allowing the user to navigate through the values of the different data.
 
-```{r,out.width = "100%",fig.alt="Static plot", fig.dpi=300}
+```{r,fig.cap="Static spectral plot showing all samples"}
 spec_smartplot(CoHAspec)
 ```
 
-```{r,out.width = "100%",fig.alt="Interactive plot", fig.dpi=200}
+```{r,ig.cap="Interactive spectral plot with line geometry"}
 spec_smartplotly(CoHAspec,geom = "line")
 ```
 
-These functions simplify the process by automating it, but we invite users to make their own figures for presentations and publications. As part of the efforts to create a community of `tidyspec` users, we plan to create a `ggplot2` extension for high-level spectroscopy graphics. For now, you can produce `ggplot2` graphs by pivoting the data:
+These functions simplify the process by automating it, but we invite users to make their own figures for presentations and publications.
+As part of the efforts to create a community of `tidyspec` users, we plan to create a `ggplot2` extension for high-level spectroscopy graphics.
+For now, you can produce `ggplot2` graphs by pivoting the data:
 
-```{r, out.width="100%", fig.align="center", fig.height=2, fig.dpi=300, fig.alt="Custom plots", fig.cap="Custom plots"}
+```{r, fig.cap="Custom ggplot2 visualization of spectral data", fig.height=4}
 CoHAspec %>% 
   tidyr::pivot_longer(cols = -Wavenumber,
                       names_to = "spectrums",
@@ -118,7 +126,6 @@ CoHAspec %>%
   ggplot(aes(x = Wavenumber, y = absorbance, col = spectrums)) +
   geom_line() #<------ Customize your data from here
 ```
-
 
 ## Convert to transmittance (and back to absorbance)
 
@@ -139,7 +146,8 @@ CoHAspec %>%
 
 ## Select spectra
 
-`Tidyspec` is designed to be easily integrated with the entire `tidyverse` ecosystem. Then the user can easily choose which spectra to keep/discard using `dplyr::select`.
+`Tidyspec` is designed to be easily integrated with the entire `tidyverse` ecosystem.
+Then the user can easily choose which spectra to keep/discard using `dplyr::select`.
 
 ```{r}
 CoHAspec %>% 
@@ -181,23 +189,27 @@ spec_smartplot(CoHAspec_filt, geom = "line")
 
 ## Smoothing the data
 
-Spectroscopic data often contains noise that can interfere with analysis and interpretation. Smoothing techniques help reduce this noise while preserving the essential spectral features. The `tidyspec` package provides two main smoothing methods: moving averages and Savitzky-Golay filtering.
+Spectroscopic data often contains noise that can interfere with analysis and interpretation.
+Smoothing techniques help reduce this noise while preserving the essential spectral features.
+The `tidyspec` package provides two main smoothing methods: moving averages and Savitzky-Golay filtering.
 
 ### Moving averages method
 
-The moving average method (`spec_smooth_avg()`) is one of the simplest and most intuitive smoothing techniques. It works by replacing each data point with the average of its neighboring points within a specified window size. This method is particularly effective for reducing random noise while maintaining the overall shape of spectral peaks.
+The moving average method (`spec_smooth_avg()`) is one of the simplest and most intuitive smoothing techniques.
+It works by replacing each data point with the average of its neighboring points within a specified window size.
+This method is particularly effective for reducing random noise while maintaining the overall shape of spectral peaks.
 
 #### How it works:
 
-- For each point, it calculates the mean of surrounding points within a defined window  
-- Larger windows provide more smoothing but may blur important features  
-- Smaller windows preserve detail but provide less noise reduction  
+-   For each point, it calculates the mean of surrounding points within a defined window\
+-   Larger windows provide more smoothing but may blur important features\
+-   Smaller windows preserve detail but provide less noise reduction
 
 #### Parameters:
 
-- `wn_col`: Column name for wavelength data (default: "Wn")  
-- `window`: Window size for the moving average (default: 15)  
-- `degree`: Polynomial degree for smoothing (default: 2)
+-   `wn_col`: Column name for wavelength data (default: "Wn")\
+-   `window`: Window size for the moving average (default: 15)\
+-   `degree`: Polynomial degree for smoothing (default: 2)
 
 ```{r}
 CoHAspec_filt %>% 
@@ -207,21 +219,23 @@ CoHAspec_filt %>%
 
 ### Savitz-Golay method
 
-The Savitzky-Golay filter (`spec_smooth_sga()`) is a more sophisticated smoothing technique that is particularly well-suited for spectroscopic data. Unlike simple moving averages, this method fits a polynomial to a local subset of data points and uses this polynomial to estimate the smoothed value. This approach is especially effective at preserving peak shapes, heights, and widths while reducing noise.
+The Savitzky-Golay filter (`spec_smooth_sga()`) is a more sophisticated smoothing technique that is particularly well-suited for spectroscopic data.
+Unlike simple moving averages, this method fits a polynomial to a local subset of data points and uses this polynomial to estimate the smoothed value.
+This approach is especially effective at preserving peak shapes, heights, and widths while reducing noise.
 
 #### How it works:
 
-- For each data point, it fits a polynomial of specified degree to nearby points within a window  
-- The smoothed value is calculated from this local polynomial fit  
-- This preserves the underlying spectral features better than simple averaging  
-- The method can also calculate derivatives directly during the smoothing process  
+-   For each data point, it fits a polynomial of specified degree to nearby points within a window\
+-   The smoothed value is calculated from this local polynomial fit\
+-   This preserves the underlying spectral features better than simple averaging\
+-   The method can also calculate derivatives directly during the smoothing process
 
 #### Parameters:
 
-- `wn_col`: Column name for wavelength data (default: "Wn")  
-- `window`: Window size for smoothing (default: 15, should be odd)  
-- `forder`: Polynomial order for fitting (default: 4)  
--  `degree`: Degree of differentiation (default: 0 = smoothing only)  
+-   `wn_col`: Column name for wavelength data (default: "Wn")\
+-   `window`: Window size for smoothing (default: 15, should be odd)\
+-   `forder`: Polynomial order for fitting (default: 4)\
+-   `degree`: Degree of differentiation (default: 0 = smoothing only)
 
 ```{r}
 CoHAspec_filt %>% 
@@ -231,20 +245,21 @@ CoHAspec_filt %>%
 
 ### Comparison with moving average:
 
-- Savitzky-Golay: Better peak preservation, more computationally intensive
-- Moving average: Faster computation, simpler implementation, more peak distortion
+-   Savitzky-Golay: Better peak preservation, more computationally intensive
+-   Moving average: Faster computation, simpler implementation, more peak distortion
 
 ## Derivatives
 
-Differentiation of spectral data is a fundamental technique in chemometrics that allows for highlighting specific spectral features, reducing baseline effects, and improving the resolution of overlapping peaks. The `spec_diff()` function implements numerical differentiation for spectral data, offering flexibility to calculate first-order or higher-order derivatives.
+Differentiation of spectral data is a fundamental technique in chemometrics that allows for highlighting specific spectral features, reducing baseline effects, and improving the resolution of overlapping peaks.
+The `spec_diff()` function implements numerical differentiation for spectral data, offering flexibility to calculate first-order or higher-order derivatives.
 
 ### Using the `spec_diff()` Function
 
 The `spec_diff()` function accepts the following arguments:
 
-- `.data`: A data.frame or tibble containing spectral data
-- `wn_col`: A character string specifying the column name for the wavelength data (default: "Wn")
-- `degree`: A numeric value specifying the degree of differentiation. If degree = 0, the original data is returned without any changes
+-   `.data`: A data.frame or tibble containing spectral data
+-   `wn_col`: A character string specifying the column name for the wavelength data (default: "Wn")
+-   `degree`: A numeric value specifying the degree of differentiation. If degree = 0, the original data is returned without any changes
 
 Example:
 
@@ -257,31 +272,34 @@ CoHAspec_filt %>%
 
 In this pipeline:
 
-1. The filtered spectral data (CoHAspec_filt) is first smoothed using the Savitzky-Golay algorithm
+1.  The filtered spectral data (CoHAspec_filt) is first smoothed using the Savitzky-Golay algorithm
 
-2. Then, a second-order derivative is applied using `spec_diff(degree = 2)`
+2.  Then, a second-order derivative is applied using `spec_diff(degree = 2)`
 
-3. The result is visualized through `spec_smartplot()` with line geometry
+3.  The result is visualized through `spec_smartplot()` with line geometry
 
 ## Baseline correction
 
-Baseline correction is a crucial preprocessing step in spectral analysis that removes systematic variations in the baseline that are not related to the analyte of interest. These baseline variations can arise from instrumental drift, scattering effects, sample positioning, or optical interferences. Proper baseline correction enhances spectral quality and improves the accuracy of subsequent quantitative and qualitative analyses.
+Baseline correction is a crucial preprocessing step in spectral analysis that removes systematic variations in the baseline that are not related to the analyte of interest.
+These baseline variations can arise from instrumental drift, scattering effects, sample positioning, or optical interferences.
+Proper baseline correction enhances spectral quality and improves the accuracy of subsequent quantitative and qualitative analyses.
 
 ### Rolling ball method
 
-The rolling ball algorithm is a popular baseline correction technique that estimates the baseline by "rolling" a virtual ball of specified radius beneath the spectrum. This method is particularly effective for correcting baselines with smooth, curved variations and is widely used in various spectroscopic applications.
+The rolling ball algorithm is a popular baseline correction technique that estimates the baseline by "rolling" a virtual ball of specified radius beneath the spectrum.
+This method is particularly effective for correcting baselines with smooth, curved variations and is widely used in various spectroscopic applications.
 
 #### Function Parameters
 
 The `spec_blc_rollingBall()` function provides comprehensive control over the baseline correction process:
 
-- `.data`: A data.frame or tibble containing spectral data
-- `wn_col`: Column name for wavelength data (default: "Wn")
-- `wn_min`: Minimum wavelength for baseline correction range
-- `wn_max`: Maximum wavelength for baseline correction range
-- `wm`: Window size of the rolling ball algorithm (controls ball radius)
-- `ws`: Smoothing factor of the rolling ball algorithm
-- `is_abs`: Logical indicating if data is in absorbance format
+-   `.data`: A data.frame or tibble containing spectral data
+-   `wn_col`: Column name for wavelength data (default: "Wn")
+-   `wn_min`: Minimum wavelength for baseline correction range
+-   `wn_max`: Maximum wavelength for baseline correction range
+-   `wm`: Window size of the rolling ball algorithm (controls ball radius)
+-   `ws`: Smoothing factor of the rolling ball algorithm
+-   `is_abs`: Logical indicating if data is in absorbance format
 
 #### Baseline Correction Application
 
@@ -299,9 +317,9 @@ CoHAspec_filt %>%
 
 In this pipeline:
 
-1. Smoothing is applied first to reduce noise  
-2. Rolling ball correction is performed in the 1030-1285 cm⁻¹ range  
-3. Window size (wm = 50) and smoothing factor (ws = 10) are optimized for the data
+1.  Smoothing is applied first to reduce noise\
+2.  Rolling ball correction is performed in the 1030-1285 cm⁻¹ range\
+3.  Window size (wm = 50) and smoothing factor (ws = 10) are optimized for the data
 
 ### Looking to the baseline
 
@@ -320,7 +338,7 @@ CoHAspec_filt %>%
 
 This visualization shows only the estimated baseline, allowing you to assess whether the algorithm properly captures the underlying baseline trend.
 
-#### Comparing Original and Baseline  
+#### Comparing Original and Baseline
 
 For a comprehensive view of the correction process, we can overlay the original spectrum with the estimated baseline:
 
@@ -341,22 +359,46 @@ CoHAspec_filt %>%
 
 This comparison allows you to:
 
-- Evaluate the baseline estimation quality
-- Identify regions where the algorithm may need parameter adjustment
-- Verify that the baseline follows the expected spectral trend
+-   Evaluate the baseline estimation quality
+-   Identify regions where the algorithm may need parameter adjustment
+-   Verify that the baseline follows the expected spectral trend
 
 ## Scaling the spectra
+
+Spectral scaling (normalization) is a preprocessing technique that standardizes spectral data to facilitate comparison between samples and improve the performance of multivariate analysis methods.
+Different scaling approaches address various sources of systematic variation in spectral data, such as differences in sample concentration, path length, or instrumental response.
+
+### Importance of Spectral Scaling
+
+Scaling is essential when:
+
+\_ Sample concentrations vary: Different analyte concentrations can mask spectral patterns \_ Path lengths differ: Variations in sample thickness affect overall intensity \_ Instrumental variations exist: Different measurement conditions create systematic offsets \_ Multivariate analysis is planned: Many chemometric methods assume standardized data \_ Pattern recognition is the goal: Scaling emphasizes spectral shape over absolute intensity
+
+### Working with a Spectral Region
+
+For demonstration purposes, we'll work with a specific spectral region that contains relevant analytical information:
 
 ```{r}
 CoHAspec_region <- CoHAspec  %>%
     dplyr::filter(Wavenumber > 1300,
                 Wavenumber < 1950) 
-
 CoHAspec_region %>% 
     spec_smartplot(geom = "line")
 ```
 
-### Normalize between 0 and 1
+This region (1300-1950 cm⁻¹) is selected to focus on specific spectral features while avoiding regions that might contain noise or irrelevant information.
+
+### Min-Max Normalization (0-1 Scaling)
+
+Min-max normalization scales each spectrum to a range between 0 and 1, preserving the relative relationships between spectral intensities while standardizing the dynamic range.
+
+#### Mathematical Foundation
+
+For each spectrum, the transformation is:
+
+-   Normalized value = (Value - Minimum) / (Maximum - Minimum)
+-   Results in values ranging from 0 to 1
+-   Preserves the original spectral shape
 
 ```{r}
 CoHAspec_region %>%
@@ -364,7 +406,23 @@ CoHAspec_region %>%
     spec_smartplot(geom = "line")
 ```
 
-### Normalize setting the min and max values
+The `spec_norm_01()` function:
+
+-   Finds the minimum and maximum values for each spectrum
+-   Applies the min-max transformation
+-   Maintains spectral shape while standardizing intensity range
+-   Is particularly useful when absolute intensity differences are not analytically relevant
+
+#### When to Use Min-Max Normalization
+
+Min-max scaling is ideal when:
+
+-   You want to preserve spectral shape
+-   Absolute intensities vary due to concentration differences
+-   Visual comparison of spectral patterns is important
+-   The dynamic range needs standardization
+
+The user can set any min and max value with the `spec_norm_minmax()` function:
 
 ```{r}
 CoHAspec_region %>%
@@ -372,7 +430,19 @@ CoHAspec_region %>%
     spec_smartplot(geom = "line")
 ```
 
-### Normalize to mean = 0 and variance = 1
+### Standardization (Z-score Normalization)
+
+Standardization transforms each spectrum to have a mean of 0 and standard deviation of 1, emphasizing deviations from the average spectral response.
+
+#### Mathematical Foundation
+
+For each spectrum, the transformation is:
+
+-   Standardized value = (Value - Mean) / Standard Deviation
+-   Results in mean = 0 and variance = 1
+-   Emphasizes relative variations around the mean
+
+#### Application
 
 ```{r}
 CoHAspec_region %>%
@@ -380,19 +450,63 @@ CoHAspec_region %>%
     spec_smartplot(geom = "line")
 ```
 
+The `spec_norm_var()` function:
+
+-   Calculates the mean and standard deviation for each spectrum
+-   Applies z-score transformation
+-   Centers the data around zero
+-   Standardizes the variance across all spectra
+
+#### When to Use Standardization
+
+Standardization is appropriate when:
+
+-   You want to emphasize spectral variations
+-   Baseline shifts need to be removed
+-   Multivariate analysis requires standardized inputs
+-   Focus is on relative changes rather than absolute values
+
+### Choosing the Right Scaling Method
+
+The choice between scaling methods depends on your analytical objectives:
+
+| Method          | Best for                                      | Preserves           | Emphasizes           |
+|-----------------|-----------------------------------------------|---------------------|----------------------|
+| Min-Max (0-1)   | Pattern recognition, visual comparison        | Spectral shape      | Relative intensities |
+| Standardization | Multivariate analysis, variance-based methods | Spectral variations | Deviations from mean |
+
 ## Integration with tidyverse
 
+One of the key strengths of `{tidyspec}` is its seamless integration with the tidyverse ecosystem. This design philosophy allows users to leverage the full power of `{dplyr}`, `{tidyr}`, `{purrr}`, and other tidyverse packages to create sophisticated spectral analysis workflows. The following examples demonstrate how to combine `tidyspec` functions with tidyverse tools to solve common analytical challenges.
+
 ### Case 1: Choosing the best baseline parameters
+
+Parameter optimization is a critical aspect of spectral preprocessing. The rolling ball baseline correction method has two key parameters: `ws` (smoothing factor) and `wm` (window size), and finding the optimal combination often requires systematic evaluation across multiple parameter sets. The tidyverse approach makes this process both elegant and efficient.
+
+#### Setting up the parameter grid
+
+First, we prepare our spectral data by focusing on a specific region and applying initial smoothing:
 
 ```{r}
 dados_1030_1285 <- CoHAspec_filt %>% 
     tidyspec::spec_smooth_sga() %>%
     dplyr::filter(Wavenumber <= 1285, Wavenumber >= 1030)
 
+```
+
+Next, we create a comprehensive parameter grid using `tidyr::crossing()`, which generates all possible combinations of the specified parameter values:
+
+```{r}
 params <- tidyr::crossing(ws_val = c(2,4,6,8,10,12),
                           wm_val = c(10, 25, 40, 50))
 params 
 ```
+
+This approach creates a systematic grid of 24 parameter combinations (6 × 4), ensuring thorough exploration of the parameter space.
+
+#### Applying baseline correction across parameters
+
+The power of the tidyverse becomes evident when we need to apply the same operation across multiple parameter sets. Using `dplyr::mutate()` with `purrr::pmap()`, we can efficiently apply baseline correction to each parameter combination:
 
 ```{r}
 df <- params %>%
@@ -407,6 +521,17 @@ df <- params %>%
             ))
 ```
 
+This pipeline demonstrates several key tidyverse concepts:
+
+- Nested data structures: Each row contains the complete spectral dataset
+- Functional programming: purrr::pmap() applies the baseline correction function across multiple arguments
+- Pipeline operations: Each step builds upon the previous one using the pipe operator
+- Automated visualization: purrr::map2() creates customized plots for each parameter combination
+
+#### Visualizing parameter optimization results
+
+The final step involves creating comparative visualizations to assess the effect of different parameter combinations:
+
 ```{r}
 library(gridExtra)
 
@@ -418,3 +543,22 @@ grid.arrange(grobs = df$plot[17:20], nrow = 2, ncol = 2)
 grid.arrange(grobs = df$plot[21:24], nrow = 2, ncol = 2)
 ```
 
+#### Benefits of the tidyverse approach
+This workflow demonstrates several advantages of integrating tidyspec with the tidyverse:
+
+- **Scalability**: Easy to add more parameters or parameter values
+- **Reproducibility**: All steps are clearly documented and can be easily modified
+- **Efficiency**: Vectorized operations handle multiple datasets simultaneously
+- **Flexibility**: Each step can be customized or extended as needed
+- **Readability**: The pipeline structure makes the analysis workflow transparent
+
+#### Extending the approach
+
+This methodology can be extended to optimize other spectral processing parameters:
+
+- Smoothing parameters (window size, polynomial order)
+- Normalization methods and ranges
+- Derivative calculation parameters
+Spectral filtering ranges
+
+The combination of tidyspec functions with tidyverse tools creates a powerful framework for systematic spectral analysis, enabling researchers to make data-driven decisions about preprocessing parameters while maintaining clean, reproducible code.

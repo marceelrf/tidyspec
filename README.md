@@ -88,7 +88,6 @@ head(CoHAspec)
 
 ``` r
 set_spec_wn("Wavenumber")
-#> Successfully set 'Wavenumber' as the default wavenumber column.
 
 check_wn_col()
 #> The current wavenumber column is: Wavenumber
@@ -98,12 +97,6 @@ check_wn_col()
 
 ``` r
 spec_smartplot(CoHAspec)
-#> Warning in spec_smartplot(CoHAspec): wn_col not provided. Using the default
-#> set: 'Wavenumber'.
-#> Warning in spec_smartplot(CoHAspec): xmin not specified. Using minimum value
-#> from column 'Wavenumber': 399.199200
-#> Warning in spec_smartplot(CoHAspec): xmax not specified. Using maximum value
-#> from column 'Wavenumber': 3999.706000
 ```
 
 <img src="man/figures/README-plot_the_data-1.png" alt="Static plot" width="100%" />
@@ -114,12 +107,6 @@ spec_smartplot(CoHAspec)
 CoHAspec |>
     spec_abs2trans() |>
     spec_smartplot(type = "transmittance")
-#> Warning in spec_smartplot(spec_abs2trans(CoHAspec), type = "transmittance"):
-#> wn_col not provided. Using the default set: 'Wavenumber'.
-#> Warning in spec_smartplot(spec_abs2trans(CoHAspec), type = "transmittance"):
-#> xmin not specified. Using minimum value from column 'Wavenumber': 399.199200
-#> Warning in spec_smartplot(spec_abs2trans(CoHAspec), type = "transmittance"):
-#> xmax not specified. Using maximum value from column 'Wavenumber': 3999.706000
 ```
 
 <img src="man/figures/README-plot_the_data_in_transmittance-1.png" alt="Transmittance plot" width="100%" />
@@ -129,12 +116,6 @@ CoHAspec |>
 ``` r
 spec_select(CoHAspec, CoHA01) |>
   spec_smartplot(geom = "line")
-#> Warning in spec_smartplot(spec_select(CoHAspec, CoHA01), geom = "line"): wn_col
-#> not provided. Using the default set: 'Wavenumber'.
-#> Warning in spec_smartplot(spec_select(CoHAspec, CoHA01), geom = "line"): xmin
-#> not specified. Using minimum value from column 'Wavenumber': 399.199200
-#> Warning in spec_smartplot(spec_select(CoHAspec, CoHA01), geom = "line"): xmax
-#> not specified. Using maximum value from column 'Wavenumber': 3999.706000
 ```
 
 <img src="man/figures/README-select_the_CoHA01_data-1.png" alt="CoHA01 plot" width="100%" />

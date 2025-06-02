@@ -26,7 +26,9 @@ spec_abs2trans <- function(.data, wn_col = NULL) {
     wn_col <- get0(".wn_col_default", envir = tidyspec_env,
                    ifnotfound = NULL)
     if (is.null(wn_col)) {
-      stop("wn_col not specified and no pattern defined with set_spec_wn()")
+      stop("wn_col not specified and no default defined with set_spec_wn().")
+    } else {
+      warn_missing_param_once("wn_col", wn_col)
     }
   }
 

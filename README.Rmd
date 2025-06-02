@@ -93,4 +93,4 @@ spec_select(CoHAspec, CoHA01) |>
 ## The future of `tidyspec`  
 
 Our plan is for tidyspec to be the first step toward a complete ecosystem for spectral data analysis. For spectral band analysis, we are creating the [bandspec](https://github.com/marceelrf/bandspec) package that handles different band profiles. We also intend to create a package focused on producing publication-level graphics for spectral data. We haven't thought of a name yet, so we welcome suggestions!
-
+ 

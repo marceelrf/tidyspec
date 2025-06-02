@@ -59,11 +59,11 @@ spec_bl_rollingBall <- function(.data,
 
   if (is.null(wn_min)) {
     wn_min <- min(wn_values, na.rm = TRUE)
-    warning("wn_min was not specified. Using the minimum value present in 'wn_col'.")
+    warn_missing_param_once("xmin", xmin)
   }
   if (is.null(wn_max)) {
     wn_max <- max(wn_values, na.rm = TRUE)
-    warning("wn_max was not specified. Using the maximum value present in 'wn_col'.")
+    warn_missing_param_once("xmax", xmax)
   }
 
   if (wn_min >= wn_max) {
@@ -88,25 +88,35 @@ spec_bl_rollingBall <- function(.data,
   }
 
   if (is_abs) {
-    mat %>%
+    original_names <- names(mat)[numeric_cols]
+
+    corrected <- mat %>%
       dplyr::select(-{{wn_col}}) %>%
       t() %>%
       baseline::baseline(method = "rollingBall", wm = wm, ws = ws) %>%
       purrr::pluck("baseline") %>%
-      t() %>%
-      tibble::as_tibble() %>%
+      t()
+
+    colnames(corrected) <- paste0("baseline_", original_names)
+
+    tibble::as_tibble(corrected, .name_repair = "minimal") %>%
       dplyr::mutate({{wn_col}} := mat[[wn_col]]) %>%
-      dplyr::select({{wn_col}}, dplyr::where(is.numeric))
+      dplyr::select({{wn_col}}, dplyr::everything())
   } else {
-    mat %>%
+    original_names <- names(mat)[numeric_cols]
+
+    corrected <- mat %>%
       spec_trans2abs(wn_col = {{wn_col}}) %>%
       dplyr::select(-{{wn_col}}) %>%
       t() %>%
       baseline::baseline(method = "rollingBall", wm = wm, ws = ws) %>%
       purrr::pluck("baseline") %>%
-      t() %>%
-      tibble::as_tibble() %>%
+      t()
+
+    colnames(corrected) <- paste0("baseline_", original_names)
+
+    tibble::as_tibble(corrected, .name_repair = "minimal") %>%
       dplyr::mutate({{wn_col}} := mat[[wn_col]]) %>%
-      dplyr::select({{wn_col}}, dplyr::where(is.numeric))
+      dplyr::select({{wn_col}}, dplyr::everything())
   }
 }

@@ -38,9 +38,10 @@ spec_smartplot <- function(.data,
     if (is.null(wn_col)) {
       stop("wn_col not specified and no default defined with set_spec_wn().")
     } else {
-      warning(sprintf("wn_col not provided. Using the default set: '%s'.", wn_col))
+      warn_missing_param_once("wn_col", wn_col)
     }
   }
+
 
   if (!(wn_col %in% names(.data))) {
     stop(sprintf("Column '%s' was not found in the dataset.", wn_col))
@@ -54,7 +55,7 @@ spec_smartplot <- function(.data,
 
   if (is.null(xmin)) {
     xmin <- min(wn_values, na.rm = TRUE)
-    warning(sprintf("xmin not specified. Using minimum value from column '%s': %f", wn_col, xmin))
+    warn_missing_param_once("xmin", xmin)
   } else if (!is.numeric(xmin)) {
     warning("xmin must be numeric. Ignoring provided xmin.")
     xmin <- min(wn_values, na.rm = TRUE)
@@ -62,7 +63,7 @@ spec_smartplot <- function(.data,
 
   if (is.null(xmax)) {
     xmax <- max(wn_values, na.rm = TRUE)
-    warning(sprintf("xmax not specified. Using maximum value from column '%s': %f", wn_col, xmax))
+    warn_missing_param_once("xmax", xmax)
   } else if (!is.numeric(xmax)) {
     warning("xmax must be numeric. Ignoring provided xmax.")
     xmax <- max(wn_values, na.rm = TRUE)

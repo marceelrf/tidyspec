@@ -27,7 +27,7 @@ spec_smooth_avg <- function(.data, wn_col = NULL, window = 15, degree = 2) {
     if (is.null(wn_col)) {
       stop("wn_col not specified and no default defined with set_spec_wn().")
     } else {
-      warning(sprintf("wn_col not provided. Using defined default: '%s'.", wn_col))
+      warn_missing_param_once("wn_col", wn_col)
     }
   }
 
