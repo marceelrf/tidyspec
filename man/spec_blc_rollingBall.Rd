@@ -10,7 +10,7 @@ spec_blc_rollingBall(
   wn_min = NULL,
   wn_max = NULL,
   wm,
-  ws,
+  ws = 0,
   is_abs = TRUE
 )
 }
@@ -37,6 +37,5 @@ This function applies a rolling ball baseline correction to spectral data within
 It allows for correction of either absorbance or transmittance data.
 }
 \references{
-Baseline estimation performed using the `baseline` package for R.
-More information can be found at: \url{https://CRAN.R-project.org/package=baseline}
+Baseline estimation performed using a custom rolling ball implementation.
 }

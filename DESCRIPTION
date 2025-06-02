@@ -1,6 +1,6 @@
 Package: tidyspec
 Type: Package
-Title: Tidyspec: Spectroscopy Analysis Using the Tidy Data Philosophy
+Title: Spectroscopy Analysis Using the Tidy Data Philosophy
 Version: 0.1.0
 Authors@R: c(
     person("Marcel", "Ferreira", email = "marcel.ferreira@unesp.br",
@@ -26,7 +26,6 @@ BugReports: https://github.com/marceelrf/tidyspec/issues
 RoxygenNote: 7.2.3
 Depends: R (>= 4.0.0)
 Imports:
-    baseline,
     crayon,
     dplyr,
     ggplot2,

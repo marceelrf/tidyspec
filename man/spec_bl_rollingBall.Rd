@@ -2,7 +2,7 @@
 % Please edit documentation in R/spec_bl_rollingBall.R
 \name{spec_bl_rollingBall}
 \alias{spec_bl_rollingBall}
-\title{Apply Rolling Ball Baseline Correction to Spectral Data}
+\title{Extract Rolling Ball Baseline from Spectral Data}
 \usage{
 spec_bl_rollingBall(
   .data,
@@ -10,7 +10,7 @@ spec_bl_rollingBall(
   wn_min = NULL,
   wn_max = NULL,
   wm,
-  ws,
+  ws = 0,
   is_abs = TRUE
 )
 }
@@ -27,15 +27,15 @@ spec_bl_rollingBall(
 
 \item{ws}{A numeric value for the smoothing factor of the rolling ball algorithm.}
 
-\item{is_abs}{A logical value indicating whether the data is already in absorbance. If `TRUE`, absorbance is used directly; if `FALSE`, the data is converted to absorbance before applying the baseline correction.}
+\item{is_abs}{A logical value indicating whether the data is already in absorbance. If `TRUE`, absorbance is used directly; if `FALSE`, the data is converted to absorbance before extracting the baseline.}
 }
 \value{
-A `tibble` with the corrected spectral data, containing the wavelength column and the corrected numeric columns.
+A `tibble` with the baseline data, containing the wavelength column and the baseline for each numeric column.
 }
 \description{
-This function applies a rolling ball baseline correction to spectral data within a specified wavelength range.
+This function extracts the rolling ball baseline from spectral data within a specified wavelength range.
+It returns only the baseline, not the corrected data.
 }
 \references{
-Baseline estimation performed using the `baseline` package for R.
-More information can be found at: \url{https://CRAN.R-project.org/package=baseline}
+Baseline estimation performed using a custom rolling ball implementation.
 }

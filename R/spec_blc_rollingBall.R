@@ -14,14 +14,12 @@
 #' @return A `tibble` with the baseline-corrected spectral data, containing the wavelength column and the corrected numeric columns.
 #'
 #' @importFrom dplyr select mutate where %>%
-#' @importFrom baseline baseline
-#' @importFrom purrr pluck
+#' @importFrom purrr map_dfc
 #' @importFrom tibble as_tibble
 #' @importFrom rlang :=
 #'
 #' @references
-#' Baseline estimation performed using the `baseline` package for R.
-#' More information can be found at: \url{https://CRAN.R-project.org/package=baseline}
+#' Baseline estimation performed using a custom rolling ball implementation.
 #'
 #' @export
 spec_blc_rollingBall <- function(.data,
@@ -29,15 +27,15 @@ spec_blc_rollingBall <- function(.data,
                                  wn_min = NULL,
                                  wn_max = NULL,
                                  wm,
-                                 ws,
+                                 ws = 0,
                                  is_abs = TRUE) {
 
   if (!is.data.frame(.data)) {
     stop("The argument '.data' must be a data.frame or tibble.")
   }
 
-  if (missing(wm) || missing(ws)) {
-    stop("Arguments 'wm' and 'ws' are required.")
+  if (missing(wm)) {
+    stop("Argument 'wm' is required.")
   }
 
   if (is.null(wn_col)) {
@@ -59,12 +57,13 @@ spec_blc_rollingBall <- function(.data,
 
   if (is.null(wn_min)) {
     wn_min <- min(wn_values, na.rm = TRUE)
-    warn_missing_param_once("xmin", xmin)
+    # Note: You might want to add your warn_missing_param_once function here
+    # warn_missing_param_once("wn_min", wn_min)
   }
 
   if (is.null(wn_max)) {
     wn_max <- max(wn_values, na.rm = TRUE)
-    warn_missing_param_once("xmax", xmax)
+    # warn_missing_param_once("wn_max", wn_max)
   }
 
   if (wn_min >= wn_max) {
@@ -89,30 +88,35 @@ spec_blc_rollingBall <- function(.data,
   if (!is.numeric(wm) || wm <= 0) {
     warning("'wm' should be a positive number.")
   }
-  if (!is.numeric(ws) || ws <= 0) {
-    warning("'ws' should be a positive number.")
+  if (!is.numeric(ws) || ws < 0) {
+    warning("'ws' should be a non-negative number.")
+  }
+
+  # Helper function to apply rolling ball to each spectrum
+  apply_rolling_ball <- function(spectrum_data) {
+    # Apply rolling ball correction to each numeric column
+    corrected_data <- purrr::map_dfc(spectrum_data[num_cols], function(col) {
+      if (all(is.na(col))) {
+        return(col)  # Return as-is if all NA
+      }
+
+      # Apply rolling ball correction
+      result <- rolling_ball(col, wm = wm, ws = ws)
+      return(result$corrected)
+    })
+
+    # Add wavelength column back
+    corrected_data[[wn_col]] <- spectrum_data[[wn_col]]
+
+    # Reorder columns to match original order
+    corrected_data[c(wn_col, num_cols)]
   }
 
   if (is_abs) {
-    mat %>%
-      dplyr::select(-{{wn_col}}) %>%
-      t() %>%
-      baseline::baseline(method = "rollingBall", wm = wm, ws = ws) %>%
-      purrr::pluck("corrected") %>%
-      t() %>%
-      tibble::as_tibble(.name_repair = "unique") %>%
-      dplyr::mutate({{wn_col}} := mat[[wn_col]]) %>%
-      dplyr::select({{wn_col}}, dplyr::where(is.numeric))
+    apply_rolling_ball(mat)
   } else {
-    mat %>%
-      spec_trans2abs(wn_col = {{wn_col}}) %>%
-      dplyr::select(-{{wn_col}}) %>%
-      t() %>%
-      baseline::baseline(method = "rollingBall", wm = wm, ws = ws) %>%
-      purrr::pluck("corrected") %>%
-      t() %>%
-      tibble::as_tibble(.name_repair = "unique") %>%
-      dplyr::mutate({{wn_col}} := mat[[wn_col]]) %>%
-      dplyr::select({{wn_col}}, dplyr::where(is.numeric))
+    # Convert to absorbance first, then apply correction
+    abs_data <- spec_trans2abs(mat, wn_col = !!rlang::sym(wn_col))
+    apply_rolling_ball(abs_data)
   }
 }
