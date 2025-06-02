@@ -29,7 +29,6 @@ Imports:
     crayon,
     dplyr,
     ggplot2,
-    ggrepel,
     glue,
     plotly,
     purrr,
