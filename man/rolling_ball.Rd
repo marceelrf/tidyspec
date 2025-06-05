@@ -14,10 +14,12 @@ rolling_ball(x, wm, ws = 0)
 \item{ws}{Smoothing window width (optional)}
 }
 \value{
-List with components:
-  \item{baseline}{Vector with the estimated baseline}
-  \item{corrected}{Vector with the corrected signal (x - baseline)}
-  \item{original}{Original input vector}
+A list with three components:
+  \describe{
+    \item{baseline}{Numeric vector containing the estimated baseline values}
+    \item{corrected}{Numeric vector containing the baseline-corrected signal (original - baseline)}
+    \item{original}{Numeric vector containing the original input signal}
+  }
 }
 \description{
 Implements the rolling ball baseline correction method

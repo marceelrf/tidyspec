@@ -28,8 +28,8 @@
 #' @export
 
 spec_pca <- function(.data, wn_col = NULL,
-                     scale = T,
-                     center = T){
+                     scale = TRUE,
+                     center = TRUE){
 
 
   if (!is.data.frame(.data)) {

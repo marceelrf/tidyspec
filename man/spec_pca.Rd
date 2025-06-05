@@ -4,7 +4,7 @@
 \alias{spec_pca}
 \title{Perform Principal Component Analysis (PCA) on Spectral Data}
 \usage{
-spec_pca(.data, wn_col = NULL, scale = T, center = T)
+spec_pca(.data, wn_col = NULL, scale = TRUE, center = TRUE)
 }
 \arguments{
 \item{.data}{A data frame containing spectral data, with one column representing

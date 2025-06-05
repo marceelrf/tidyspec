@@ -17,6 +17,9 @@ plot_rolling_ball(
 
 \item{x_values}{X-axis values (optional)}
 }
+\value{
+No return value, called for side effects (creates a plot)
+}
 \description{
 Convenience function to visualize the results
 }

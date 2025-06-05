@@ -4,8 +4,28 @@
 \alias{demo_rolling_ball}
 \title{Usage Example and Test}
 \usage{
-demo_rolling_ball()
+demo_rolling_ball(verbose = TRUE)
+}
+\arguments{
+\item{verbose}{Logical indicating whether to print progress messages}
+}
+\value{
+A list containing two elements:
+  \describe{
+    \item{simple}{Results from the simple rolling ball method}
+    \item{morphology}{Results from the mathematical morphology method}
+  }
 }
 \description{
 Function to demonstrate the use of implemented functions
+}
+\examples{
+\donttest{
+# Run the demonstration
+demo_results <- demo_rolling_ball()
+
+# Access results
+simple_method <- demo_results$simple
+morphology_method <- demo_results$morphology
+}
 }

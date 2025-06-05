@@ -8,10 +8,12 @@
 #' @param x Numeric vector containing the spectrum/signal values
 #' @param wm Window width (ball radius). Larger values = smoother baseline
 #' @param ws Smoothing window width (optional)
-#' @return List with components:
-#'   \item{baseline}{Vector with the estimated baseline}
-#'   \item{corrected}{Vector with the corrected signal (x - baseline)}
-#'   \item{original}{Original input vector}
+#' @return A list with three components:
+#'   \describe{
+#'     \item{baseline}{Numeric vector containing the estimated baseline values}
+#'     \item{corrected}{Numeric vector containing the baseline-corrected signal (original - baseline)}
+#'     \item{original}{Numeric vector containing the original input signal}
+#'   }
 #' @export
 #' @examples
 #' # Example with simulated data
@@ -83,7 +85,7 @@ rolling_ball <- function(x, wm, ws = 0) {
 #'
 #' @param baseline Vector with the baseline
 #' @param ws Smoothing window width
-#' @return Smoothed vector
+#' @return Smoothed numeric vector of the same length as input
 smooth_baseline <- function(baseline, ws) {
   n <- length(baseline)
   smoothed <- numeric(n)
@@ -104,7 +106,12 @@ smooth_baseline <- function(baseline, ws) {
 #' @param x Numeric vector containing the spectrum/signal values
 #' @param radius Radius of the structuring ball
 #' @param smooth Apply additional smoothing (logical)
-#' @return List with components baseline, corrected and original
+#' @return A list with three components:
+#'   \describe{
+#'     \item{baseline}{Numeric vector containing the estimated baseline values using morphological operations}
+#'     \item{corrected}{Numeric vector containing the baseline-corrected signal (original - baseline)}
+#'     \item{original}{Numeric vector containing the original input signal}
+#'   }
 #' @export
 rolling_ball_morphology <- function(x, radius, smooth = TRUE) {
 
@@ -158,12 +165,17 @@ rolling_ball_morphology <- function(x, radius, smooth = TRUE) {
 #' @param result Result from rolling_ball or rolling_ball_morphology function
 #' @param title Plot title
 #' @param x_values X-axis values (optional)
+#' @return No return value, called for side effects (creates a plot)
 #' @export
 plot_rolling_ball <- function(result, title = "Rolling Ball Baseline Correction", x_values = NULL) {
 
   if (is.null(x_values)) {
     x_values <- seq_along(result$original)
   }
+
+  # Save current par settings and restore on exit
+  oldpar <- graphics::par(no.readonly = TRUE)
+  on.exit(graphics::par(oldpar))
 
   # Plot configuration
   plot(x_values, result$original, type = "l", col = "blue", lwd = 1.5,
@@ -186,11 +198,29 @@ plot_rolling_ball <- function(result, title = "Rolling Ball Baseline Correction"
 #'
 #' Function to demonstrate the use of implemented functions
 #'
+#' @param verbose Logical indicating whether to print progress messages
+#' @return A list containing two elements:
+#'   \describe{
+#'     \item{simple}{Results from the simple rolling ball method}
+#'     \item{morphology}{Results from the mathematical morphology method}
+#'   }
 #' @export
-demo_rolling_ball <- function() {
+#' @examples
+#' \donttest{
+#' # Run the demonstration
+#' demo_results <- demo_rolling_ball()
+#'
+#' # Access results
+#' simple_method <- demo_results$simple
+#' morphology_method <- demo_results$morphology
+#' }
+demo_rolling_ball <- function(verbose = TRUE) {
 
-  cat("Rolling Ball Baseline Correction Demonstration\n")
-  cat("============================================\n\n")
+  if (verbose) {
+    message("Rolling Ball Baseline Correction Demonstration")
+    message("============================================")
+    message("")
+  }
 
   # Create example data
   x <- seq(1, 200, by = 1)
@@ -204,11 +234,19 @@ demo_rolling_ball <- function() {
   y <- baseline_true + peaks + noise
 
   # Apply rolling ball correction
-  cat("Applying Rolling Ball (simple method)...\n")
+  if (verbose) {
+    message("Applying Rolling Ball (simple method)...")
+  }
   result1 <- rolling_ball(y, wm = 20)
 
-  cat("Applying Rolling Ball (mathematical morphology)...\n")
+  if (verbose) {
+    message("Applying Rolling Ball (mathematical morphology)...")
+  }
   result2 <- rolling_ball_morphology(y, radius = 25)
+
+  # Save current par settings and restore on exit
+  oldpar <- graphics::par(no.readonly = TRUE)
+  on.exit(graphics::par(oldpar))
 
   # Plot results
   graphics::par(mfrow = c(2, 1), mar = c(4, 4, 3, 1))
@@ -216,10 +254,11 @@ demo_rolling_ball <- function() {
   plot_rolling_ball(result1, "Rolling Ball - Simple Method", x)
   plot_rolling_ball(result2, "Rolling Ball - Mathematical Morphology", x)
 
-  graphics::par(mfrow = c(1, 1))
+  if (verbose) {
+    message("")
+    message("Demonstration completed!")
+    message("Try different wm/radius values to optimize the results.")
+  }
 
-  cat("\nDemonstration completed!\n")
-  cat("Try different wm/radius values to optimize the results.\n")
-
-  return(invisible(list(simple = result1, morphology = result2)))
+  return(list(simple = result1, morphology = result2))
 }

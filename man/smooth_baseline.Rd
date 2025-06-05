@@ -12,7 +12,7 @@ smooth_baseline(baseline, ws)
 \item{ws}{Smoothing window width}
 }
 \value{
-Smoothed vector
+Smoothed numeric vector of the same length as input
 }
 \description{
 Auxiliary function to smooth the baseline using moving average

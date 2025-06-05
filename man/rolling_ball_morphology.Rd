@@ -14,7 +14,12 @@ rolling_ball_morphology(x, radius, smooth = TRUE)
 \item{smooth}{Apply additional smoothing (logical)}
 }
 \value{
-List with components baseline, corrected and original
+A list with three components:
+  \describe{
+    \item{baseline}{Numeric vector containing the estimated baseline values using morphological operations}
+    \item{corrected}{Numeric vector containing the baseline-corrected signal (original - baseline)}
+    \item{original}{Numeric vector containing the original input signal}
+  }
 }
 \description{
 More sophisticated version of rolling ball using mathematical morphology concepts
