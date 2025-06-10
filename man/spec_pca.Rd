@@ -29,7 +29,7 @@ This function computes a Principal Component Analysis (PCA) on spectral data,
 excluding the wavenumber column from the analysis.
 }
 \examples{
-\dontrun{
+\donttest{
 set_spec_wn("Wavenumber")
 pca_result <- spec_pca(CoHAspec)
 summary(pca_result)

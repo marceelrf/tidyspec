@@ -13,7 +13,7 @@
 #' each wavenumber in defining the principal components.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' pca_result <- spec_pca(CoHAspec)
 #' wn_contrib <- spec_pca_wn_contrib(pca_result)
 #' print(wn_contrib)

@@ -22,11 +22,11 @@
 #'   If the specified `wn_col` does not exist in the data, an error is returned.
 #'
 #' @examples
-#' \dontrun{
-#'   df <- spec_read("spectra.csv", wn_col = "Wavenumber")
-#'   check_wn_col() # Verify that the wavenumber column is set
+#' \donttest{
+#'   file_path <- system.file("extdata", "CoHAspec.csv", package = "tidyspec")
+#'   df <- spec_read(file_path, wn_col = "Wavenumber")
+#'   check_wn_col() # Verifica se a coluna de wavenumber está definida
 #' }
-#'
 #' @export
 spec_read <- function(file, wn_col, ...) {
   # Check if the file exists
