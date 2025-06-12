@@ -1,0 +1,20 @@
+url: ~
+
+template:
+  bootstrap: 5
+
+title: "tidyspec"
+subtitle: "Spectroscopy Analysis Using the Tidy Data Philosophy"
+
+authors:
+  - name: Marcel Ferreira
+    roles: [aut, cre]
+    affiliation: UNESP
+
+home:
+  title: "Welcome to tidyspec!"
+  links:
+    - text: "GitHub"
+      href: "https://github.com/marceelrf/tidyspec"
+    - text: "Install via CRAN"
+      href: "https://CRAN.R-project.org/package=tidyspec"
