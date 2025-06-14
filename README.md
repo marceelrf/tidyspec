@@ -6,6 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/marceelrf/tidyspec/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/marceelrf/tidyspec/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/tidyspec)](https://CRAN.R-project.org/package=tidyspec)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
@@ -14,6 +16,12 @@ The goal of **tidyspec** is to provide a friendly pipeline for
 spectroscopy analysis using the tidy data philosophy.
 
 ## Installation
+
+You can install from CRAN:
+
+``` r
+install.packages("tidyspec")
+```
 
 You can install the development version of tidyspec from
 [GitHub](https://github.com/) with:
@@ -88,6 +96,7 @@ head(CoHAspec)
 
 ``` r
 set_spec_wn("Wavenumber")
+#> Successfully set 'Wavenumber' as the default wavenumber column.
 
 check_wn_col()
 #> The current wavenumber column is: Wavenumber
@@ -97,6 +106,12 @@ check_wn_col()
 
 ``` r
 spec_smartplot(CoHAspec)
+#> Warning: wn_col not specified. Using default value: Wavenumber.
+#> This message is shown at most once every 2 hours.
+#> Warning: xmin not specified. Using default value: 399.1992.
+#> This message is shown at most once every 2 hours.
+#> Warning: xmax not specified. Using default value: 3999.706.
+#> This message is shown at most once every 2 hours.
 ```
 
 <img src="man/figures/README-plot_the_data-1.png" alt="Static plot" width="100%" />

@@ -18,12 +18,20 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/marceelrf/tidyspec/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/marceelrf/tidyspec/actions/workflows/R-CMD-check.yaml)
+[![CRAN status](https://www.r-pkg.org/badges/version/tidyspec)](https://CRAN.R-project.org/package=tidyspec)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <!-- badges: end -->
 
 The goal of **tidyspec** is to provide a friendly pipeline for spectroscopy analysis using the tidy data philosophy.
 
 ## Installation
+
+You can install from CRAN:
+
+```{r eval=FALSE}
+install.packages("tidyspec")
+```
+
 
 You can install the development version of tidyspec from [GitHub](https://github.com/) with:
 
