@@ -18,7 +18,7 @@
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Welcome to tidyspec!">
 <meta name="description" content='Enables the analysis of spectroscopy data such as infrared (IR), Raman, and nuclear magnetic resonance (NMR) using the tidy data framework from the tidyverse. The tidyspec package provides functions for data transformation, normalization, baseline correction, smoothing, derivatives, and both interactive and static visualization. It promotes structured, reproducible workflows for spectral data exploration and preprocessing. Implemented methods include Savitzky and Golay (1964) "Smoothing and Differentiation of Data by Simplified Least Squares Procedures" &lt;doi:10.1021/ac60214a047&gt;, Sternberg (1983) "Biomedical Image Processing" &lt;https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=1654163&gt;, Zimmermann and Kohler (1996) "Baseline correction using the rolling ball algorithm" &lt;doi:10.1016/0168-583X(95)00908-6&gt;, Beattie and Esmonde-White (2021) "Exploration of Principal Component Analysis: Deriving Principal Component Analysis Visually Using Spectra" &lt;doi:10.1177/0003702820987847&gt;, Wickham et al. (2019) "Welcome to the tidyverse" &lt;doi:10.21105/joss.01686&gt;, and Kuhn, Wickham and Hvitfeldt (2024) "recipes: Preprocessing and Feature Engineering Steps for Modeling" &lt;https://CRAN.R-project.org/package=recipes&gt;.'>
 <meta property="og:description" content='Enables the analysis of spectroscopy data such as infrared (IR), Raman, and nuclear magnetic resonance (NMR) using the tidy data framework from the tidyverse. The tidyspec package provides functions for data transformation, normalization, baseline correction, smoothing, derivatives, and both interactive and static visualization. It promotes structured, reproducible workflows for spectral data exploration and preprocessing. Implemented methods include Savitzky and Golay (1964) "Smoothing and Differentiation of Data by Simplified Least Squares Procedures" &lt;doi:10.1021/ac60214a047&gt;, Sternberg (1983) "Biomedical Image Processing" &lt;https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=1654163&gt;, Zimmermann and Kohler (1996) "Baseline correction using the rolling ball algorithm" &lt;doi:10.1016/0168-583X(95)00908-6&gt;, Beattie and Esmonde-White (2021) "Exploration of Principal Component Analysis: Deriving Principal Component Analysis Visually Using Spectra" &lt;doi:10.1177/0003702820987847&gt;, Wickham et al. (2019) "Welcome to the tidyverse" &lt;doi:10.21105/joss.01686&gt;, and Kuhn, Wickham and Hvitfeldt (2024) "recipes: Preprocessing and Feature Engineering Steps for Modeling" &lt;https://CRAN.R-project.org/package=recipes&gt;.'>
-<meta property="og:image" content="/logo.png">
+<meta property="og:image" content="https://marceelrf.github.io/tidyspec/logo.png">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -68,8 +68,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of tidyspec from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyspec"</span><span class="op">)</span></span></code></pre></div>
+<p>You can install the development version of tidyspec from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"marceelrf/tidyspec"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -92,12 +95,12 @@
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/marceelrf/tidyspec" class="external-link">tidyspec</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="the-data">The data<a class="anchor" aria-label="anchor" href="#the-data"></a>
 </h3>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">CoHAspec</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 x 5</span></span>
 <span><span class="co">#&gt;   Wavenumber CoHA01 CoHA025 CoHA05 CoHA100</span></span>
@@ -112,8 +115,9 @@
 <div class="section level3">
 <h3 id="set-the-wavenumber-column">Set the wavenumber column<a class="anchor" aria-label="anchor" href="#set-the-wavenumber-column"></a>
 </h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/set_spec_wn.html">set_spec_wn</a></span><span class="op">(</span><span class="st">"Wavenumber"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Successfully set 'Wavenumber' as the default wavenumber column.</span></span>
 <span></span>
 <span><span class="fu"><a href="reference/check_wn_col.html">check_wn_col</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; The current wavenumber column is: Wavenumber</span></span></code></pre></div>
@@ -121,14 +125,20 @@
 <div class="section level3">
 <h3 id="plot-the-data">Plot the data<a class="anchor" aria-label="anchor" href="#plot-the-data"></a>
 </h3>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/spec_smartplot.html">spec_smartplot</a></span><span class="op">(</span><span class="va">CoHAspec</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="reference/spec_smartplot.html">spec_smartplot</a></span><span class="op">(</span><span class="va">CoHAspec</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: wn_col not specified. Using default value: Wavenumber.</span></span>
+<span><span class="co">#&gt; This message is shown at most once every 2 hours.</span></span>
+<span><span class="co">#&gt; Warning: xmin not specified. Using default value: 399.1992.</span></span>
+<span><span class="co">#&gt; This message is shown at most once every 2 hours.</span></span>
+<span><span class="co">#&gt; Warning: xmax not specified. Using default value: 3999.706.</span></span>
+<span><span class="co">#&gt; This message is shown at most once every 2 hours.</span></span></code></pre></div>
 <p><img src="reference/figures/README-plot_the_data-1.png" alt="Static plot" width="100%"></p>
 </div>
 <div class="section level3">
 <h3 id="convert-to-trasmittance">Convert to trasmittance<a class="anchor" aria-label="anchor" href="#convert-to-trasmittance"></a>
 </h3>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CoHAspec</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/spec_abs2trans.html">spec_abs2trans</a></span><span class="op">(</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu"><a href="reference/spec_smartplot.html">spec_smartplot</a></span><span class="op">(</span>type <span class="op">=</span> <span class="st">"transmittance"</span><span class="op">)</span></span></code></pre></div>
@@ -137,7 +147,7 @@
 <div class="section level3">
 <h3 id="select-the-spectra">Select the spectra<a class="anchor" aria-label="anchor" href="#select-the-spectra"></a>
 </h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/spec_select.html">spec_select</a></span><span class="op">(</span><span class="va">CoHAspec</span>, <span class="va">CoHA01</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/spec_smartplot.html">spec_smartplot</a></span><span class="op">(</span>geom <span class="op">=</span> <span class="st">"line"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-select_the_CoHA01_data-1.png" alt="CoHA01 plot" width="100%"></p>
@@ -189,6 +199,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/marceelrf/tidyspec/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/marceelrf/tidyspec/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=tidyspec" class="external-link"><img src="https://www.r-pkg.org/badges/version/tidyspec" alt="CRAN status"></a></li>
 <li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
 </ul>
 </div>
