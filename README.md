@@ -17,7 +17,7 @@ spectroscopy analysis using the tidy data philosophy.
 
 ## Installation
 
-You can install from CRAN:
+You can install from CRAN (0.1.0):
 
 ``` r
 install.packages("tidyspec")
@@ -46,9 +46,9 @@ are 6 families of functions in `tidyspec`, all starting with `spec_`:
   have a standard deviation of one (`spec_norm_var`).  
 
 - **Baseline correction**: Correct the baseline using the the *rolling
-  ball* algorithm (`spec_blc_rollingBall`) or *Iterative Restricted
-  Least Squares* (`spec_blc_irls`). The function `spec_bl` return the
-  baseline vectors (`spec_bl_rollingBall`, `spec_bl_irls`).
+  ball* algorithm (`spec_blc_rollingBall`) or *Rubberband*
+  (`spec_blc_rubberband`). The function `spec_bl` return the baseline
+  vectors (`spec_bl_rollingBall`, `spec_bl_rubberband`).
 
 - **Smooth correction**: Smooth the data using the average window
   (`spec_smooth_avg`) or using the Savitzky-Golay algorithm
