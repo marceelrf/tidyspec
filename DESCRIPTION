@@ -1,7 +1,7 @@
 Package: tidyspec
 Type: Package
 Title: Spectroscopy Analysis Using the Tidy Data Philosophy
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person("Marcel", "Ferreira", email = "marcel.ferreira@unesp.br",
            role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3445-0945")),
@@ -34,6 +34,7 @@ Imports:
     rlang,
     scales,
     signal,
+    stats,
     tibble,
     tidyr,
     tidyselect,
