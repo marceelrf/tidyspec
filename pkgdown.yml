@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   introduction: introduction.html
-last_built: 2025-06-14T16:34Z
+last_built: 2025-08-05T16:53Z
 urls:
   reference: https://marceelrf.github.io/tidyspec/reference
   article: https://marceelrf.github.io/tidyspec/articles
