@@ -69,7 +69,7 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install from CRAN:</p>
+<p>You can install from CRAN (0.1.0):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyspec"</span><span class="op">)</span></span></code></pre></div>
 <p>You can install the development version of tidyspec from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
@@ -84,7 +84,7 @@
 <ul>
 <li><p><strong>Transformation</strong>: Convert data from absorbance to transmittance (<code>spec_abs2trans</code>) &amp; from transmittance to absorbance (<code>spec_trans2abs</code>).</p></li>
 <li><p><strong>Normalize</strong>: Normalize the data to range 0-1 (<code>spec_norm_01</code>), normalize between a custom range (<code>spec_norm_minmax</code>), or normalize to have a standard deviation of one (<code>spec_norm_var</code>).</p></li>
-<li><p><strong>Baseline correction</strong>: Correct the baseline using the the <em>rolling ball</em> algorithm (<code>spec_blc_rollingBall</code>) or <em>Iterative Restricted Least Squares</em> (<code>spec_blc_irls</code>). The function <code>spec_bl</code> return the baseline vectors (<code>spec_bl_rollingBall</code>, <code>spec_bl_irls</code>).</p></li>
+<li><p><strong>Baseline correction</strong>: Correct the baseline using the the <em>rolling ball</em> algorithm (<code>spec_blc_rollingBall</code>) or <em>Rubberband</em> (<code>spec_blc_rubberband</code>). The function <code>spec_bl</code> return the baseline vectors (<code>spec_bl_rollingBall</code>, <code>spec_bl_rubberband</code>).</p></li>
 <li><p><strong>Smooth correction</strong>: Smooth the data using the average window (<code>spec_smooth_avg</code>) or using the Savitzky-Golay algorithm (<code>spec_smooth_sga</code>).</p></li>
 <li><p><strong>Derivative</strong>: Create differential data from the spectra (<code>spec_diff</code>).</p></li>
 <li><p><strong>Preview</strong>: Preview your data while applying changes statically (<code>spec_smartplot</code>) or interactively (<code>spec_smartplotly</code>).</p></li>
