@@ -14,3 +14,32 @@
 
 - Enhanced baseline correction options with rubberband algorithm alongside existing rolling ball method
 - Consistent API design between rolling ball and rubberband baseline functions
+
+# tidyspec 0.3.0
+
+## New Features
+### Spectral Interpolation Functions
+
+- Added `spec_interpolate_left()` for interpolating spectral data to match reference wavenumber grids (left join style)
+- Added `spec_interpolate_right()` for combining datasets with interpolated reference data (right join style)
+- Added `spec_interpolate_regular()` for creating regular wavenumber grids with specified resolution
+- Support for multiple interpolation methods:
+
+  - `"linear"` - Linear interpolation (base R);
+  - `"pchip"` - Piecewise Cubic Hermite Interpolating Polynomial (requires `pracma`);
+  - `"spline"` - Cubic spline interpolation (base R)
+  - `"akima"` - Akima spline interpolation (requires `akima`)
+
+- Optional extrapolation control with `extrapolate` parameter
+- Automatic handling of overlapping column names with customizable suffixes
+- Consistent integration with tidyspec environment for automatic wavenumber column detection
+
+## Dependencies
+
+Added `pracma` and `akima` to Suggests for advanced interpolation methods;
+Functions gracefully handle missing optional dependencies with informative error messages;
+
+## Documentation
+
+Comprehensive documentation for all interpolation functions with usage examples
+Clear explanation of join-style behavior for spectral data alignment
