@@ -18,3 +18,59 @@ home:
       href: "https://github.com/marceelrf/tidyspec"
     - text: "Install via CRAN"
       href: "https://CRAN.R-project.org/package=tidyspec"
+
+reference:
+
+  - title: "Package Setup"
+    desc: "Functions to configure tidyspec environment"
+    contents:
+      - set_spec_wn
+      - check_wn_col
+
+  - title: "Data Import"
+    desc: "Functions to read spectral data"
+    contents:
+      - ends_with("_read")
+
+  - title: "Data Transformation"
+    desc: "Functions to transform spectral data"
+    contents:
+      - spec_trans2abs
+      - spec_abs2trans
+      - spec_diff
+      - spec_filter
+      - spec_select
+      - spec_norm_01
+      - spec_norm_minmax
+      - spec_norm_var
+      - spec_smooth_avg
+      - spec_smooth_sga
+
+
+  - title: "Baseline Correction"
+    desc: "Functions for baseline correction and extraction"
+    contents:
+      - spec_blc_rollingBall
+      - spec_blc_rubberband
+      - spec_bl_rubberband
+      - starts_with("spec_bl")
+      - starts_with("spec_blc")
+
+  - title: "Interpolation and Resampling"
+    desc: "Functions for spectral interpolation and grid alignment"
+    contents:
+      - spec_interpolate_left
+      - spec_interpolate_right
+      - spec_interpolate_regular
+
+  - title: "Plotting and Visualization"
+    desc: "Functions for plotting spectral data"
+    contents:
+      - matches("smartplot")
+
+  - title: "PCA"
+    desc: "Principal Component Analysis for spectral data"
+    contents:
+      - spec_pca
+      - spec_pca_screeplot
+      - spec_pca_wn_contrib
