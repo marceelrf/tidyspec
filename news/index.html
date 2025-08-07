@@ -36,57 +36,61 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.2.0" id="tidyspec-020">tidyspec 0.2.0<a class="anchor" aria-label="anchor" href="#tidyspec-020"></a></h2>
-<ul><li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-</ul><div class="section level3">
-<h3 id="tidyspec-development-version-0-2-0">tidyspec (development version)<a class="anchor" aria-label="anchor" href="#tidyspec-development-version-0-2-0"></a></h3>
-<div class="section level4">
-<h4 id="new-features-0-2-0">New features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h4>
-<ul><li>Added <code><a href="../reference/spec_blc_rubberband.html">spec_blc_rubberband()</a></code> function for rubberband baseline correction of spectral data</li>
-<li>Added <code><a href="../reference/spec_bl_rubberband.html">spec_bl_rubberband()</a></code> function to extract rubberband baseline from spectral data</li>
-<li>Rubberband method provides automatic baseline correction by connecting local minima points</li>
-<li>Both functions support customizable segment length and baseline smoothing options</li>
-</ul></div>
-<div class="section level4">
-<h4 id="improvements-0-2-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-2-0"></a></h4>
-<ul><li>Enhanced baseline correction options with rubberband algorithm alongside existing rolling ball method</li>
-<li>Consistent API design between rolling ball and rubberband baseline functions</li>
-</ul></div>
-</div>
-</div>
-    <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="tidyspec-030">tidyspec 0.3.0<a class="anchor" aria-label="anchor" href="#tidyspec-030"></a></h2>
 <div class="section level3">
 <h3 id="new-features-0-3-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-3-0"></a></h3>
 <div class="section level4">
 <h4 id="spectral-interpolation-functions-0-3-0">Spectral Interpolation Functions<a class="anchor" aria-label="anchor" href="#spectral-interpolation-functions-0-3-0"></a></h4>
-<ul><li><p>Added <code><a href="../reference/spec_interpolate_left.html">spec_interpolate_left()</a></code> for interpolating spectral data to match reference wavenumber grids (left join style)</p></li>
-<li><p>Added <code><a href="../reference/spec_interpolate_right.html">spec_interpolate_right()</a></code> for combining datasets with interpolated reference data (right join style)</p></li>
-<li><p>Added <code><a href="../reference/spec_interpolate_regular.html">spec_interpolate_regular()</a></code> for creating regular wavenumber grids with specified resolution</p></li>
-<li>
-<p>Support for multiple interpolation methods:</p>
+<ul><li>Added <code><a href="../reference/spec_interpolate_left.html">spec_interpolate_left()</a></code> for interpolating spectral data to match reference wavenumber grids (left join style)</li>
+<li>Added <code><a href="../reference/spec_interpolate_right.html">spec_interpolate_right()</a></code> for combining datasets with interpolated reference data (right join style)</li>
+<li>Added <code><a href="../reference/spec_interpolate_regular.html">spec_interpolate_regular()</a></code> for creating regular wavenumber grids with specified resolution</li>
+<li>Support for multiple interpolation methods:
 <ul><li>
-<code>"linear"</code> - Linear interpolation (base R);</li>
+<code>"linear"</code> - Linear interpolation (base R)</li>
 <li>
-<code>"pchip"</code> - Piecewise Cubic Hermite Interpolating Polynomial (requires <code>pracma</code>);</li>
+<code>"pchip"</code> - Piecewise Cubic Hermite Interpolating Polynomial (requires <code>pracma</code>)</li>
 <li>
 <code>"spline"</code> - Cubic spline interpolation (base R)</li>
 <li>
 <code>"akima"</code> - Akima spline interpolation (requires <code>akima</code>)</li>
 </ul></li>
-<li><p>Optional extrapolation control with <code>extrapolate</code> parameter</p></li>
-<li><p>Automatic handling of overlapping column names with customizable suffixes</p></li>
-<li><p>Consistent integration with tidyspec environment for automatic wavenumber column detection</p></li>
+<li>Optional extrapolation control with <code>extrapolate</code> parameter</li>
+<li>Automatic handling of overlapping column names with customizable suffixes</li>
+<li>Consistent integration with tidyspec environment for automatic wavenumber column detection</li>
 </ul></div>
 </div>
 <div class="section level3">
 <h3 id="dependencies-0-3-0">Dependencies<a class="anchor" aria-label="anchor" href="#dependencies-0-3-0"></a></h3>
-<p>Added <code>pracma</code> and <code>akima</code> to Suggests for advanced interpolation methods; Functions gracefully handle missing optional dependencies with informative error messages;</p>
-</div>
+<ul><li>Added <code>pracma</code> and <code>akima</code> to Suggests for advanced interpolation methods</li>
+<li>Functions gracefully handle missing optional dependencies with informative error messages</li>
+</ul></div>
 <div class="section level3">
 <h3 id="documentation-0-3-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-3-0"></a></h3>
-<p>Comprehensive documentation for all interpolation functions with usage examples Clear explanation of join-style behavior for spectral data alignment</p>
+<ul><li>Comprehensive documentation for all interpolation functions with usage examples</li>
+<li>Clear explanation of join-style behavior for spectral data alignment</li>
+</ul></div>
 </div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.2.0" id="tidyspec-020">tidyspec 0.2.0<a class="anchor" aria-label="anchor" href="#tidyspec-020"></a></h2>
+<div class="section level3">
+<h3 id="new-features-0-2-0">New Features<a class="anchor" aria-label="anchor" href="#new-features-0-2-0"></a></h3>
+<div class="section level4">
+<h4 id="baseline-correction-functions-0-2-0">Baseline Correction Functions<a class="anchor" aria-label="anchor" href="#baseline-correction-functions-0-2-0"></a></h4>
+<ul><li>Added <code><a href="../reference/spec_blc_rubberband.html">spec_blc_rubberband()</a></code> function for rubberband baseline correction of spectral data</li>
+<li>Added <code><a href="../reference/spec_bl_rubberband.html">spec_bl_rubberband()</a></code> function to extract rubberband baseline from spectral data</li>
+<li>Rubberband method provides automatic baseline correction by connecting local minima points</li>
+<li>Both functions support customizable segment length and baseline smoothing options</li>
+</ul></div>
+</div>
+<div class="section level3">
+<h3 id="improvements-0-2-0">Improvements<a class="anchor" aria-label="anchor" href="#improvements-0-2-0"></a></h3>
+<ul><li>Enhanced baseline correction options with rubberband algorithm alongside existing rolling ball method</li>
+<li>Consistent API design between rolling ball and rubberband baseline functions</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-2-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-2-0"></a></h3>
+<ul><li>Added a <code>NEWS.md</code> file to track changes to the package</li>
+</ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
