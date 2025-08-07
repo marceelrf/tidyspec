@@ -17,7 +17,7 @@ Description: Enables the analysis of spectroscopy data such as infrared ('IR'), 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/marceelrf/tidyspec
+URL: https://marceelrf.github.io/tidyspec
 BugReports: https://github.com/marceelrf/tidyspec/issues
 RoxygenNote: 7.2.3
 Depends: R (>= 4.1.0)

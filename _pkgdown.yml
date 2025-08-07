@@ -55,6 +55,11 @@ reference:
       - spec_bl_rubberband
       - starts_with("spec_bl")
       - starts_with("spec_blc")
+      - demo_rolling_ball
+      - plot_rolling_ball
+      - rolling_ball
+      - rolling_ball_morphology
+      - smooth_baseline
 
   - title: "Interpolation and Resampling"
     desc: "Functions for spectral interpolation and grid alignment"
@@ -74,3 +79,7 @@ reference:
       - spec_pca
       - spec_pca_screeplot
       - spec_pca_wn_contrib
+
+  - title: Data
+    contents:
+      - CoHAspec
