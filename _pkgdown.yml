@@ -45,6 +45,8 @@ reference:
       - spec_norm_var
       - spec_smooth_avg
       - spec_smooth_sga
+      - spec_values_at
+      - spec_join
 
 
   - title: "Baseline Correction"
