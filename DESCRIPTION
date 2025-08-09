@@ -1,7 +1,7 @@
 Package: tidyspec
 Type: Package
 Title: Spectroscopy Analysis Using the Tidy Data Philosophy
-Version: 0.3.0
+Version: 0.4.0
 Authors@R: c(
     person("Marcel", "Ferreira", email = "marcel.ferreira@unesp.br",
            role = c("aut", "cre"), comment = c(ORCID = "0000-0002-3445-0945")),
@@ -24,6 +24,7 @@ Depends: R (>= 4.1.0)
 Imports:
     akima,
     crayon,
+    digest,
     dplyr,
     ggplot2,
     glue,

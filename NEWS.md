@@ -1,3 +1,39 @@
+# tidyspec 0.4.0
+
+## New functions
+
+### `spec_join()`
+* **Join multiple spectral tibbles**: Combine two or more spectral datasets that share the same wavenumber column
+* **Flexible join types**: Support for "full" (default), "inner", and "left" joins
+* **Conflict handling**: Automatic suffix handling for duplicate column names
+* **Validation**: Comprehensive checks for input tibbles and wavenumber column consistency
+* **Integration**: Full compatibility with the tidyspec workflow and `set_spec_wn()` global settings
+
+### `spec_values_at()`
+* **Extract values at specific wavenumbers**: Retrieve spectral intensities at user-defined wavenumber positions
+* **Multiple extraction methods**:
+  - `"closest"`: Find nearest wavenumber matches (default)
+  - `"exact"`: Return only exact matches, NA for non-matches
+  - `"interpolate"`: Use linear interpolation between adjacent data points
+* **Flexible output formats**:
+  - `"wide"`: Wavenumbers as rows, samples as columns (default)
+  - `"long"`: Tidy format with wavenumber, sample, and value columns
+* **Tolerance control**: Set maximum allowed difference for closest matching
+* **Use cases**: Ideal for peak analysis, sample comparison, and creating datasets for statistical analysis
+
+## Enhancements
+
+* Both new functions follow tidyspec conventions with consistent parameter naming and behavior
+* Integration with the global wavenumber column system (`set_spec_wn()`)
+* Comprehensive input validation and informative error messages
+* Support for the standard tidyspec warning system for parameter defaults
+
+## Documentation
+
+* Added comprehensive documentation with examples for both new functions
+* Detailed parameter descriptions and method explanations
+* Usage examples covering common spectroscopy workflows
+
 # tidyspec 0.3.0
 
 ## New Features
