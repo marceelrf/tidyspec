@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">tidyspec</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,6 +35,63 @@
       <small>Source: <a href="https://github.com/marceelrf/tidyspec/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.4.0" id="tidyspec-040">tidyspec 0.4.0<a class="anchor" aria-label="anchor" href="#tidyspec-040"></a></h2>
+<div class="section level3">
+<h3 id="new-functions-0-4-0">New functions<a class="anchor" aria-label="anchor" href="#new-functions-0-4-0"></a></h3>
+<div class="section level4">
+<h4 id="spec_join-0-4-0"><code>spec_join()</code><a class="anchor" aria-label="anchor" href="#spec_join-0-4-0"></a></h4>
+<ul><li>
+<strong>Join multiple spectral tibbles</strong>: Combine two or more spectral datasets that share the same wavenumber column</li>
+<li>
+<strong>Flexible join types</strong>: Support for “full” (default), “inner”, and “left” joins</li>
+<li>
+<strong>Conflict handling</strong>: Automatic suffix handling for duplicate column names</li>
+<li>
+<strong>Validation</strong>: Comprehensive checks for input tibbles and wavenumber column consistency</li>
+<li>
+<strong>Integration</strong>: Full compatibility with the tidyspec workflow and <code><a href="../reference/set_spec_wn.html">set_spec_wn()</a></code> global settings</li>
+</ul></div>
+<div class="section level4">
+<h4 id="spec_values_at-0-4-0"><code>spec_values_at()</code><a class="anchor" aria-label="anchor" href="#spec_values_at-0-4-0"></a></h4>
+<ul><li>
+<strong>Extract values at specific wavenumbers</strong>: Retrieve spectral intensities at user-defined wavenumber positions</li>
+<li>
+<strong>Multiple extraction methods</strong>:
+<ul><li>
+<code>"closest"</code>: Find nearest wavenumber matches (default)</li>
+<li>
+<code>"exact"</code>: Return only exact matches, NA for non-matches</li>
+<li>
+<code>"interpolate"</code>: Use linear interpolation between adjacent data points</li>
+</ul></li>
+<li>
+<strong>Flexible output formats</strong>:
+<ul><li>
+<code>"wide"</code>: Wavenumbers as rows, samples as columns (default)</li>
+<li>
+<code>"long"</code>: Tidy format with wavenumber, sample, and value columns</li>
+</ul></li>
+<li>
+<strong>Tolerance control</strong>: Set maximum allowed difference for closest matching</li>
+<li>
+<strong>Use cases</strong>: Ideal for peak analysis, sample comparison, and creating datasets for statistical analysis</li>
+</ul></div>
+</div>
+<div class="section level3">
+<h3 id="enhancements-0-4-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-4-0"></a></h3>
+<ul><li>Both new functions follow tidyspec conventions with consistent parameter naming and behavior</li>
+<li>Integration with the global wavenumber column system (<code><a href="../reference/set_spec_wn.html">set_spec_wn()</a></code>)</li>
+<li>Comprehensive input validation and informative error messages</li>
+<li>Support for the standard tidyspec warning system for parameter defaults</li>
+</ul></div>
+<div class="section level3">
+<h3 id="documentation-0-4-0">Documentation<a class="anchor" aria-label="anchor" href="#documentation-0-4-0"></a></h3>
+<ul><li>Added comprehensive documentation with examples for both new functions</li>
+<li>Detailed parameter descriptions and method explanations</li>
+<li>Usage examples covering common spectroscopy workflows</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.3.0" id="tidyspec-030">tidyspec 0.3.0<a class="anchor" aria-label="anchor" href="#tidyspec-030"></a></h2>
 <div class="section level3">
