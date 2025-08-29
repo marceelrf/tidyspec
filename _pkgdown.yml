@@ -43,6 +43,8 @@ reference:
       - spec_norm_01
       - spec_norm_minmax
       - spec_norm_var
+      - spec_norm_area
+      - spec_norm_by_wn
       - spec_smooth_avg
       - spec_smooth_sga
       - spec_values_at
