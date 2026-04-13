@@ -91,7 +91,7 @@ Functions for plotting spectral data
 - [`spec_smartplot()`](https://marceelrf.github.io/tidyspec/reference/spec_smartplot.md)
   : Create a Custom Plot for Spectral Data
 - [`spec_smartplotly()`](https://marceelrf.github.io/tidyspec/reference/spec_smartplotly.md)
-  : Create an Interactive Plot for Spectral Data using Plotly
+  : Create an Interactive Plot for Spectral Data (plotly)
 
 ## PCA
 
